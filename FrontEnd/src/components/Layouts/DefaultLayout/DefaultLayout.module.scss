@@ -1,0 +1,19 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0 200px;
+    padding: 0px 20px;
+    background-color: #ffffff;
+}
+
+.content {
+    margin: 50px 7px;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+.footer {
+    margin-left: var(--default-layout-sidebar-width);
+    text-align: center;
+}
