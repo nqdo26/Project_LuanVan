@@ -24,6 +24,13 @@
     padding: 7px;
 }
 
+.button-group {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding-right: 0px;
+}
+
 .button-group button {
     margin-right: 7px;
     border: none;

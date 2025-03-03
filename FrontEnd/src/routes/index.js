@@ -34,14 +34,14 @@ const publicRoutes = [
     { path: '/addtrip', component: AddTrip},
 
     { path: '/admin', component: Admin, layout: AdminLayout},
-    { path: '/admin/user-manage', component: AdminUserManage, layout: AdminLayout},
-    { path: '/admin/destinication-manage', component: AdminDestinationManage, layout: AdminLayout},
-    { path: '/admin/place-manage', component: AdminPlaceManage, layout: AdminLayout},
+    { path: '/admin/users-manage', component: AdminUserManage, layout: AdminLayout},
+    { path: '/admin/destinations-manage', component: AdminDestinationManage, layout: AdminLayout},
+    { path: '/admin/places-manage', component: AdminPlaceManage, layout: AdminLayout},
     
     
-    { path: '/destination', component: Destinations},
+    { path: '/destinations', component: Destinations},
     { path: '/destination/destinationId', component: DestinationDetails},
-    { path: '/place', component: Place},
+    { path: '/places', component: Place},
     { path: '/place/placeId', component: PlaceDetails},
 
 ];

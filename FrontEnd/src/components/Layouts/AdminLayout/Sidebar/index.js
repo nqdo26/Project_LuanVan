@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind';
+import { motion } from 'framer-motion';
 import { Button, Card, Layout, Menu, Avatar, Flex } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { AppstoreOutlined, SettingOutlined, LogoutOutlined, BookOutlined, PlusOutlined } from '@ant-design/icons';
+import { LogoutOutlined, PlusOutlined, EnvironmentOutlined, GlobalOutlined, UserOutlined } from '@ant-design/icons';
 
 import styles from './Sidebar.module.scss';
 
@@ -11,28 +12,29 @@ function Sidebar() {
     const location = useLocation();
     const { Sider } = Layout;
     const { Meta } = Card;
+    
 
     const menuItems = [
         {
-            key: 'library',
-            label: 'Thư viện',
-            icon: <BookOutlined />,
-            path: '/library',
+            key: 'statistics',
+            label: 'Quản lý người dùng',
+            icon: <UserOutlined />, 
+            path: '/admin/users-manage',
         },
         {
-            key: 'uploaded',
-            label: 'Các bài đăng',
-            icon: <AppstoreOutlined />,
-            path: '/uploaded',
+            key: 'provinces',
+            label: 'Danh sách tỉnh thành',
+            icon: <EnvironmentOutlined />,
+            path: '/admin/places-manage',
         },
-
         {
-            key: 'profile',
-            label: 'Trang cá nhân',
-            icon: <SettingOutlined />,
-            path: '/profile',
+            key: 'tourist-spots',
+            label: 'Danh sách địa điểm',
+            icon: <GlobalOutlined />, 
+            path: '/admin/destinations-manage',
         },
     ];
+    
 
     const handleOnclick = (e) => {
         const item = menuItems.find((item) => item.key === e.key);
@@ -57,9 +59,33 @@ function Sidebar() {
                             borderRadius: '0',
                         }}
                         actions={[
-                            <Button onClick={handleNewDoc}>
-                                <PlusOutlined /> Tạo tài liệu mới
-                            </Button>,
+                            <div className={cx('action')}>
+                                <motion.div 
+                                    whileHover={{ scale: 1.1}} 
+                                    whileTap={{ scale: 0.9}}
+                                >
+                                    <Button 
+                                        style={{
+                                            backgroundColor: '#1890ff',
+                                            color: 'white',
+                                        }} 
+                                        onClick={handleNewDoc}
+                                    >
+                                        <PlusOutlined /> Thêm tỉnh mới
+                                    </Button>
+                                </motion.div>
+                                <motion.div 
+                                    whileHover={{ scale: 1.1 }} 
+                                    whileTap={{ scale: 0.9 }}
+                                >
+                                    <Button style={{
+                                        backgroundColor: '#52c41a',
+                                        color: 'white',
+                                    }} onClick={handleNewDoc}>
+                                        <PlusOutlined /> Thêm địa điểm mới
+                                    </Button>
+                                </motion.div>
+                            </div>
                         ]}
                     >
                         <Meta

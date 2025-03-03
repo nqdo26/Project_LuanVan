@@ -10,7 +10,7 @@ function AdminLayout({ children }) {
 
     const cx = classNames.bind(styles);
     return (
-        <Layout>
+        <Layout className={cx('wrapper')}> 
             <Header className={cx('header')} />
             <Layout style={{
                 background: 'white',

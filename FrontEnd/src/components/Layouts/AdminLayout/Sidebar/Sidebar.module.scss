@@ -6,3 +6,17 @@
 .logout-section {
     width: 100%;
 }
+
+.action {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.action button {
+    width: 60%; 
+    height: auto;
+    margin: 0 auto;
+    color: white;
+}
+

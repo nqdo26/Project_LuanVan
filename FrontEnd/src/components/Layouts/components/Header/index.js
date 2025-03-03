@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind';
 import { Layout, Flex } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
 
 import styles from './Header.module.scss';
 
@@ -25,8 +27,16 @@ function Header() {
                 </div>
 
                 <div className={cx('button-group')}>
-                    <button className={cx('sign-up')} onClick={() => handleNavigate('signUp')}>Sign up</button>
-                    <button className={cx('login')} onClick={() => handleNavigate('login')}>Sign in</button>
+                    <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}>
+                        <button className={cx('sign-up')} onClick={() => handleNavigate('signUp')}>Sign up</button>
+                    </motion.div>
+                    <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}>
+                        <button className={cx('login')} onClick={() => handleNavigate('login')}>Sign in</button>
+                    </motion.div>
                 </div>
             </Flex>
         </Header>
