@@ -9,12 +9,16 @@ function DefaultLayout({ children }) {
 
     const cx = classNames.bind(styles);
     return (
-        <Layout className={cx('wrapper')}>
-                <Header className={cx('header')} />
-                <div className={cx('content')}>
-                    {children}  
-                </div>
-                <CustomFooter />
+        <Layout style={{
+            backgroundColor: 'white',
+        }} className={cx('wrapper')}>
+              
+                    <Header className={cx('header')} />
+                    <div className={cx('content')}>
+                       {children}
+                    </div>
+                    <CustomFooter />
+        
         </Layout>
     );
 }

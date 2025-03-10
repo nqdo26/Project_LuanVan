@@ -2,8 +2,6 @@ import classNames from 'classnames/bind';
 import { Layout, Flex } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-
-
 import styles from './Header.module.scss';
 
 function Header() {
@@ -22,19 +20,30 @@ function Header() {
                     <img src="/logo.png" alt="documan" />
                 </div>
 
-                <div className={cx('menu')}>
-                    
-                </div>
-
+                <nav className={cx('menu')}>
+                    {[
+                        { label: 'Trang chủ', path: '' },
+                        { label: 'Tìm kiếm', path: 'search' },
+                        { label: 'Địa điểm', path: 'admin' },
+                        { label: 'Lịch trình', path: 'hehe' },
+                        { label: 'AI Chatbox', path: 'hehe' },
+                    ].map((item, index) => (
+                        <motion.div
+                            key={index}
+                            className={cx('menu-item')}
+                            onClick={() => handleNavigate(item.path)}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            {item.label}
+                        </motion.div>
+                    ))}
+            </nav>
                 <div className={cx('button-group')}>
-                    <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}>
+                    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                         <button className={cx('sign-up')} onClick={() => handleNavigate('signUp')}>Sign up</button>
                     </motion.div>
-                    <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}>
+                    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                         <button className={cx('login')} onClick={() => handleNavigate('login')}>Sign in</button>
                     </motion.div>
                 </div>

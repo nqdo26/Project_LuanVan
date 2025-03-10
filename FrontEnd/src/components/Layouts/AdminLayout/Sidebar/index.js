@@ -57,6 +57,7 @@ function Sidebar() {
                         style={{
                             width: 300,
                             borderRadius: '0',
+                            marginTop: '64px',
                         }}
                         actions={[
                             <div className={cx('action')}>

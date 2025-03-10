@@ -10,19 +10,21 @@ function AdminLayout({ children }) {
 
     const cx = classNames.bind(styles);
     return (
-        <Layout className={cx('wrapper')}> 
+        <Layout>
             <Header className={cx('header')} />
             <Layout style={{
                 background: 'white',
-            }} >
+            }}>
                 <Sidebar className={cx('sidebar')} />
                 <Content className={cx('content')}>
-                    {children}
-                    <CustomFooter />
+                        <div className={cx('inner')}>{children}</div>
                 </Content>
             </Layout>
+            <div className={cx('footer')}><CustomFooter/></div>
         </Layout>
     );
 }
 
 export default AdminLayout;
+
+
