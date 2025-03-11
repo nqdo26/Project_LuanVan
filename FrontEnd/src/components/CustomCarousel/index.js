@@ -1,28 +1,56 @@
-import React from 'react';
-import { Carousel } from 'antd';
 import classNames from 'classnames/bind';
-import styles from './CustomCarousel.module.scss';
+import { motion } from "framer-motion";
+import { Carousel } from 'antd';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+
+import CustomArrow from '../CustomArrow'; 
+import styles from './Carousel.module.scss';
+
 
 const cx = classNames.bind(styles);
 
-const carouselItems = [
-    { text: "SLIDE 1", color: "#ff7b54" },
-    { text: "SLIDE 2", color: "#6a0572" },
-    { text: "SLIDE 3", color: "#0a9396" },
-    { text: "SLIDE 4", color: "#ffb703" },
-];
+function CustomCarousel({ title, card, number }) {
+    const items = Array.from({ length: 8 }, (_, index) => ({
+        id: index + 1,
+    }));
 
-function CustomCarousel() {
     return (
-        <div className={cx('carousel-container')}>
-            <Carousel autoplay autoplaySpeed={3000} effect="scrollx">
-                {carouselItems.map((item, index) => (
-                    <div key={index} className={cx('carousel-item')} style={{ backgroundColor: item.color }}>
-                        <h2 className={cx('carousel-text')}>{item.text}</h2>
-                    </div>
-                ))}
-            </Carousel>
-        </div>
+        <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+         >
+            <div className={cx('wrapper')}>
+                <h2 className={cx('title')}>{title}</h2>
+
+                <div className={cx('Custom')}>
+                    <Carousel
+                        slidesToShow={number}  
+                        slidesToScroll={1}
+                        centerMode={true}
+                        arrows
+                        dots={false}
+                        prevArrow={<CustomArrow className={cx('prevArrow')} icon={<LeftOutlined />} />}
+                        nextArrow={<CustomArrow className={cx('nextArrow')} icon={<RightOutlined />} />}
+                        responsive={[
+                            { breakpoint: 1600, settings: { slidesToShow: 3, slidesToScroll: 1 } }, 
+                            { breakpoint: 1200, settings: { slidesToShow: 2, slidesToScroll: 1 } }, 
+                            { breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1 } },  
+                        ]}
+                    >
+
+                        {items.map((doc) => (
+                            <div key={doc.id} className={cx('carousel-items')}>
+                                {card}
+                            </div>
+                        ))}
+                    </Carousel>
+                </div>
+            </div>
+    </motion.div>
+
+
+      
     );
 }
 

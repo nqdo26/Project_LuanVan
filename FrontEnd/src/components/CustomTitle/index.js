@@ -1,16 +1,16 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 function CustomTitle({ title }) {
     return (
         <motion.h1
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            animate={{ x: [-15, 10, -15] }} 
+            transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }} 
             style={{
                 fontSize: "5rem",
                 fontWeight: "bold",
                 textAlign: "center",
                 color: "#333",
+                cursor: "pointer"
             }}
         >
             {title}
