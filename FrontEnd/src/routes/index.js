@@ -1,6 +1,6 @@
 // Layouts
 import { Layout } from 'antd';
-import { DefaultLayout, AdminLayout } from '~/components/Layouts';
+import { DefaultLayout, AdminLayout, SearchResultLayout } from '~/components/Layouts';
 
 // Pages
 import AddTrip from '~/pages/AddTrip';

@@ -17,33 +17,32 @@ const cx = classNames.bind(styles);
 function Home() {
     return (
         <div className={cx('wrapper')}>
-                <CustomTitle title={"Where to?"} />
-                <div className={cx('search-bar')}><SearchBar /></div>
-                <div className={cx('carousel')} > <ImageCarousel/></div>
-                <div className={cx('chatbox-intro')}><ChatBoxIntro /></div>
-                <div className={cx('carousel')} >
-                    <CustomCarousel
-                        title="Điểm đến phổ biến" 
-                        number={4}
-                        card={<DestinationCard />} 
-                    />
-                </div>
-                <div className={cx('category')}><Category/></div>
-                <div className={cx('carousel')} >
-                    <CustomCarousel
-                        title="Địa điểm tiếp theo" 
-                        number={6}
-                        card={
-                            <PlaceCard 
-                                image="https://images.unsplash.com/photo-1502602898657-3e91760cbb34" 
-                                title="Bà Rịa Vũng Tàu Lao" 
-                            />} 
-                    />
-                </div>
-
+            <div className={cx('inner')}>
+                        <CustomTitle title={"Where to?"} />
+                        <div className={cx('search-bar')}><SearchBar /></div>
+                        <div className={cx('carousel')} > <ImageCarousel/></div>
+                        <div className={cx('chatbox-intro')}><ChatBoxIntro /></div>
+                        <div className={cx('carousel')} >
+                            <CustomCarousel
+                                title="Điểm đến phổ biến" 
+                                number={4}
+                                card={<DestinationCard />} 
+                            />
+                        </div>
+                        <div className={cx('category')}><Category/></div>
+                        <div className={cx('carousel')} >
+                            <CustomCarousel
+                                title="Địa điểm tiếp theo" 
+                                number={6}
+                                card={
+                                    <PlaceCard 
+                                        image="https://images.unsplash.com/photo-1502602898657-3e91760cbb34" 
+                                        title="Bà Rịa Vũng Tàu Lao" 
+                                    />} 
+                            />
+                        </div>
+              </div>
         </div>
-
-
     )
 }
 

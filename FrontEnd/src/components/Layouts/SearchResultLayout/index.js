@@ -1,10 +1,10 @@
 import classNames from 'classnames/bind';
-import Header from '~/components/Layouts/components/Header';
-import styles from './DefaultLayout.module.scss';
+import styles from './SearchResultLayout.module.scss';
 import { Layout } from 'antd';
 import CustomFooter from '../components/Footer/CustomFooter';
+import HeaderSearchResultLayout from './HeaderSearchResultLayout';
 
-function DefaultLayout({ children }) {
+function SearchResultLayout({ children }) {
     const { Content } = Layout;
 
     const cx = classNames.bind(styles);
@@ -12,7 +12,7 @@ function DefaultLayout({ children }) {
         <Layout style={{
             backgroundColor: 'white',
         }} className={cx('wrapper')}>
-                    <Header className={cx('header')} />
+                    <HeaderSearchResultLayout className={cx('header')} />
                     <div className={cx('content')}>
                        {children}
                     </div>
@@ -21,4 +21,4 @@ function DefaultLayout({ children }) {
     );
 }
 
-export default DefaultLayout;
+export default SearchResultLayout;

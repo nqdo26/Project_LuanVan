@@ -1,0 +1,57 @@
+.wrapper {
+    height: 100%;
+    width: 100%;
+    border-top: 1px  solid #dbdbdb;
+    display: flex;
+    justify-content: center;
+}
+
+.inner {
+    margin-top: 30px;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 30px;
+}
+
+.tab-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s ease;
+}
+
+
+.tab-icon {
+    font-size: 18px;
+    color: #555;
+    transition: color 0.3s ease;
+}
+
+.tab-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #686868;
+    transition: color 0.3s ease;
+}
+
+:global(.ant-tabs-tab-active) {
+    .tab-icon, .tab-label {
+        color: #0051ff !important;
+    }
+}
+
+:global(.ant-tabs-nav) {
+    position: relative; /* Để phần tử con ::after căn theo nó */
+}
+
+
+
