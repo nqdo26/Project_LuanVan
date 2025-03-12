@@ -1,14 +1,15 @@
 import classNames from 'classnames/bind';
 
 import styles from './Home.module.scss';
-import SearchBar from '~/components/SearchBar';
 import CustomTitle from '~/components/CustomTitle';
+import SearchBar from '~/components/SearchBar';
 import ImageCarousel from '~/components/ImageCarousel';
 import ChatBoxIntro from '~/components/ChatBoxIntro';
-import DestinationCard from '~/components/DestinationCard';
 import CustomCarousel from '~/components/CustomCarousel';
-import PlaceCard from '~/components/PlaceCard';
+import DestinationCard from '~/components/DestinationCard';
 import Category from '~/components/Category';
+import PlaceCard from '~/components/PlaceCard';
+
 
 
 const cx = classNames.bind(styles);
