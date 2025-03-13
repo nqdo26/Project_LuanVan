@@ -19,8 +19,7 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    background: white;
-    border: 1px solid #c9c9c9;
+    background: transparent;
     border-radius: 50%;
     width: 35px;
     height: 35px;
@@ -31,9 +30,15 @@
     transition: background 0.3s ease;
 
     &:hover {
-        background: rgba(255, 77, 79, 0.8); /* Đổi màu khi hover */
+        background: rgba(255, 77, 80, 0.486); 
+    }
+
+    &:hover .favourite-icon {
+        color: red !important; 
     }
 }
+
+
 
 
 .title {

@@ -9,7 +9,7 @@ import styles from './SearchFilterTabs.module.scss';
 
 const cx = classNames.bind(styles);
 
-function SearchFilterTabs({ searchTitle }) {
+function SearchFilterTabs({ activeTab, setActiveTab, searchTitle }) {
     const [activeKey, setActiveKey] = useState("All");
 
   const items = [
@@ -20,30 +20,27 @@ function SearchFilterTabs({ searchTitle }) {
   ];
 
   return (
-            <div className={cx('wrapper')}>
-                <div className={cx('inner')}>
-                  <h2 className={cx('title')}>Results for "{searchTitle}"</h2>
-                  <Tabs
-                    activeKey={activeKey}
-                    onChange={setActiveKey}
-                    tabBarStyle={{ borderBottom: "none" }}
-                    items={items.map(({ key, label, icon }) => ({
-                        key,
-                        label: (
+    <div className={cx('wrapper')}>
+        <div className={cx('inner')}>
+            <h2 className={cx('title')}>Results for "{searchTitle}"</h2>
+            <Tabs
+                activeKey={activeTab}
+                onChange={setActiveTab}
+                tabBarStyle={{ borderBottom: "none" }}
+                items={items.map(({ key, label, icon }) => ({
+                    key,
+                    label: (
                         <span className={cx("tab-item")}>
                             <motion.div>
-      
-                                    <span className={cx("tab-icon")}>{icon}</span>
-                                    <span className={cx("tab-label")}>{label}</span>
- 
+                                <span className={cx("tab-icon")}>{icon}</span>
+                                <span className={cx("tab-label")}>{label}</span>
                             </motion.div>
                         </span>
-                        ),
-                    }))}
-                    />
-                </div>
-            </div>
-
+                    ),
+                }))}
+            />
+        </div>
+    </div>
   );
 }
 

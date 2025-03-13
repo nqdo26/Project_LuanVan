@@ -11,6 +11,8 @@ function PlaceCard({ image, title }) {
       <Card 
         hoverable className={cx("custom-card")}
         styles={{
+            width: "100%", 
+            height: 250,
             body: {
                 padding: 0,
             },
