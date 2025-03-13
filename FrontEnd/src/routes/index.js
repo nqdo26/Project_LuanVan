@@ -1,6 +1,5 @@
 // Layouts
-import { Layout } from 'antd';
-import { DefaultLayout, AdminLayout, SearchResultLayout } from '~/components/Layouts';
+import { AdminLayout} from '~/components/Layouts';
 
 // Pages
 import AddTrip from '~/pages/AddTrip';
@@ -26,7 +25,7 @@ const privateRoutes = [
 
 const publicRoutes = [
     { path: '/', component: Home},
-    { path: 'search', component: Search},
+    { path: 'search', component: Search, },
 
     { path: '/login', component: Login},
     { path: 'register', component: Register},
