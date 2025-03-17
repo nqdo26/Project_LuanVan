@@ -22,22 +22,27 @@ function DestinationCard() {
             className={cx("destination-card")}
         >
             <Card
+                styles={{
+                    body: {
+                        padding: "16px",
+                    },
+                }}
                 hoverable
                 cover={
                     <div className={cx("image-container")}>
-                       <img
+                        <img
                             alt="WIMI-Factory"
                             src="/destination-img.png"
                             className={cx("card-image")}
                         />
-                      <button className={cx("favorite-btn")}>
-                        <HeartOutlined className={cx("favourite-icon")} style={{ color:"white", fontSize: "25px", transition: "color 0.3s ease" }} />
-                      </button>
+                        <button className={cx("favorite-btn")}>
+                            <HeartOutlined className={cx("favourite-icon")} style={{ color: "white", fontSize: "22px", transition: "color 0.3s ease" }} />
+                        </button>
                     </div>
                 }
-                style={{ minWidth: 280, maxWidth: 280, borderRadius: "12px" }}
+                className={cx("card")}
             >
-                <div style={{ fontSize: "12px", color: "#888" }}>Cần Thơ</div>
+                <div className={cx("location")}>Cần Thơ</div>
                 <h3 className={cx("title")}>WIMI-Factory quán cà phê nực và nước dở nhất Cần Thơ City</h3>
 
                 <div className={cx("badge-container")}>

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Tabs } from "antd";
 import { AppstoreOutlined, EnvironmentOutlined, GlobalOutlined, CalendarOutlined } from "@ant-design/icons";
@@ -9,14 +8,12 @@ import styles from './SearchFilterTabs.module.scss';
 
 const cx = classNames.bind(styles);
 
-function SearchFilterTabs({ activeTab, setActiveTab, searchTitle }) {
-    const [activeKey, setActiveKey] = useState("All");
+function SearchFilterTabs({ onChange, searchTitle }) {
 
   const items = [
-        { key: "All", label: "Tất cả", icon: <AppstoreOutlined /> },  
-        { key: "Destination", label: "Địa điểm", icon: <EnvironmentOutlined /> },  
-        { key: "Place", label: "Tỉnh thành", icon: <GlobalOutlined /> },  
-        { key: "Tours", label: "Chuyến đi", icon: <CalendarOutlined /> }, 
+        { key: "all", label: "Tất cả", icon: <AppstoreOutlined /> },  
+        { key: "destination", label: "Địa điểm", icon: <EnvironmentOutlined /> },  
+        { key: "tours", label: "Hành trình & trải nghiệm", icon: <CalendarOutlined /> }, 
   ];
 
   return (
@@ -24,8 +21,7 @@ function SearchFilterTabs({ activeTab, setActiveTab, searchTitle }) {
         <div className={cx('inner')}>
             <h2 className={cx('title')}>Results for "{searchTitle}"</h2>
             <Tabs
-                activeKey={activeTab}
-                onChange={setActiveTab}
+                onChange={onChange}
                 tabBarStyle={{ borderBottom: "none" }}
                 items={items.map(({ key, label, icon }) => ({
                     key,

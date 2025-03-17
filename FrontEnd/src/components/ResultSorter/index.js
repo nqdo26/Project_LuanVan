@@ -10,7 +10,6 @@ function ResultSorter() {
 
   return (
     <div className={cx("wrapper")}>
-      <span className={cx("results")}>30 tỷ kết quả được tìm thấy</span>
       <div className={cx("sortContainer")}>
         <span className={cx("sortLabel")}>Sắp xếp theo</span>
         <Select value={sortOption} onChange={setSortOption} className={cx("sortSelect")}>

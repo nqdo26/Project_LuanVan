@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Modal, Input } from "antd";
 import classNames from "classnames/bind";
-import styles from "./SearchSidebar.module.scss";
+import styles from "./TourSearchSidebar.module.scss";
 
 const cx = classNames.bind(styles);
 
@@ -35,53 +35,19 @@ const categories = [
   },
   {
     key: "3",
-    title: "Thời gian hoạt động",
-    options: ["Cả ngày", "Chỉ mở ban ngày", "Chỉ mở ban đêm"],
-  },
-  {
-    key: "4",
-    title: "Giá cả",
-    options: ["Miễn phí", "Bình dân", "Trung cấp", "Cao cấp"],
-  },
-  {
-    key: "5",
-    title: "Đánh giá",
-    options: ["5 sao", "4 sao", "3 sao", "2 sao", "1 sao"],
-  },
-];
-
-const tour = [
-  {
-    key: "0",
-    title: "Địa điểm",
-    type: "select",
-    options: ["Hà Nội", "TP. Hồ Chí Minh", "Đà Nẵng", "Huế", "Nha Trang", "Đà Lạt", "Hải Phòng", "Cần Thơ"],
-  },
-  {
-    key: "1",
-    title: "Loại hành trình",
-    options: ["Biển", "Núi", "Văn hóa"],
-  },
-  {
-    key: "2",
     title: "Hoạt động/Nhu cầu",
     options: [
-      "Tham quan ngắm cảnh",
-      "Nghỉ dưỡng",
-      "Trải nghiệm văn hóa",
-      "Ăn uống",
       "Check-in sống ảo",
+      "Ăn uống",
+      "Tham quan ngắm cảnh",
+      "Trải nghiệm văn hóa",
+      "Nghỉ dưỡng",
     ],
   },
   {
-    key: "3",
-    title: "Thời gian",
-    options: ["2 ngày 1 đêm", "3 ngày 2 đêm", "4 ngày 3 đêm", "1 tuần", "1 tháng"],
-  },
-  {
     key: "4",
-    title: "Số thành viên",
-    options: ["Trên 20 người", "Trên 10 người", "Trên 5 người", "Trên 2 người"],
+    title: "Thời gian hoạt động",
+    options: ["Cả ngày", "Chỉ mở ban ngày", "Chỉ mở ban đêm"],
   },
   {
     key: "5",
@@ -90,20 +56,23 @@ const tour = [
   },
   {
     key: "6",
+    title: "Số người",
+    options: ["Trên 20 người", "Trên 10 người", "Trên 5 người", "Trên 2 người"],
+  },
+  {
+    key: "7",
     title: "Đánh giá",
     options: ["5 sao", "4 sao", "3 sao", "2 sao", "1 sao"],
   },
 ];
 
-function SearchSidebar({ activeTab }) {
+function TourSearchSidebar() {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [showAll, setShowAll] = useState(false);
   const MAX_VISIBLE_LOCATIONS = 4;
-
-  const dataToShow = activeTab === "tours" ? tour : categories;
 
   const handleSelect = (option) => {
     setSelectedOptions((prev) =>
@@ -130,7 +99,7 @@ function SearchSidebar({ activeTab }) {
   return (
     <div className={cx("wrapper")}>
       <div className={cx("inner")}>
-        {dataToShow.map((category) => (
+        {categories.map((category) => (
           <div className={cx("category-wrapper")} key={category.key}>
             <div className={cx("category-inner")}>
               <div className={cx("category-title")}>{category.title}</div>
@@ -191,4 +160,4 @@ function SearchSidebar({ activeTab }) {
   );
 }
 
-export default SearchSidebar;
+export default TourSearchSidebar;

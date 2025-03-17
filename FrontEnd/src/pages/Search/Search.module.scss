@@ -1,15 +1,14 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    width: 100%; 
+    width: 100%;
     height: 100%;
     align-items: center;
     justify-content: center;
     background-color: #ececec;
-
 }
 
-.filtertab{
+.filtertab {
     display: flex;
     width: 100%;
     height: 30%;
@@ -37,6 +36,7 @@
 
 .sidebar {
     width: 23%;
+    min-width: 267px;
     align-self: flex-start;
 }
 
@@ -57,16 +57,84 @@
 }
 
 .result-list {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; 
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center;
 }
 
-
-.paginazion {
+.pagination {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+}
+
+// Responsive
+
+@media (max-width: 1023px) {
+    .inner-wrapper {
+        width: 90%;
+    }
+    .inner {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .sidebar {
+        width: 100%;
+        min-width: unset;
+        display: flex;
+        justify-content: center;
+    }
+    .content-wrapper {
+        width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .filtertab {
+        flex-direction: column;
+        height: auto;
+    }
+    .sidebar {
+        display: none;
+    }
+    .content {
+        gap: 10px;
+    }
+    .result-list {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+// Sidebar animation
+.sidebar {
+    transition: transform 0.3s ease-in-out;
+}
+.hidden {
+    transform: translateX(-100%);
+}
+.sidebar-toggle {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .sidebar-toggle {
+        display: block;
+        margin-bottom: 10px;
+    }
+    .sidebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 80%;
+        height: 100vh;
+        background: white;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+        transform: translateX(-100%);
+    }
+    .sidebar.show {
+        transform: translateX(0);
+    }
 }

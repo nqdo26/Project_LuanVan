@@ -5,7 +5,7 @@ import styles from "./PlaceCard.module.scss";
 
 const cx = classNames.bind(styles);
 
-function PlaceCard({ image, title }) {
+function PlaceCard({ title }) {
   return (
     <div className={cx("place-card")}>
       <Card 
@@ -19,7 +19,7 @@ function PlaceCard({ image, title }) {
         }} 
         >
         <div className={cx("image-container")}>
-          <img alt={title} src={image} className={cx("card-image")} />
+          <img alt={title} src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34" className={cx("card-image")} />
           <div className={cx("card-title")}>{title}</div>
         </div>
       </Card>

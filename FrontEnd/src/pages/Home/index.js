@@ -36,7 +36,6 @@ function Home() {
                                 number={6}
                                 card={
                                     <PlaceCard 
-                                        image="https://images.unsplash.com/photo-1502602898657-3e91760cbb34" 
                                         title="Bà Rịa Vũng Tàu Lao" 
                                     />} 
                             />
