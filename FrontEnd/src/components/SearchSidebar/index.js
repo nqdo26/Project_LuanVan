@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Modal, Input } from "antd";
+import { motion, AnimatePresence } from "framer-motion";
 import classNames from "classnames/bind";
 import styles from "./SearchSidebar.module.scss";
 
@@ -15,23 +16,12 @@ const categories = [
   {
     key: "1",
     title: "Loại hình địa điểm",
-    options: [
-      "Danh lam thắng cảnh",
-      "Quán cà phê",
-      "Nhà hàng/quán ăn",
-      "Khu vui chơi, giải trí",
-      "Di tích lịch sử",
-    ],
+    options: ["Danh lam thắng cảnh", "Quán cà phê", "Nhà hàng/quán ăn", "Khu vui chơi, giải trí", "Di tích lịch sử"],
   },
   {
     key: "2",
     title: "Khu vực/Vị trí",
-    options: [
-      "Trung tâm thành phố",
-      "Ven sông",
-      "Gần chợ, trung tâm thương mại",
-      "Xa trung tâm (khu sinh thái, resort)",
-    ],
+    options: ["Trung tâm thành phố", "Ven sông", "Gần chợ, trung tâm thương mại", "Xa trung tâm (khu sinh thái, resort)"],
   },
   {
     key: "3",
@@ -65,13 +55,7 @@ const tour = [
   {
     key: "2",
     title: "Hoạt động/Nhu cầu",
-    options: [
-      "Tham quan ngắm cảnh",
-      "Nghỉ dưỡng",
-      "Trải nghiệm văn hóa",
-      "Ăn uống",
-      "Check-in sống ảo",
-    ],
+    options: ["Tham quan ngắm cảnh", "Nghỉ dưỡng", "Trải nghiệm văn hóa", "Ăn uống", "Check-in sống ảo"],
   },
   {
     key: "3",
@@ -94,6 +78,12 @@ const tour = [
     options: ["5 sao", "4 sao", "3 sao", "2 sao", "1 sao"],
   },
 ];
+
+const sidebarVariants = {
+  hidden: { opacity: 0, x: -30 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } },
+  exit: { opacity: 0, x: -30, transition: { duration: 0.3, ease: "easeIn" } },
+};
 
 function SearchSidebar({ activeTab }) {
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -119,7 +109,7 @@ function SearchSidebar({ activeTab }) {
     handleCloseModal();
   };
 
-  const filteredLocations = categories[0].options.filter((location) =>
+  const filteredLocations = dataToShow[0].options.filter((location) =>
     location.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -129,34 +119,43 @@ function SearchSidebar({ activeTab }) {
 
   return (
     <div className={cx("wrapper")}>
-      <div className={cx("inner")}>
-        {dataToShow.map((category) => (
-          <div className={cx("category-wrapper")} key={category.key}>
-            <div className={cx("category-inner")}>
-              <div className={cx("category-title")}>{category.title}</div>
-              <div className={cx("option-group")}>
-                {category.type === "select" ? (
-                  <button className={cx("location-button")} onClick={handleOpenModal}>
-                    {selectedLocation || "Chọn địa điểm"}
-                  </button>
-                ) : (
-                  category.options.map((option) => (
-                    <div
-                      key={option}
-                      className={cx("option-item", {
-                        selected: selectedOptions.includes(option),
-                      })}
-                      onClick={() => handleSelect(option)}
-                    >
-                      {option}
-                    </div>
-                  ))
-                )}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeTab}
+          variants={sidebarVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className={cx("inner")}
+        >
+          {dataToShow.map((category) => (
+            <div className={cx("category-wrapper")} key={category.key}>
+              <div className={cx("category-inner")}>
+                <div className={cx("category-title")}>{category.title}</div>
+                <div className={cx("option-group")}>
+                  {category.type === "select" ? (
+                    <button className={cx("location-button")} onClick={handleOpenModal}>
+                      {selectedLocation || "Chọn địa điểm"}
+                    </button>
+                  ) : (
+                    category.options.map((option) => (
+                      <div
+                        key={option}
+                        className={cx("option-item", {
+                          selected: selectedOptions.includes(option),
+                        })}
+                        onClick={() => handleSelect(option)}
+                      >
+                        {option}
+                      </div>
+                    ))
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
 
       <Modal
         title="Chọn địa điểm"
@@ -180,11 +179,6 @@ function SearchSidebar({ activeTab }) {
               {location}
             </div>
           ))}
-          {filteredLocations.length > MAX_VISIBLE_LOCATIONS && !showAll && (
-            <div className={cx("location-item", "show-more")} onClick={() => setShowAll(true)}>
-              ...
-            </div>
-          )}
         </div>
       </Modal>
     </div>

@@ -19,7 +19,10 @@ function Home() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
-                        <CustomTitle title={"Where to?"} />
+                        <CustomTitle 
+                            title={"Where to?"} 
+                            size={55}
+                        />
                         <div className={cx('search-bar')}><SearchBar /></div>
                         <div className={cx('carousel')} > <ImageCarousel/></div>
                         <div className={cx('chatbox-intro')}><ChatBoxIntro /></div>

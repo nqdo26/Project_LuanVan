@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import styles from './Search.module.scss';
 import FilterTabs from '~/components/SearchFilterTabs';
@@ -10,7 +11,6 @@ import SearchSidebar from '~/components/SearchSidebar';
 import ResultSorter from '~/components/ResultSorter';
 import DestinationCard from '~/components/DestinationCard';
 import TourCard from '~/components/TourCard';
-
 
 const cx = classNames.bind(styles);
 
@@ -32,16 +32,27 @@ const destinations = [
     { id: 15, title: 'Destination 10' },
     { id: 16, title: 'Destination 10' },
     { id: 17, title: 'Destination 10' },
-
 ];
 
+const contentVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      transition: { 
+        duration: 0.4, 
+        ease: "easeOut",
+        delay: 0.1 
+      } 
+    },
+  };
+  
 function Search() {
-
     const [activeTab, setActiveTab] = useState('all');
     const [showSidebar, setShowSidebar] = useState(false);
 
     return (
-        <div className={cx('wrapper')}>            
+        <div className={cx('wrapper')}>
             <div className={cx('filtertab')}>
                 <FilterTabs onChange={setActiveTab} activeTab={activeTab} className={cx('nav')} searchTitle="Wimi Factory" />
             </div>
@@ -58,52 +69,59 @@ function Search() {
                         <SearchSidebar activeTab={activeTab} />
                     </div>
                     <div className={cx('content-wrapper')}>
-                        <div className={cx('content')}>
-                            <div className={cx('result-sorter')}>
-                                <ResultSorter />
-                            </div>
-                            <div className={cx('result-list')}>
-                            {activeTab === 'all' ? (
-                                <List
-                                    grid={{ gutter: 16, xs: 2, sm: 2, md: 3, lg: 3, xl: 2 }} 
-
-                                    dataSource={destinations}
-                                    pagination={{ pageSize: 15 }}
-                                    renderItem={(item) => (
-                                        <List.Item style={{ width: '100%' }}>
-                                            <DestinationCard title={item.title} /> 
-                                        </List.Item>
-                                    )}
-                                />
-                            ) : activeTab === 'destination' ? (
-                                <List
-                                    grid={{ gutter: 16, xs: 1, sm: 2, md: 3, lg: 3, xl: 2 }}
-                                    dataSource={destinations}
-                                    pagination={{ pageSize: 10 }}
-                                    renderItem={(item) => (
-                                        <List.Item style={{ width: '100%' }}>
-                                            <DestinationCard title={item.title} /> 
-                                        </List.Item>
-                                    )}
-                                />
-                            ) : activeTab === 'tours' ? (
-                                <List
-                                    grid={{ gutter: 16, xs: 1, sm: 2, md: 3, lg: 3, xl: 2 }}
-                                    dataSource={destinations}
-                                    pagination={{ pageSize: 10 }}
-                                    renderItem={(item) => (
-                                        <List.Item style={{ width: '100%' }}>
-                                           <TourCard
-                                                location={"Đà Lạt"}
-                                                title={"Hành trình trải nghiệm thành phố lạnh như chó và đẹp như mơ"}
-
-                                            />
-                                        </List.Item>
-                                    )}
-                                />
-                            ) : null}
-                            </div>
-                        </div>
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={activeTab}
+                                variants={contentVariants}
+                                initial="hidden"
+                                animate="visible"
+                                exit="hidden"
+                                className={cx('content')}
+                            >
+                                <div className={cx('result-sorter')}>
+                                    <ResultSorter />
+                                </div>
+                                <div className={cx('result-list')}>
+                                    {activeTab === 'all' ? (
+                                        <List
+                                            grid={{ gutter: 18, xs: 2, sm: 2, md: 3, lg: 3, xl: 2 }}
+                                            dataSource={destinations}
+                                            pagination={{ pageSize: 15 }}
+                                            renderItem={(item) => (
+                                                <List.Item style={{ width: '100%' }}>
+                                                    <DestinationCard title={item.title} />
+                                                </List.Item>
+                                            )}
+                                        />
+                                    ) : activeTab === 'destination' ? (
+                                        <List
+                                            grid={{ gutter: 18, xs: 2, sm: 2, md: 3, lg: 3, xl: 2 }}
+                                            dataSource={destinations}
+                                            pagination={{ pageSize: 10 }}
+                                            renderItem={(item) => (
+                                                <List.Item style={{ width: '100%' }}>
+                                                    <DestinationCard title={item.title} />
+                                                </List.Item>
+                                            )}
+                                        />
+                                    ) : activeTab === 'tours' ? (
+                                        <List
+                                            grid={{ gutter: 18, xs: 2, sm: 2, md: 3, lg: 3, xl: 2 }}
+                                            dataSource={destinations}
+                                            pagination={{ pageSize: 10 }}
+                                            renderItem={(item) => (
+                                                <List.Item style={{ width: '100%' }}>
+                                                    <TourCard
+                                                        location={"Đà Lạt"}
+                                                        title={"Hành trình trải nghiệm thành phố lạnh như chó và đẹp như mơ"}
+                                                    />
+                                                </List.Item>
+                                            )}
+                                        />
+                                    ) : null}
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import { Card, Rate } from "antd";
 import { motion } from "framer-motion";
 import { HeartOutlined } from "@ant-design/icons";
-import { AiOutlineEnvironment, AiOutlineCalendar, AiOutlineUsergroupAdd } from "react-icons/ai";
+import { AiOutlineEnvironment, AiOutlineCalendar, AiOutlineUsergroupAdd, AiOutlineClockCircle } from "react-icons/ai";
 import { FaMoneyBillWave } from "react-icons/fa";
 import { useState } from "react";
 import classNames from "classnames/bind";
@@ -58,17 +58,10 @@ function DestinationCard() {
                 </div>
 
                 <div className={cx("info")}>
-                   <div className={cx("info-item")}>
-                        <AiOutlineUsergroupAdd style={{ color: "black", marginRight: "3px" }} />
-                        <span>5-6 người</span>
-                   </div>
-                   <span className={cx("separator")}>•</span>
-                   <div className={cx("info-item")}>
-                        <FaMoneyBillWave style={{ color: "black", marginRight: "3px" }} />
-                        <span>50.000đ/người</span>
-                   </div>
+                    <AiOutlineClockCircle style={{ color: "black", marginRight: "5px" }} />
+                    <span>Hoạt động cả ngày</span>
                 </div>
-
+                
                 <div className={cx("rating-container")}>
                     <Rate disabled allowHalf value={rating} />
                     <span className={cx("rating-value")}>{rating}</span>

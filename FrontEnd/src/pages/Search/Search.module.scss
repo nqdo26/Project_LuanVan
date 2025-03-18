@@ -56,6 +56,11 @@
     gap: 20px;
 }
 
+.result-sorter {
+    display: flex;
+    justify-content: end;
+}
+
 .result-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

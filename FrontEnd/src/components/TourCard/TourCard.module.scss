@@ -49,10 +49,6 @@
     cursor: pointer;
     transition: background 0.3s ease;
 
-    &:hover {
-        background: rgba(255, 77, 80, 0.486); 
-    }
-
     &:hover .favourite-icon {
         color: red !important; 
     }
@@ -74,7 +70,7 @@
     flex-wrap: wrap; 
     gap: 6px; 
     margin: 5px 0px 5px 0px;
-    max-height: 48px; 
+    max-height: 54px;
     overflow: hidden; 
 }
 

@@ -19,9 +19,21 @@
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     padding-left: 0px;
 }
+
+.title {
+    font-size: 25px;
+    font-weight: 500;
+    background: linear-gradient(90deg, rgba(188,60,133,1) 0%, rgba(253,96,80,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 
 .logo img {
     height: 100%;

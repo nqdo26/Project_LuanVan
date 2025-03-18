@@ -6,7 +6,6 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import CustomArrow from '../CustomArrow'; 
 import styles from './Carousel.module.scss';
 
-
 const cx = classNames.bind(styles);
 
 function CustomCarousel({ title, card, number }) {
