@@ -9,6 +9,7 @@ import FilterTabs from '~/components/SearchFilterTabs';
 import SearchSidebar from '~/components/SearchSidebar';
 import ResultSorter from '~/components/ResultSorter';
 import DestinationCard from '~/components/DestinationCard';
+import TourCard from '~/components/TourCard';
 
 
 const cx = classNames.bind(styles);
@@ -92,7 +93,11 @@ function Search() {
                                     pagination={{ pageSize: 10 }}
                                     renderItem={(item) => (
                                         <List.Item style={{ width: '100%' }}>
-                                            <DestinationCard title={item.title} /> 
+                                           <TourCard
+                                                location={"Đà Lạt"}
+                                                title={"Hành trình trải nghiệm thành phố lạnh như chó và đẹp như mơ"}
+
+                                            />
                                         </List.Item>
                                     )}
                                 />

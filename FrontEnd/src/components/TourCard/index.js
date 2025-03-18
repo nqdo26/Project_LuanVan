@@ -2,20 +2,25 @@ import { Card, Rate } from "antd";
 import { motion } from "framer-motion";
 import { HeartOutlined } from "@ant-design/icons";
 import { AiOutlineEnvironment, AiOutlineCalendar, AiOutlineUsergroupAdd } from "react-icons/ai";
-import { FaMoneyBillWave } from "react-icons/fa";
+
 import { useState } from "react";
 import classNames from "classnames/bind";
-import styles from "./DestinationCard.module.scss";
+import styles from "./TourCard.module.scss";
 
 const cx = classNames.bind(styles);
 
-function DestinationCard() {
+function TourCard({location, title}) {
     const [liked, setLiked] = useState(false);
     const toggleLike = () => setLiked(!liked);
 
     const rating = 3.5;
-    const badges = ["Chụp hình", "Học bài", "Cà phê ngon", "Sống ảo", "View đẹp"];
+    const badges = ["Tham quan ngắm cảnh", "Ăn uống", "Check-in sống ảo"];
     const maxBadgesToShow = 2;
+
+    const truncateText = (text, maxLength) => {
+        return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+    };
+    
 
     return (
         <motion.div
@@ -34,7 +39,7 @@ function DestinationCard() {
                     <div className={cx("image-container")}>
                         <img
                             alt="WIMI-Factory"
-                            src="/destination-img.png"
+                            src="/tour-img.jpg"
                             className={cx("card-image")}
                         />
                         <button className={cx("favorite-btn")}>
@@ -44,30 +49,33 @@ function DestinationCard() {
                 }
                 className={cx("card")}
             >
-                 <div className={cx("location")}>
+                <div className={cx("location")}>
                     <AiOutlineEnvironment className={cx('icon-location')} />
-                    Cần Thơ
+                    {location}
                 </div>
-                <h3 className={cx("title")}>WIMI-Factory quán cà phê nực và nước dở nhất Cần Thơ City</h3>
+                <h3 className={cx("title")}>{title}</h3>
 
                 <div className={cx("badge-container")}>
                     {badges.slice(0, maxBadgesToShow).map((badge, index) => (
-                        <div key={index} className={cx("badge")}>{badge}</div>
+                        <div key={index} className={cx("badge")} title={badge}>
+                            {truncateText(badge, 11)}
+                        </div>
                     ))}
                     {badges.length > maxBadgesToShow && <div className={cx("badge")}>...</div>}
                 </div>
 
-                <div className={cx("info")}>
-                   <div className={cx("info-item")}>
+                <div className={cx("tour-info")}>
+                    <div className={cx("info-item")}>
+                        <AiOutlineCalendar style={{ color: "black", marginRight: "3px" }} />
+                        <span>2 ngày 3 đêm</span>
+                    </div>
+                    <span className={cx("separator")}>•</span>
+                    <div className={cx("info-item")}>
                         <AiOutlineUsergroupAdd style={{ color: "black", marginRight: "3px" }} />
                         <span>5-6 người</span>
-                   </div>
-                   <span className={cx("separator")}>•</span>
-                   <div className={cx("info-item")}>
-                        <FaMoneyBillWave style={{ color: "black", marginRight: "3px" }} />
-                        <span>50.000đ/người</span>
-                   </div>
+                    </div>
                 </div>
+
 
                 <div className={cx("rating-container")}>
                     <Rate disabled allowHalf value={rating} />
@@ -80,4 +88,4 @@ function DestinationCard() {
     );
 }
 
-export default DestinationCard;
+export default TourCard;

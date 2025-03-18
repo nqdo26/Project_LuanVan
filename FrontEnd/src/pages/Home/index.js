@@ -9,6 +9,7 @@ import CustomCarousel from '~/components/CustomCarousel';
 import DestinationCard from '~/components/DestinationCard';
 import Category from '~/components/Category';
 import PlaceCard from '~/components/PlaceCard';
+import TourCard from '~/components/TourCard';
 
 
 
@@ -40,6 +41,7 @@ function Home() {
                                     />} 
                             />
                         </div>
+                       
               </div>
         </div>
     )
