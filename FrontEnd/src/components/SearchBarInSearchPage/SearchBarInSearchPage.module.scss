@@ -9,14 +9,24 @@
     border: 2px solid #d9d9d9;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
     padding: 0 15px 0 0px;
+    transition: all 0.3s ease-in-out;
 
     &:hover {
-        border-color: #8ec8ff;
+        border-color: var(--primary-color);
         box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
-
         .search-icon {
             color: #ffffff;
-            background-color: #8ec8ff;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        }
+    }
+
+    &.has-content {
+        border-color: var(--primary-color);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+        
+        .search-icon {
+            color: #ffffff;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
         }
     }
 }

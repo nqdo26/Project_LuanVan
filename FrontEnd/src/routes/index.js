@@ -39,7 +39,7 @@ const publicRoutes = [
     
     
     { path: '/destinations', component: Destinations},
-    { path: '/destination/destinationId', component: DestinationDetails},
+    { path: '/destination/wimi-factory', component: DestinationDetails},
     { path: '/places', component: Place},
     { path: '/place/placeId', component: PlaceDetails},
 

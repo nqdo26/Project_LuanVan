@@ -1,18 +1,44 @@
 import { Card, Rate } from "antd";
 import { motion } from "framer-motion";
 import { HeartOutlined } from "@ant-design/icons";
-import { AiOutlineEnvironment, AiOutlineCalendar, AiOutlineUsergroupAdd, AiOutlineClockCircle } from "react-icons/ai";
-import { FaMoneyBillWave } from "react-icons/fa";
+import { AiOutlineEnvironment, AiOutlineClockCircle } from "react-icons/ai";
 import { useState } from "react";
 import classNames from "classnames/bind";
-import styles from "./DestinationCard.module.scss";
+import { useNavigate } from "react-router-dom";
 
+import styles from "./DestinationCard.module.scss";
 const cx = classNames.bind(styles);
 
 function DestinationCard() {
+    const navigate = useNavigate();
     const [liked, setLiked] = useState(false);
-    const toggleLike = () => setLiked(!liked);
 
+    const toggleLike = (e) => {
+        e.stopPropagation();
+        setLiked(!liked);
+    
+        if (!liked) {
+            const button = e.currentTarget;
+            for (let i = 0; i < 10; i++) { 
+                const particle = document.createElement("span");
+                particle.className = cx("heart-particles");
+    
+                particle.style.setProperty("--x", `${Math.random() * 80 - 40}px`);
+                particle.style.setProperty("--y", `${Math.random() * 80 - 40}px`);
+    
+                button.appendChild(particle);
+    
+                setTimeout(() => {
+                    particle.remove();
+                }, 700); 
+            }
+        }
+    };
+
+    const truncateText = (text, maxLength) => {
+        return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+    };
+    
     const rating = 3.5;
     const badges = ["Chụp hình", "Học bài", "Cà phê ngon", "Sống ảo", "View đẹp"];
     const maxBadgesToShow = 2;
@@ -24,10 +50,9 @@ function DestinationCard() {
             className={cx("destination-card")}
         >
             <Card
+                onClick={() => navigate("/destination/wimi-factory")}
                 styles={{
-                    body: {
-                        padding: "16px",
-                    },
+                    body: { padding: "16px" },
                 }}
                 hoverable
                 cover={
@@ -37,22 +62,27 @@ function DestinationCard() {
                             src="/destination-img.png"
                             className={cx("card-image")}
                         />
-                        <button className={cx("favorite-btn")}>
-                            <HeartOutlined className={cx("favourite-icon")} style={{ color: "white", fontSize: "22px", transition: "color 0.3s ease" }} />
+                        <button className={cx("favorite-btn")} onClick={toggleLike}>
+                            <HeartOutlined
+                                className={cx("favourite-icon", { liked })}
+                                style={{ fontSize: "22px", transition: "color 0.3s ease" }}
+                            />
                         </button>
                     </div>
                 }
                 className={cx("card")}
             >
-                 <div className={cx("location")}>
-                    <AiOutlineEnvironment className={cx('icon-location')} />
+                <div className={cx("location")}>
+                    <AiOutlineEnvironment className={cx("icon-location")} />
                     Cần Thơ
                 </div>
                 <h3 className={cx("title")}>WIMI-Factory quán cà phê nực và nước dở nhất Cần Thơ City</h3>
 
                 <div className={cx("badge-container")}>
                     {badges.slice(0, maxBadgesToShow).map((badge, index) => (
-                        <div key={index} className={cx("badge")}>{badge}</div>
+                        <div key={index} className={cx("badge")} title={badge}>
+                            {truncateText(badge, 11)}
+                        </div>
                     ))}
                     {badges.length > maxBadgesToShow && <div className={cx("badge")}>...</div>}
                 </div>
@@ -61,13 +91,12 @@ function DestinationCard() {
                     <AiOutlineClockCircle style={{ color: "black", marginRight: "5px" }} />
                     <span>Hoạt động cả ngày</span>
                 </div>
-                
+
                 <div className={cx("rating-container")}>
                     <Rate disabled allowHalf value={rating} />
                     <span className={cx("rating-value")}>{rating}</span>
                     <span className={cx("rating-count")}>(300)</span>
                 </div>
-
             </Card>
         </motion.div>
     );

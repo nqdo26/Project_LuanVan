@@ -6,6 +6,7 @@ import styles from "./PlaceCard.module.scss";
 const cx = classNames.bind(styles);
 
 function PlaceCard({ title }) {
+  
   return (
     <div className={cx("place-card")}>
       <Card 
