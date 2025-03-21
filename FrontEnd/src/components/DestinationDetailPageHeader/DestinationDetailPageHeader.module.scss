@@ -15,7 +15,7 @@
 
 .title {
     font-size: 33px;
-    font-weight: bold;
+        font-weight: bold;
 }
 
 .action {
@@ -41,24 +41,64 @@
     }
 }
 
-
-
-
 .review-section {
     display: flex;
+    justify-content: space-between;
+}
+
+.rating-location {
+    display: flex;
     align-items: center;
-    gap: 10px;
+    gap:10px;
+    cursor: pointer;
+}
 
-    .rating {
-        font-size: 18px;
-        color: #ffd900;
-    }
+.rating {
+    font-size: 18px;
+    color: #ffd900;
+}
 
-    .review-count {
-        font-size: 16px;
-        color: #333;
+.review-count {
+    font-size: 16px;
+    color: #333;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+
+    &:hover {
+        .location-icon {
+          color: #2e7d32;
+        }
+        .location-name {
+          color: #2e7d32;
+        }
+      }
+}
+
+.location-name {
+    font-size: 16px;
+    color: #333;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.review-btn {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #000000;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
     }
 }
+
 
 .badge-container {
     display: flex;

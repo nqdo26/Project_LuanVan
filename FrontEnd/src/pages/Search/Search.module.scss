@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     align-items: center;
     justify-content: center;
     background-color: #ececec;
@@ -11,14 +11,14 @@
 .filtertab {
     display: flex;
     width: 100%;
-    height: 30%;
     align-items: center;
     justify-content: center;
 }
 
+
 .inner-wrapper {
     margin-top: 20px;
-    width: 61.3%;
+    width: 61.1%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,14 +31,35 @@
     flex-direction: row;
     width: 100%;
     height: 100%;
-    gap: 23px;
+    gap: 24px;
 }
+
 
 .sidebar {
     width: 23%;
-    min-width: 267px;
+    min-width: 260px;
     align-self: flex-start;
+    transition: transform 0.3s ease-in-out;
 }
+
+
+@media (max-width: 767px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 80%;
+        height: 100vh;
+        background: white;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+        transform: translateX(-100%);
+    }
+    .sidebar.show {
+        transform: translateX(0);
+    }
+}
+
 
 .content-wrapper {
     width: 77%;
@@ -49,22 +70,23 @@
 
 .content {
     width: 100%;
-    height: 100%;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
+
 .result-sorter {
     display: flex;
     justify-content: flex-end;
 }
 
+
 .result-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    gap: 18px;
     justify-content: center;
 }
 
@@ -74,7 +96,10 @@
     margin-top: 20px;
 }
 
-// Responsive
+.sidebar-toggle {
+    display: none;
+    margin-bottom: 10px;
+}
 
 @media (max-width: 1023px) {
     .inner-wrapper {
@@ -82,11 +107,10 @@
     }
     .inner {
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
     }
     .sidebar {
         width: 100%;
-        min-width: unset;
         display: flex;
         justify-content: center;
     }
@@ -99,47 +123,16 @@
     .filtertab {
         flex-direction: column;
         height: auto;
+        padding: 10px;
+    }
+    .sidebar-toggle {
+        display: block;
     }
     .sidebar {
         display: none;
     }
-    .content {
-        gap: 10px;
-    }
     .result-list {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-// Sidebar animation
-.sidebar {
-    transition: transform 0.3s ease-in-out;
-}
-.hidden {
-    transform: translateX(-100%);
-}
-.sidebar-toggle {
-    display: none;
-}
-
-@media (max-width: 767px) {
-    .sidebar-toggle {
-        display: block;
-        margin-bottom: 10px;
-    }
-    .sidebar {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 80%;
-        height: 100vh;
-        background: white;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
-        z-index: 100;
-        transform: translateX(-100%);
-    }
-    .sidebar.show {
-        transform: translateX(0);
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
 }

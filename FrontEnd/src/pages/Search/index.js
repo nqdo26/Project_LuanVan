@@ -84,7 +84,7 @@ function Search() {
                                 <div className={cx('result-list')}>
                                     {activeTab === 'all' ? (
                                         <List
-                                            grid={{ gutter: 18, xs: 2, sm: 2, md: 3, lg: 3, xl: 2 }}
+                                            grid={{ gutter: 18, xs: 2, sm: 2, md: 3, lg: 3, xl: 3 }}
                                             dataSource={destinations}
                                             pagination={{ pageSize: 15 }}
                                             renderItem={(item) => (

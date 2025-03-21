@@ -1,11 +1,14 @@
 .wrapper {
     height: 100%;
     width: 100%;
-    border-top: 1px  solid #dbdbdb;
+    border-top: 1px solid #dbdbdb;
     display: flex;
     justify-content: center;
     background: white;
+
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08); 
 }
+
 
 .inner {
     margin-top: 30px;
@@ -37,6 +40,7 @@
     color: #000000;
 }
 
+
 .tab-item {
     width: 100%;
     display: flex;
@@ -61,10 +65,16 @@
 
 :global(.ant-tabs-tab-active) {
     .tab-icon, .tab-label {
-        color: #000000 !important; // Đổi màu icon & label
+        color: #000000 !important; 
     }
 }
 
 :global(.ant-tabs-ink-bar) {
-    background-color: #000000 !important; // Đổi màu viền dưới của tab được chọn
+    background-color: #000000 !important; 
+}
+
+:global {
+    .ant-tabs-nav {
+        margin-bottom: 0 !important;
+    }
 }

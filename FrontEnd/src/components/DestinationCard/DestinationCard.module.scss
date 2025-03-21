@@ -197,13 +197,13 @@
 
 // Responsive 
 @media (max-width: 1024px) {
-    .card { min-width: 240px; max-width: 240px; }
+    .card { min-width: 200px; max-width: 265px; }
     .card-image { height: 160px; }
     .title { font-size: 14px; }
 }
 
 @media (max-width: 768px) {
-    .card { min-width: 200px; max-width: 200px; }
+    .card { min-width: 208px; }
     .card-image { height: 140px; }
     .title { font-size: 13px; }
 }

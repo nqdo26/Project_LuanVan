@@ -10,7 +10,7 @@ import CustomTitle from "../CustomTitle";
 
 const cx = classNames.bind(styles);
 
-function SearchFilterTabs({ onChange, searchTitle }) {
+function SearchFilterTabs({ onChange}) {
 
   const items = [
         { key: "all", label: "Tất cả", icon: <AppstoreOutlined /> },  

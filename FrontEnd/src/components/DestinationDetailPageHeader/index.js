@@ -19,23 +19,27 @@ function DestinationDetailPageHeader() {
             </div>
 
                 <div className={cx("review-section")}>
-                    <Rate disabled defaultValue={5} className={cx("rating")} />
-                    <span className={cx("review-count")}>2,930 đánh giá</span>
-                    <span className={cx("separator")}>•</span>
-                    <div className={cx("badge-container")}>
+                   <div className={cx("rating-location")}>   
+                        <Rate disabled defaultValue={5} className={cx("rating")} />
+                        <span className={cx("review-count")}>2,930 đánh giá</span>
+                        <span className={cx("separator")}>•</span>
+                       <div className={cx("location")}>
+                            <EnvironmentOutlined className={cx("location-icon")} />
+                            <span className={cx('location-name')} >Cần Thơ</span>
+                       </div>
+                   </div>
+                   <div className={cx("review-btn")}>
+                        <EditOutlined />
+                        <span>Viết đánh giá</span>
+                   </div>
+                </div>
+    
+                <div className={cx("badge-container")}>
                         {badges.map((badge, index) => (
                             <span key={index} className={cx("badge")}>
                                 {badge}
                             </span>
                         ))}
-                    </div>
-                </div>
-    
-                <div className={cx("location-section")}>
-                    <EnvironmentOutlined className={cx("icon")} />
-                    <span>20222</span>
-                    <EditOutlined className={cx("icon")} />
-                    <span className={cx("write-review")}>Write a review</span>
                 </div>
         </div>
     );
