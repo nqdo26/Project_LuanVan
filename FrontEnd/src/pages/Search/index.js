@@ -36,17 +36,17 @@ const destinations = [
 
 const contentVariants = {
     hidden: { opacity: 0, x: -20 },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      transition: { 
-        duration: 0.4, 
-        ease: "easeOut",
-        delay: 0.1 
-      } 
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            duration: 0.4,
+            ease: 'easeOut',
+            delay: 0.1,
+        },
     },
-  };
-  
+};
+
 function Search() {
     const [activeTab, setActiveTab] = useState('all');
     const [showSidebar, setShowSidebar] = useState(false);
@@ -54,7 +54,12 @@ function Search() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('filtertab')}>
-                <FilterTabs onChange={setActiveTab} activeTab={activeTab} className={cx('nav')} searchTitle="Wimi Factory" />
+                <FilterTabs
+                    onChange={setActiveTab}
+                    activeTab={activeTab}
+                    className={cx('nav')}
+                    searchTitle="Wimi Factory"
+                />
             </div>
             <div className={cx('inner-wrapper')}>
                 <div className={cx('inner')}>
@@ -112,8 +117,10 @@ function Search() {
                                             renderItem={(item) => (
                                                 <List.Item style={{ width: '100%' }}>
                                                     <TourCard
-                                                        location={"Đà Lạt"}
-                                                        title={"Hành trình trải nghiệm thành phố lạnh như chó và đẹp như mơ"}
+                                                        location={'Đà Lạt'}
+                                                        title={
+                                                            'Hành trình trải nghiệm thành phố lạnh như chó và đẹp như mơ'
+                                                        }
                                                     />
                                                 </List.Item>
                                             )}

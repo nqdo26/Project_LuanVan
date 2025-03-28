@@ -1,77 +1,82 @@
-import React, { useState } from "react";
-import { Card, Image, Modal } from "antd";
-import classNames from "classnames/bind";
-import styles from "./DestinationGallery.module.scss";
-import { CameraOutlined } from "@ant-design/icons";
+import React, { useState } from 'react';
+import { Card, Image, Modal } from 'antd';
+import classNames from 'classnames/bind';
+import styles from './DestinationGallery.module.scss';
+import { CameraOutlined } from '@ant-design/icons';
+import GalleryModal from '../GalleryModal';
 
 const cx = classNames.bind(styles);
 
-
-
 const DestinationGallery = ({ type }) => {
-  const [visible, setVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+    const [visible, setVisible] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const showAlbum = (category) => {
-    setSelectedCategory(category);
-    setVisible(true);
-  };
+    const showAlbum = (category) => {
+        setSelectedCategory('all');
+        setVisible(true);
+    };
 
-  const categories = [
-    { src: "/wimi2-img.png", label: "Không gian", count: 37 },
-    { src: "/wimi3-img.png", label: "Ẩm thực", count: 3 },
-    {
-      src: type === "restaurant" ? "/wimi3-img.png" : "/wimi4-img.png",
-      label: type === "restaurant" ? "Thực đơn" : "Nổi bậc",
-      count: 5,
-    },
-  ];
-  
-  return (
-    <div className={cx("gallery-container")}>
-      <div className={cx("main-image-container")}>
-        <Card
-            styles={{body: { display: "contents" }}}
-            onClick={() => showAlbum(categories[0])} 
-            className={cx("main-image-card")}>
-            <Image src="/wimi3-img.png" alt="Main View" className={cx("main-image")} />
-            <div className={cx("image-overlay")}>
-              <CameraOutlined className={cx("image-icon")} />
-              <span className={cx("image-count")}>50</span>
-          </div>
-        </Card>
-      </div>
+    const categories = [
+        { key: 'all', label: 'Tất cả', images: ['/wimi2-img.png', '/wimi3-img.png', '/wimi4-img.png'] },
+        { key: 'space', label: 'Không gian', images: ['/wimi2-img.png'] },
+        { key: 'food', label: 'Ẩm thực', images: ['/wimi3-img.png'] },
+        {
+            key: 'menu',
+            label: type === 'restaurant' ? 'Thực đơn' : 'Nổi bật',
+            images: [type === 'restaurant' ? '/wimi1-img.png' : '/wimi4-img.png'],
+        },
+    ];
 
-      <div className={cx("category-container")}>
-        {categories.map((item, index) => (
-          <Card 
-            styles={{body: { display: "contents" }}}
-            onClick={() => showAlbum(categories[0])} 
-            key={index} 
-            className={cx("category-card")}>
-            <Image src={item.src} alt={item.label} className={cx("category-image")} />
-            <div className={cx("category-overlay")}>
-              <span className={cx("category-label")}>{item.label}</span>
-              <span className={cx("category-count")}>{item.count}</span>
+    return (
+        <div className={cx('gallery-container')}>
+            <div className={cx('main-image-container')}>
+                <Card
+                    styles={{ body: { display: 'contents' } }}
+                    onClick={() => showAlbum({ src: '/wimi3-img.png', label: 'Thư viện' })}
+                    className={cx('main-image-card')}
+                >
+                    <Image preview={false} src="/wimi3-img.png" alt="Main View" className={cx('main-image')} />
+                    <div className={cx('image-overlay')}>
+                        <CameraOutlined className={cx('image-icon')} />
+                        <span className={cx('image-count')}>50</span>
+                    </div>
+                </Card>
             </div>
-          </Card>
-        ))}
-      </div>
-        <Modal 
-          visible={visible} 
-          onCancel={() => setVisible(false)} 
-          footer={null} 
-          className={cx("custom-modal")}
-        >
-          {selectedCategory && (
-            <div className={cx("modal-content")}> 
-              <h2 className={cx("modal-title")}>{selectedCategory.label}</h2>
-              <Image src={selectedCategory.src} alt={selectedCategory.label} className={cx("modal-image")} />
+
+            <div className={cx('category-container')}>
+                {categories
+                    .filter((item) => item.key !== 'all')
+                    .map((item, index) => (
+                        <Card
+                            styles={{ body: { display: 'contents' } }}
+                            onClick={() => showAlbum(item)}
+                            key={index}
+                            className={cx('category-card')}
+                        >
+                            <Image
+                                preview={false}
+                                src={item.images[0]}
+                                alt={item.label}
+                                className={cx('category-image')}
+                            />
+                            <div className={cx('category-overlay')}>
+                                <span className={cx('category-label')}>{item.label}</span>
+                                <span className={cx('category-count')}>{item.images.length}</span>
+                            </div>
+                        </Card>
+                    ))}
             </div>
-          )}
-        </Modal>
-    </div>
-  );
+
+            <GalleryModal
+                detinationName= "Wimi-Factory"
+                visible={visible}
+                onClose={() => setVisible(false)}
+                categories={categories}
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+            />
+        </div>
+    );
 };
 
 export default DestinationGallery;
