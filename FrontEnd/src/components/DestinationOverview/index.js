@@ -1,7 +1,8 @@
-import { Tabs } from 'antd';
+import { Button, Tabs } from 'antd';
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './DestinationOverview.module.scss';
+import { EditOutlined, HeartOutlined, PlusCircleOutlined, ShareAltOutlined } from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 
@@ -53,14 +54,27 @@ function DestinationOverview() {
                     </div>
                 </div>
                 <div className={cx('action')}>
-                    <div className={cx('save')}>
-                        <h2 className={cx('title')}>Lưu ngay địa điểm yêu thích</h2>
+                    <div className={cx('action-items')}>
+                        <h2 className={cx('title')}>Thêm địa điểm vào lịch trình của bạn</h2>
+                        <Button icon={<PlusCircleOutlined />} className={cx('button')} type="primary" size="large">
+                            Thêm địa điểm
+                        </Button>
                     </div>
-                    <div className={cx('comment')}>
-                        <h2 className={cx('title')}>Để lại cảm nhận của bạn về nơi này</h2>
+                    <div className={cx('action-items')}>
+                        <Button icon={<HeartOutlined />} className={cx('button')} type="primary" size="large">
+                            Lưu địa điểm
+                        </Button>
+                        <Button icon={<EditOutlined />} className={cx('button')} type="primary" size="large">
+                            Viết đánh giá
+                        </Button>
+                        <Button icon={<ShareAltOutlined />} className={cx('button')} type="primary" size="large">
+                            Chia sẻ địa điểm
+                        </Button>
                     </div>
-                    <div className={cx('share')}>
-                        <h2 className={cx('title')}>Chia sẻ trải nghiệm với bạn bè</h2>
+                    <div className={cx('action-items')}>
+                        <h2 className={cx('title')}>Vị trí</h2>
+
+              
                     </div>
                 </div>
             </div>
