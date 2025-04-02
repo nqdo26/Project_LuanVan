@@ -5,8 +5,19 @@ import DestinationDetailPageHeader from '~/components/DestinationDetailPageHeade
 import DestinationGallery from '~/components/DestinationGallery';
 import DestinationOverview from '~/components/DestinationOverview';
 import CustomComment from '~/components/CustomComment';
+import { Tabs } from 'antd';
 
 const cx = classNames.bind(styles);
+
+const items = [
+    { key: 'description', label: 'Tổng quan' },
+    { key: 'location', label: 'Vị trí' },
+    { key: 'comments', label: 'Bình luận' },
+];
+
+const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+};
 
 function DestinationDetails() {
     return (
@@ -17,15 +28,16 @@ function DestinationDetails() {
                 </div>
                 <div className={cx('body')}>
                     <DestinationGallery type="restaurant" />
-                    <DestinationOverview />
-                    <CustomComment
-                        author="Nomad49633624224"
-                        avatar="https://joesch.moe/api/v1/random"
-                        content="We arrived on a Friday night. It was very busy but the staff were super efficient..."
-                        rating={5}
-                        datetime="February 22, 2025"
-                        likes={0}
+                    <Tabs
+                        className={cx('tabs')}
+                        onChange={scrollToSection}
+                        items={items.map(({ key, label }) => ({
+                            key,
+                            label: <span className={cx('tab-item')}>{label}</span>,
+                        }))}
                     />
+                    <DestinationOverview />
+                    <CustomComment id="comments" />
                 </div>
             </div>
         </div>

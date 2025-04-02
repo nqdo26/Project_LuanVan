@@ -1,26 +1,20 @@
-import { Button, Tabs } from 'antd';
+import { Button } from 'antd';
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './DestinationOverview.module.scss';
 import {
-    AppstoreFilled,
-    BulbFilled,
     CheckOutlined,
-    ClockCircleFilled,
     ClockCircleOutlined,
     EditOutlined,
-    EnvironmentFilled,
     EnvironmentOutlined,
     FacebookFilled,
     FireFilled,
     GlobalOutlined,
     HeartOutlined,
-    HomeFilled,
     InstagramFilled,
     PhoneFilled,
     PlusCircleOutlined,
     ShareAltOutlined,
-    StarOutlined,
 } from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
@@ -28,31 +22,12 @@ const cx = classNames.bind(styles);
 function DestinationOverview() {
     const [showMore, setShowMore] = useState(false);
 
-    const scrollToSection = (id) => {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-    };
-
-    const items = [
-        { key: 'description', label: 'Tổng quan' },
-        { key: 'location', label: 'Vị trí' },
-        { key: 'comments', label: 'Bình luận' },
-    ];
-
     const toggleShowMore = () => {
         setShowMore((prev) => !prev);
     };
 
     return (
         <div className={cx('wrapper')}>
-            <Tabs
-                className={cx('tabs')}
-                onChange={scrollToSection}
-                items={items.map(({ key, label }) => ({
-                    key,
-                    label: <span className={cx('tab-item')}>{label}</span>,
-                }))}
-            />
-
             <div className={cx('overview-and-action')}>
                 <div className={cx('overview')}>
                     <div id="description" className={cx('overview-item')}>
@@ -116,7 +91,7 @@ function DestinationOverview() {
                         </ul>
                     </div>
 
-                    <div  className={cx('overview-item')}>
+                    <div className={cx('overview-item')}>
                         <h2 className={cx('title')}>Địa chỉ & Thông tin liên hệ</h2>
 
                         <p className={cx('address')}>

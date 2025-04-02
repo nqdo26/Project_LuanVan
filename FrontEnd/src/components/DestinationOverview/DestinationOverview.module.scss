@@ -163,29 +163,6 @@
     }
 }
 
-.tab-item {
-    font-size: 15px;
-    font-weight: 500;
-    color: #000000;
-    transition: color 0.5s ease;
-}
-
-:global(.ant-tabs-tab-active) {
-    .tab-icon,
-    .tab-label {
-        color: #000000 !important;
-    }
-}
-
-:global(.ant-tabs-ink-bar) {
-    background-color: #000000 !important;
-}
-
-:global {
-    .ant-tabs-nav::before {
-        border-bottom: none !important;
-    }
-}
 
 /* Responsive */
 @media (max-width: 1000px) {
