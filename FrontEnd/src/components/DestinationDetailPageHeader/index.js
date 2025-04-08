@@ -5,13 +5,13 @@ import styles from "./DestinationDetailPageHeader.module.scss";
 
 const cx = classNames.bind(styles);
 
-const badges = ["Chụp hình", "Học bài", "Cà phê ngon", "Sống ảo", "View đẹp"];
+const badges = ["Văn hóa", "Ẩm thực", "Chụp hình"];
 
-function DestinationDetailPageHeader() {
+function DestinationDetailPageHeader({title}) {
     return (
         <div className={cx("destination-header")}>
             <div className={cx('title-save')}>
-                <h2 className={cx("title")}>Wimi-Factory</h2>
+                <h2 className={cx("title")}>{title}</h2>
                <div className={cx('action')}> 
                     <Button icon={<HeartOutlined />} className={cx("save-btn")}>Lưu</Button>
                     <Button icon={<ShareAltOutlined />} className={cx("share-btn")} >Chia sẻ</Button>

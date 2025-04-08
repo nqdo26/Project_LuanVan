@@ -24,10 +24,10 @@ function DestinationDetails() {
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <div className={cx('header')}>
-                    <DestinationDetailPageHeader />
+                    <DestinationDetailPageHeader title="Wimi-Factory" />
                 </div>
                 <div className={cx('body')}>
-                    <DestinationGallery type="restaurant" />
+                    <DestinationGallery type="restaurant"/>
                     <Tabs
                         className={cx('tabs')}
                         onChange={scrollToSection}
@@ -36,7 +36,7 @@ function DestinationDetails() {
                             label: <span className={cx('tab-item')}>{label}</span>,
                         }))}
                     />
-                    <DestinationOverview />
+                    <DestinationOverview/>
                     <CustomComment id="comments" />
                 </div>
             </div>

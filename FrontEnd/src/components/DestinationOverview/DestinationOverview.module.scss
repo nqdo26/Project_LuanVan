@@ -28,7 +28,7 @@
 
     .title {
         display: flex;
-        font-size: 23px;
+        font-size: 25px;
         font-weight: 600;
         gap: 5px;
     }
@@ -48,9 +48,7 @@
     gap: 10px;
 }
 
-.opening-status {
-    font-weight: 500;
-}
+
 
 .address {
     font-size: 15px;
@@ -138,7 +136,7 @@
     gap: 25px;
 
     .title {
-        font-size: 18px;
+        font-size: 22px;
         font-weight: 600;
     }
 }
@@ -162,6 +160,27 @@
         color: #ffffff !important;
     }
 }
+
+.list-time-open-item {
+    font-size: 16px;
+    margin-bottom: 4px;
+    list-style-type: none;
+}
+
+.day-bold {
+    font-weight: 500;
+    margin-right: 4px;
+}
+
+.opening-status {
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.bold {
+    font-weight: 500;
+}
+
 
 
 /* Responsive */

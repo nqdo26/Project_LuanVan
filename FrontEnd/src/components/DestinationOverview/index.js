@@ -3,6 +3,7 @@ import { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './DestinationOverview.module.scss';
 import {
+    BulbFilled,
     CheckOutlined,
     ClockCircleOutlined,
     EditOutlined,
@@ -14,16 +15,92 @@ import {
     InstagramFilled,
     PhoneFilled,
     PlusCircleOutlined,
+    RiseOutlined,
+    RocketFilled,
     ShareAltOutlined,
+    TagOutlined,
 } from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 
-function DestinationOverview() {
+function DestinationOverview({
+    destination = {
+        title: 'Wimi-Factory',
+        description:
+            'Wimi-Factory là một không gian cà phê sáng tạo và hiện đại, kết hợp phong cách công nghiệp với thiên nhiên. Không gian được chia thành nhiều khu vực, phù hợp để học tập, làm việc hoặc thư giãn.',
+        type: 'hehe',
+        tag: [],
+        location: '123 Đường ABC, Quận 1, TP.HCM',
+        createAt: new Date(),
+        detail: {
+            highlight: ['Không gian sáng tạo', 'Thiết kế hiện đại'],
+            type: ['Quán cà phê', 'Không gian làm việc'],
+            activities: ['Đọc sách', 'Làm việc nhóm'],
+            services: ['Wifi miễn phí', 'Đỗ xe miễn phí', 'Thẻ thành viên'],
+            usefulInfo: ['Khoảng giá: 20.000 - 100.000 VNĐ', 'Thời điểm lý tưởng: Buổi sáng'],
+        },
+        openHour: {
+            mon: { open: '08:00', close: '22:00' },
+            tue: { open: '08:00', close: '22:00' },
+            wed: { open: '08:00', close: '22:00' },
+            thu: { open: '08:00', close: '22:00' },
+            fri: { open: '08:00', close: '22:00' },
+            sat: { open: '09:00', close: '23:00' },
+            sun: { open: '09:00', close: '23:00' },
+        },
+        contactInfo: {
+            phone: '0123 456 789',
+            website: 'https://wimi-factory.com',
+            facebook: 'https://facebook.com/wimifactory',
+            instagram: 'https://instagram.com/wimifactory',
+        },
+    },
+}) {
     const [showMore, setShowMore] = useState(false);
+    const toggleShowMore = () => setShowMore((prev) => !prev);
+    const isRestaurant = destination.type === 'restaurant';
 
-    const toggleShowMore = () => {
-        setShowMore((prev) => !prev);
+    const renderList = (items, icon) => (
+        <ul className={cx('list')}>
+            {items?.map((item, index) => (
+                <li key={index} className={cx('list-item')}>
+                    {icon} {item}
+                </li>
+            ))}
+        </ul>
+    );
+
+    const renderOpenHours = (hours) => {
+        const days = {
+            mon: 'Thứ hai',
+            tue: 'Thứ ba',
+            wed: 'Thứ tư',
+            thu: 'Thứ năm',
+            fri: 'Thứ sáu',
+            sat: 'Thứ bảy',
+            sun: 'Chủ nhật',
+        };
+
+        const todayKey = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][new Date().getDay()];
+
+        return (
+            <ul className={cx('list-time-open')}>
+                <li style={{ color: '#52c41a' }} className={cx('list-time-open-item', 'opening-status')}>
+                    <ClockCircleOutlined /> Đang mở cửa
+                </li>
+                {Object.entries(hours).map(([key, value]) => {
+                    const isToday = key === todayKey;
+                    return (
+                        <li key={key} className={cx('list-time-open-item')}>
+                            <span className={cx('day-bold')}>{days[key]}:</span>{' '}
+                            <span className={cx({ bold: isToday })}>
+                                {value.open} - {value.close}
+                            </span>
+                        </li>
+                    );
+                })}
+            </ul>
+        );
     };
 
     return (
@@ -32,88 +109,113 @@ function DestinationOverview() {
                 <div className={cx('overview')}>
                     <div id="description" className={cx('overview-item')}>
                         <h2 className={cx('title')}>Giới thiệu</h2>
-                        <div className={cx('content', { expanded: showMore })}>
-                            Tọa lạc tại trung tâm thành phố, Wimi-Factory không chỉ là một quán cà phê mà còn là một
-                            điểm đến lý tưởng cho những ai yêu thích không gian sáng tạo và hiện đại. Với thiết kế tinh
-                            tế, kết hợp hài hòa giữa phong cách công nghiệp và nét mềm mại của thiên nhiên, Wimi-Factory
-                            mang đến một không gian vừa ấm cúng, vừa chuyên nghiệp. Quán được chia thành nhiều khu vực
-                            riêng biệt, phù hợp với các nhu cầu khác nhau của khách hàng. Nếu bạn đang tìm kiếm một góc
-                            yên tĩnh để học tập hay làm việc, khu bàn đơn và bàn nhóm với hệ thống đèn chiếu sáng dịu
-                            nhẹ, ổ cắm điện tiện lợi sẽ là lựa chọn hoàn hảo. Đặc biệt, không gian tại Wimi-Factory luôn
-                            tràn ngập ánh sáng tự nhiên, giúp tinh thần bạn luôn sảng khoái và tập trung.
-                        </div>
+                        <div className={cx('content', { expanded: showMore })}>{destination.description}</div>
                         <button onClick={toggleShowMore} className={cx('show-more-btn')}>
                             {showMore ? 'Thu gọn' : 'Xem thêm'}
                         </button>
                     </div>
 
-                    <div className={cx('overview-item')}>
-                        <h2 className={cx('title')}>Điểm nổi bật tại Wimi-Factory</h2>
-                        <ul className={cx('list')}>
-                            <li className={cx('list-item')}>
-                                <FireFilled style={{ color: '#FF0000' }} /> Không gian lớn
-                            </li>
-                            <li className={cx('list-item')}>
-                                <FireFilled style={{ color: '#FF0000' }} /> Cà phê ngon
-                            </li>
-                        </ul>
-                    </div>
-                    <div className={cx('overview-item')}>
-                        <h2 className={cx('title')}>Dịch vụ tiện ích</h2>
-                        <ul className={cx('list')}>
-                            <li className={cx('list-item')}>
-                                <CheckOutlined style={{ color: '#1890ff' }} /> Wifi miễn phí
-                            </li>
-                            <li className={cx('list-item')}>
-                                <CheckOutlined style={{ color: '#1890ff' }} /> Đỗ xe miễn phí
-                            </li>
-                            <li className={cx('list-item')}>
-                                <CheckOutlined style={{ color: '#1890ff' }} /> Thẻ thành viên
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div className={cx('overview-item')}>
-                        <h2 className={cx('title')}>Không gian</h2>
-                        <div className={cx('content')}>
-                            <p>Phù hợp với nhóm 1-20 người.</p>
+                    {destination.detail.highlight?.length > 0 && (
+                        <div className={cx('overview-item')}>
+                            <h2 className={cx('title')}>Nổi bật</h2>
+                            {renderList(destination.detail.highlight, <FireFilled style={{ color: '#FF0000' }} />)}
                         </div>
-                    </div>
+                    )}
 
-                    <div className={cx('overview-item')}>
-                        <h2 className={cx('title')}>Thời gian mở cửa</h2>
-                        <ul className={cx('list')}>
-                            <li style={{ color: '#52c41a' }} className={cx('list-item', 'opening-status')}>
-                                <ClockCircleOutlined /> Đang mở cửa
-                            </li>
-                            <li className={cx('list-item')}>Thứ 2 - Thứ 6: 8:00 - 22:00</li>
-                            <li className={cx('list-item')}>Thứ 7 - Chủ nhật: 9:00 - 23:00</li>
-                        </ul>
-                    </div>
+                    {isRestaurant ? (
+                        <>
+                            {destination.detail.services?.length > 0 && (
+                                <div className={cx('overview-item')}>
+                                    <h2 className={cx('title')}>Dịch vụ tiện ích</h2>
+                                    {renderList(
+                                        destination.detail.services,
+                                        <CheckOutlined style={{ color: '#1890ff' }} />,
+                                    )}
+                                </div>
+                            )}
+                            {destination.detail.usefulInfo?.length > 0 && (
+                                <div className={cx('overview-item')}>
+                                    <h2 className={cx('title')}>Thông tin hữu ích</h2>
+                                    {renderList(
+                                        destination.detail.usefulInfo,
+                                        <BulbFilled style={{ color: '#FAAD14' }} />,
+                                    )}
+                                </div>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            <div className={cx('overview-item')}>
+                                <h2 className={cx('title')}>Loại hình văn hóa</h2>
+                                {renderList(destination.detail.type, <TagOutlined style={{ color: '#722ED1' }} />)}
+                            </div>
+                            <div className={cx('overview-item')}>
+                                <h2 className={cx('title')}>Trải nghiệm đặc trưng</h2>
+                                {renderList(
+                                    destination.detail.activities,
+                                    <RiseOutlined style={{ color: '#FA541C' }} />,
+                                )}
+                            </div>
+                            <div className={cx('overview-item')}>
+                                <h2 className={cx('title')}>Dịch vụ tiện ích</h2>
+                                {renderList(
+                                    destination.detail.services,
+                                    <CheckOutlined style={{ color: '#1890ff' }} />,
+                                )}
+                            </div>
+                            <div className={cx('overview-item')}>
+                                <h2 className={cx('title')}>Thông tin hữu ích</h2>
+                                {renderList(destination.detail.usefulInfo, <BulbFilled style={{ color: '#FAAD14' }} />)}
+                            </div>
+                        </>
+                    )}
 
                     <div className={cx('overview-item')}>
                         <h2 className={cx('title')}>Địa chỉ & Thông tin liên hệ</h2>
-
                         <p className={cx('address')}>
-                            <EnvironmentOutlined style={{ color: 'black' }} /> Wimi-Factory, 123 Đường ABC, Quận 1,
-                            TP.HCM
+                            <EnvironmentOutlined style={{ color: 'black' }} /> {destination.location}
                         </p>
                         <div className={cx('contact')}>
                             <p className={cx('contact-item')}>
-                                <FacebookFilled style={{ color: '#4267B2' }} /> Facebook
+                                <FacebookFilled style={{ color: '#4267B2' }} />
+                                <a
+                                    href={destination.contactInfo.facebook}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ color: 'black', marginLeft: '8px' }}
+                                >
+                                    Facebook
+                                </a>
                             </p>
                             <p className={cx('contact-item')}>
-                                <InstagramFilled style={{ color: '#E4405F' }} /> Instagram
+                                <InstagramFilled style={{ color: '#E4405F' }} />
+                                <a
+                                    href={destination.contactInfo.instagram}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ color: 'black', marginLeft: '8px' }}
+                                >
+                                    Instagram
+                                </a>
                             </p>
                             <p className={cx('contact-item')}>
-                                <GlobalOutlined style={{ color: '#1890ff' }} /> Website
+                                <GlobalOutlined style={{ color: '#1890ff' }} />
+                                <a
+                                    href={destination.contactInfo.website}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ color: 'black', marginLeft: '8px' }}
+                                >
+                                    Website
+                                </a>
                             </p>
                             <p className={cx('contact-item')}>
-                                <PhoneFilled style={{ color: '#52c41a' }} /> 0123 456 789
+                                <PhoneFilled style={{ color: '#52c41a' }} /> {destination.contactInfo.phone}
                             </p>
                         </div>
                     </div>
                 </div>
+
                 <div className={cx('action')}>
                     <div className={cx('action-items')}>
                         <h2 className={cx('title')}>Thêm địa điểm vào lịch trình của bạn</h2>
@@ -132,8 +234,9 @@ function DestinationOverview() {
                             Chia sẻ địa điểm
                         </Button>
                     </div>
-                    <div id="location" className={cx('action-items')}>
-                        <h2 className={cx('title')}>Vị trí</h2>
+                    <div className={cx('action-items')}>
+                        <h2 className={cx('title')}>Thời gian mở cửa</h2>
+                        {renderOpenHours(destination.openHour)}
                     </div>
                 </div>
             </div>

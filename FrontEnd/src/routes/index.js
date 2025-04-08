@@ -11,7 +11,7 @@ import DestinationDetails from '~/pages/DestinationDetails';
 import Destinations from '~/pages/Destinations';
 import Home from '~/pages/Home';
 import Login from '~/pages/Login';
-import Place from '~/pages/Place';
+import Place from '~/pages/PlaceDetails';
 import PlaceDetails from '~/pages/PlaceDetails';
 import Profile from '~/pages/Profile';
 import Register from '~/pages/Register';
@@ -41,7 +41,7 @@ const publicRoutes = [
     { path: '/destinations', component: Destinations},
     { path: '/destination/wimi-factory', component: DestinationDetails},
     { path: '/places', component: Place},
-    { path: '/place/placeId', component: PlaceDetails},
+    { path: '/place/benninhkieu', component: PlaceDetails},
 
 ];
 
