@@ -23,9 +23,10 @@ function CustomComment() {
             cleanliness: 1.5,
             convenience: 2,
             activities: 4,
-            date: 'Feb 2025',
+            createAt: '20/4/2025',
             title: 'Chấm vội 6/10',
             content: 'Nước rẻ thì dở nước mắc thì k có tiền mua, nhà vệ sinh siu cùi, buổi trưa nóng như chó nái.',
+            visitDate: '02/06/2003',
         },
         {
             author: 'TravelLover2025',
@@ -37,9 +38,10 @@ function CustomComment() {
             cleanliness: 4.5,
             convenience: 4.5,
             activities: 4.5,
-            date: 'Jan 2025',
+            createAt: '30/2/2024',
             title: 'Tôi thích quán này',
             content: 'Ghế ngồi quá đã, còn lại như con cặc tao',
+            visitDate: '02/06/2023',
         },
     ];
 
@@ -76,7 +78,7 @@ function CustomComment() {
     ];
 
     const toggleDetails = () => {
-        setIsDetailsVisible((prev) => !prev); // Toggle the visibility of details
+        setIsDetailsVisible((prev) => !prev);
     };
 
     return (
@@ -159,7 +161,12 @@ function CustomComment() {
                             <Select.Option value="oldest">Cũ nhất</Select.Option>
                         </Select>
 
-                        <Button icon={<EditOutlined />} className={cx('write-review-btn')} type="primary">
+                        <Button
+                            onClick={() => navigate('/write-review')}
+                            icon={<EditOutlined />}
+                            className={cx('write-review-btn')}
+                            type="primary"
+                        >
                             Viết đánh giá
                         </Button>
                     </div>
@@ -171,44 +178,46 @@ function CustomComment() {
                             <List.Item className={cx('custom-comment-item')}>
                                 <List.Item.Meta
                                     avatar={<Avatar src={item.avatar} />}
-                                    title={<span className={cx('custom-comment-author')}>{item.author}</span>}
+                                    title={
+                                        <span className={cx('title-wrapper')}>
+                                            <strong className={cx('custom-comment-author')}>{item.author}</strong>
+                                            <div className={cx('reaction')}>
+                                                <Button icon={<LikeOutlined />} className={cx('like-btn')} type="text">
+                                                    <span className={cx('like-count')}> 30</span>
+                                                </Button>
+
+                                                <Dropdown
+                                                    menu={{
+                                                        items: menuItems,
+                                                        onClick: handleMenuClick,
+                                                    }}
+                                                    trigger={['click']}
+                                                    placement="bottomRight"
+                                                    arrow={true}
+                                                >
+                                                    <Button
+                                                        icon={
+                                                            <EllipsisOutlined
+                                                                style={{ fontSize: '23px', fontWeight: 'bold' }}
+                                                            />
+                                                        }
+                                                        className={cx('more-btn')}
+                                                        type="text"
+                                                    />
+                                                </Dropdown>
+                                            </div>
+                                        </span>
+                                    }
                                     description={
                                         <>
                                             <div className={cx('rating-and-reaction')}>
                                                 <Rate className={cx('rating-title')} disabled value={item.rating} />
-                                                <div className={cx('reaction')}>
-                                                    <Button
-                                                        icon={<LikeOutlined />}
-                                                        className={cx('like-btn')}
-                                                        type="text"
-                                                    >
-                                                        <span className={cx('like-count')}> 30</span>
-                                                    </Button>
-
-                                                    <Dropdown
-                                                        menu={{
-                                                            items: menuItems,
-                                                            onClick: handleMenuClick,
-                                                        }}
-                                                        trigger={['click']}
-                                                        placement="bottomRight"
-                                                        arrow={true}
-                                                    >
-                                                        <Button
-                                                            icon={
-                                                                <EllipsisOutlined
-                                                                    style={{ fontSize: '23px', fontWeight: 'bold' }}
-                                                                />
-                                                            }
-                                                            className={cx('more-btn')}
-                                                            type="text"
-                                                        />
-                                                    </Dropdown>
-                                                </div>
                                             </div>
                                             <p className={cx('custom-comment-title')}>{item.title}</p>
+                                            <p className={cx('custom-comment-visit-date')}>
+                                                Đã đến trải nghiệm vào: {item.visitDate}
+                                            </p>
                                             <p className={cx('custom-comment-text')}>{item.content}</p>
-                                            <p className={cx('custom-comment-date')}>{item.date}</p>
                                             <div onClick={toggleDetails} className={cx('view-details-btn')}>
                                                 {isDetailsVisible ? 'Ẩn chi tiết' : 'Xem chi tiết đánh giá'}
                                             </div>
@@ -261,6 +270,10 @@ function CustomComment() {
                                                     </table>
                                                 </div>
                                             )}
+
+                                            <div className={cx('custom-comment-create-at')}>
+                                                Đánh giá vào lúc: {item.createAt}
+                                            </div>
                                         </>
                                     }
                                 />

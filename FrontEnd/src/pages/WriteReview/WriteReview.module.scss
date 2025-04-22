@@ -1,0 +1,68 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.inner {
+    margin: 100px 0;
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+}
+
+.side-bar {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 40px;
+    border-right: 1px solid #e0e0e0;
+    padding-right: 50px;
+}
+
+.content {
+    display: flex;
+    flex: 3;
+    flex-direction: column;
+    gap: 20px;
+    padding-left: 50px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+
+    label {
+        font-size: 23px;
+        font-weight: 400;
+        display: block;
+        margin-bottom: 15px;
+    }
+}
+
+.title-input {
+    height: 50px;
+
+    &:hover {
+        border: 1px solid #000000 !important;
+    }
+
+    &:focus {
+        outline: none;
+        border: 1px solid #000000 !important;
+    }
+}
+
+.content-input {
+    height: 100px;
+    resize: none;
+
+    &:hover {
+        border: 1px solid #000000 !important;
+    }
+
+    &:focus {
+        outline: none;
+        border: 1px solid #000000 !important;
+    }
+}
