@@ -1,16 +1,67 @@
 import classNames from 'classnames/bind';
-import { Layout, Flex } from 'antd';
+import { Layout, Flex, Modal, Button, Avatar, Dropdown, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { GoogleOutlined, UserOutlined } from '@ant-design/icons';
+import { useState } from 'react';
 import styles from './Header.module.scss';
 
 function Header() {
     const cx = classNames.bind(styles);
     const { Header } = Layout;
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalLoginOpen, setIsModalLoginOpen] = useState(false);
+    const [isModalRegisterOpen, setIsModalRegisterOpen] = useState(false);
+
+    const isLoggedIn = false;
+    const user = {
+        name: 'Người dùng',
+        avatarUrl: '',
+    };
 
     const handleNavigate = (path) => {
         navigate('/' + path);
+    };
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleLogin = (provider) => {
+        console.log(`Login with ${provider}`);
+        if (provider === 'Google') {
+            setIsModalOpen(false);
+        }
+    };
+
+    const handleMenuClick = ({ key }) => {
+        if (key === 'logout') {
+            console.log('Đăng xuất');
+        } else {
+            navigate('/' + key);
+        }
+    };
+
+    const dropdownItems = [
+        { key: 'profile', label: <span className={cx('menu-avt-item')}>Thông tin cá nhân</span> },
+        { key: 'notifications', label: <span className={cx('menu-avt-item')}>Thông báo</span> },
+        { key: 'schedule', label: <span className={cx('menu-avt-item')}>Lên lịch trình</span> },
+        { type: 'divider' },
+        { key: 'logout', label: <span className={cx('menu-avt-item')}>Đăng xuất</span> },
+    ];
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleLoginSubmit = () => {
+        console.log('Email:', email);
+        console.log('Password:', password);
+        setIsModalLoginOpen(false);
     };
 
     return (
@@ -18,15 +69,12 @@ function Header() {
             <Flex justify="space-between" className={cx('inner')}>
                 <div className={cx('logo')} onClick={() => handleNavigate('')}>
                     <img src="/logo.png" alt="documan" />
-                    <span className={cx('title')} >GoOhNo</span>
+                    <span className={cx('title')}>GoOhNo</span>
                 </div>
 
                 <nav className={cx('menu')}>
                     {[
                         { label: 'Trang chủ', path: '' },
-                        { label: 'Tìm kiếm', path: 'search' },
-                        { label: 'Địa điểm', path: 'admin' },
-                        { label: 'Lịch trình', path: 'hehe' },
                         { label: 'AI Chatbox', path: 'hehe' },
                     ].map((item, index) => (
                         <motion.div
@@ -39,16 +87,188 @@ function Header() {
                             {item.label}
                         </motion.div>
                     ))}
-            </nav>
+                </nav>
+
                 <div className={cx('button-group')}>
-                    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                        <button className={cx('sign-up')} onClick={() => handleNavigate('signUp')}>Sign up</button>
-                    </motion.div>
-                    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                        <button className={cx('login')} onClick={() => handleNavigate('login')}>Sign in</button>
-                    </motion.div>
+                    {!isLoggedIn ? (
+                        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                            <button className={cx('login')} onClick={showModal}>
+                                Sign in
+                            </button>
+                        </motion.div>
+                    ) : (
+                        <Dropdown
+                            trigger={['hover']}
+                            placement="bottomRight"
+                            menu={{ items: dropdownItems, onClick: handleMenuClick }}
+                            dropdownClassName={cx('dropdown-menu')}
+                        >
+                            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                                <Avatar
+                                    size={40}
+                                    icon={<UserOutlined />}
+                                    className={cx('avatar')}
+                                    onClick={showModal}
+                                    style={{ cursor: 'pointer' }}
+                                />
+                            </motion.div>
+                        </Dropdown>
+                    )}
                 </div>
             </Flex>
+
+            {/* Modal đăng nhập */}
+            <Modal
+                open={isModalOpen}
+                onCancel={handleCancel}
+                footer={null}
+                className={cx('login-modal')}
+                centered
+                destroyOnClose
+                width={400}
+            >
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, ease: 'easeOut' }}
+                    className={cx('modal-content')}
+                >
+                    <div className={cx('modal-logo')}>
+                        <img src="/logo.png" alt="GoOhNo" />
+                        <span className={cx('title')}>GoOhNo</span>
+                    </div>
+                    <p className={cx('modal-title')}>Đăng nhập để trải nghiệm các chức năng tuyệt vời hơn</p>
+                    <div className={cx('buttons')}>
+                        <Button
+                            className={cx('login-button', 'google')}
+                            icon={<GoogleOutlined />}
+                            onClick={() => handleLogin('Google')}
+                            block
+                        >
+                            Đăng nhập bằng Google
+                        </Button>
+                        <Button
+                            className={cx('login-button', 'email')}
+                            icon={<UserOutlined />}
+                            onClick={() => {
+                                setIsModalLoginOpen(true);
+                                setIsModalOpen(false);
+                            }}
+                            block
+                        >
+                            Đăng nhập bằng Tài khoản/Mật khẩu
+                        </Button>
+                    </div>
+                </motion.div>
+            </Modal>
+
+            {/* Modal đăng nhập bằng tài khoản mật khẩu */}
+            <Modal
+                open={isModalLoginOpen}
+                onCancel={() => setIsModalLoginOpen(false)}
+                footer={null}
+                className={cx('login-modal')}
+                centered
+                destroyOnClose
+                width={400}
+            >
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, ease: 'easeOut' }}
+                    className={cx('modal-content')}
+                >
+                    <div className={cx('modal-logo')}>
+                        <img src="/logo.png" alt="GoOhNo" />
+                        <span className={cx('title')}>GoOhNo</span>
+                    </div>
+                    <p className={cx('modal-title')}>Đăng nhập với Tài khoản/Mật khẩu</p>
+                    <div className={cx('login-form')}>
+                        <Input
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className={cx('login-input')}
+                            style={{ marginBottom: 20 }}
+                        />
+                        <Input.Password
+                            placeholder="Mật khẩu"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className={cx('login-input')}
+                            style={{ marginBottom: 20 }}
+                        />
+                        <div
+                            className={cx('register-link')}
+                            onClick={() => {
+                                setIsModalLoginOpen(false);
+                                setIsModalRegisterOpen(true);
+                            }}
+                        >
+                            <span>
+                                Chưa có tài khoản? <strong>Đăng ký ngay</strong>
+                            </span>
+                        </div>
+                        <Button className={cx('login-button', 'submit')} onClick={handleLoginSubmit} block>
+                            Đăng nhập
+                        </Button>
+                    </div>
+                </motion.div>
+            </Modal>
+
+            {/* Modal đăng ký */}
+            <Modal
+                open={isModalRegisterOpen}
+                onCancel={() => setIsModalRegisterOpen(false)}
+                footer={null}
+                className={cx('login-modal')}
+                centered
+                destroyOnClose
+                width={400}
+            >
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, ease: 'easeOut' }}
+                    className={cx('modal-content')}
+                >
+                    <div className={cx('modal-logo')}>
+                        <img src="/logo.png" alt="GoOhNo" />
+                        <span className={cx('title')}>GoOhNo</span>
+                    </div>
+                    <p className={cx('register-title')}>Đăng ký</p>
+                    <div className={cx('login-form')}>
+                        <Input placeholder="Họ và tên" className={cx('login-input')} style={{ marginBottom: 20 }} />
+                        <Input placeholder="Email" className={cx('login-input')} style={{ marginBottom: 20 }} />
+                        <Input.Password
+                            placeholder="Mật khẩu"
+                            className={cx('login-input')}
+                            style={{ marginBottom: 20 }}
+                        />
+                        <Input.Password
+                            placeholder="Xác nhận mật khẩu"
+                            className={cx('login-input')}
+                            style={{ marginBottom: 30 }}
+                        />
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                            <Button className={cx('register-button')} type="primary" block style={{ flex: 1 }}>
+                                Đăng ký
+                            </Button>
+                            <Button
+                                block
+                                style={{ flex: 1 }}
+                                onClick={() => {
+                                    setIsModalRegisterOpen(false);
+                                    setIsModalLoginOpen(true);
+                                }}
+                                className={cx('back-button')}
+                            >
+                                Trở về đăng nhập
+                            </Button>
+                        </div>
+                    </div>
+                </motion.div>
+            </Modal>
         </Header>
     );
 }
