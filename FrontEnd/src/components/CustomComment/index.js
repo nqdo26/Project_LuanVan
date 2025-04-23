@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function CustomComment() {
+function CustomComment({ type = 'restaurant' }) {
     const [filter, setFilter] = useState('newest');
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
     const navigate = useNavigate();
@@ -27,6 +27,12 @@ function CustomComment() {
             title: 'Chấm vội 6/10',
             content: 'Nước rẻ thì dở nước mắc thì k có tiền mua, nhà vệ sinh siu cùi, buổi trưa nóng như chó nái.',
             visitDate: '02/06/2003',
+            images: [
+                '/wimi2-img.png',
+                '/wimi3-img.png',
+                '/wimi4-img.png',
+                '/wimi1-img.png',
+            ],
         },
         {
             author: 'TravelLover2025',
@@ -42,16 +48,11 @@ function CustomComment() {
             title: 'Tôi thích quán này',
             content: 'Ghế ngồi quá đã, còn lại như con cặc tao',
             visitDate: '02/06/2023',
+            images: [],
         },
     ];
 
-    const ratingCount = {
-        5: 0,
-        4: 0,
-        3: 0,
-        2: 0,
-        1: 0,
-    };
+    const ratingCount = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
 
     reviews.forEach((review) => {
         const roundedRating = Math.round(review.rating);
@@ -95,56 +96,30 @@ function CustomComment() {
                     </div>
 
                     <div className={cx('rating-levels')}>
-                        <div className={cx('rating-level-item')}>
-                            <p className={cx('rating-title')}>Rất tốt</p>
-                            <Progress
-                                className={cx('progress')}
-                                percent={(ratingCount[5] / totalReviews) * 100}
-                                showInfo={true}
-                                strokeColor={(ratingCount[5] / totalReviews) * 100 >= 50 ? '#4caf50' : '#f44336'}
-                                format={() => `${ratingCount[5]} `}
-                            />
-                        </div>
-                        <div className={cx('rating-level-item')}>
-                            <p className={cx('rating-title')}>Tốt</p>
-                            <Progress
-                                className={cx('progress')}
-                                percent={(ratingCount[4] / totalReviews) * 100}
-                                showInfo={true}
-                                strokeColor={(ratingCount[5] / totalReviews) * 100 >= 50 ? '#4caf50' : '#f44336'}
-                                format={() => `${ratingCount[4]} `}
-                            />
-                        </div>
-                        <div className={cx('rating-level-item')}>
-                            <p className={cx('rating-title')}>Bình thường</p>
-                            <Progress
-                                className={cx('progress')}
-                                percent={(ratingCount[3] / totalReviews) * 100}
-                                showInfo={true}
-                                strokeColor={(ratingCount[5] / totalReviews) * 100 >= 50 ? '#4caf50' : '#f44336'}
-                                format={() => `${ratingCount[3]} `}
-                            />
-                        </div>
-                        <div className={cx('rating-level-item')}>
-                            <p className={cx('rating-title')}>Tệ</p>
-                            <Progress
-                                className={cx('progress')}
-                                percent={(ratingCount[2] / totalReviews) * 100}
-                                showInfo={true}
-                                strokeColor={(ratingCount[5] / totalReviews) * 100 >= 50 ? '#4caf50' : '#f44336'}
-                                format={() => `${ratingCount[2]} `}
-                            />
-                        </div>
-                        <div className={cx('rating-level-item')}>
-                            <p className={cx('rating-title')}>Rất tệ</p>
-                            <Progress
-                                className={cx('progress')}
-                                percent={(ratingCount[1] / totalReviews) * 100}
-                                showInfo={true}
-                                strokeColor={(ratingCount[5] / totalReviews) * 100 >= 50 ? '#4caf50' : '#f44336'}
-                                format={() => `${ratingCount[1]} `}
-                            />
-                        </div>
+                        {Object.entries(ratingCount)
+                            .reverse()
+                            .map(([key, count]) => (
+                                <div className={cx('rating-level-item')} key={key}>
+                                    <p className={cx('rating-title')}>
+                                        {key === '5'
+                                            ? 'Rất tốt'
+                                            : key === '4'
+                                            ? 'Tốt'
+                                            : key === '3'
+                                            ? 'Bình thường'
+                                            : key === '2'
+                                            ? 'Tệ'
+                                            : 'Rất tệ'}
+                                    </p>
+                                    <Progress
+                                        className={cx('progress')}
+                                        percent={(count / totalReviews) * 100}
+                                        showInfo={true}
+                                        strokeColor={(count / totalReviews) * 100 >= 50 ? '#4caf50' : '#f44336'}
+                                        format={() => `${count} `}
+                                    />
+                                </div>
+                            ))}
                     </div>
                 </div>
 
@@ -240,6 +215,25 @@ function CustomComment() {
                                                                     <Rate allowHalf disabled value={item.service} />
                                                                 </td>
                                                             </tr>
+
+                                                            <tr>
+                                                                <td className={cx('rating-label')}>
+                                                                    {type === 'restaurant'
+                                                                        ? 'Đồ ăn/Thức uống:'
+                                                                        : 'Hoạt động:'}
+                                                                </td>
+                                                                <td className={cx('rating-stars')}>
+                                                                    <Rate
+                                                                        allowHalf
+                                                                        disabled
+                                                                        value={
+                                                                            type === 'restaurant'
+                                                                                ? item.convenience
+                                                                                : item.activities
+                                                                        }
+                                                                    />
+                                                                </td>
+                                                            </tr>
                                                             <tr>
                                                                 <td className={cx('rating-label')}>Giá cả:</td>
                                                                 <td className={cx('rating-stars')}>
@@ -260,14 +254,20 @@ function CustomComment() {
                                                                     <Rate allowHalf disabled value={item.convenience} />
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td className={cx('rating-label')}>Hoạt động:</td>
-                                                                <td className={cx('rating-stars')}>
-                                                                    <Rate allowHalf disabled value={item.activities} />
-                                                                </td>
-                                                            </tr>
                                                         </tbody>
                                                     </table>
+                                                </div>
+                                            )}
+                                            {item.images && item.images.length > 0 && (
+                                                <div className={cx('comment-images')}>
+                                                    {item.images.slice(0, 4).map((img, idx) => (
+                                                        <img
+                                                            key={idx}
+                                                            src={img}
+                                                            alt={`review-img-${idx}`}
+                                                            className={cx('comment-image')}
+                                                        />
+                                                    ))}
                                                 </div>
                                             )}
 

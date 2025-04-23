@@ -24,45 +24,7 @@
 .content {
     display: flex;
     flex: 3;
-    flex-direction: column;
-    gap: 20px;
     padding-left: 50px;
 }
 
-.form-group {
-    margin-bottom: 20px;
 
-    label {
-        font-size: 23px;
-        font-weight: 400;
-        display: block;
-        margin-bottom: 15px;
-    }
-}
-
-.title-input {
-    height: 50px;
-
-    &:hover {
-        border: 1px solid #000000 !important;
-    }
-
-    &:focus {
-        outline: none;
-        border: 1px solid #000000 !important;
-    }
-}
-
-.content-input {
-    height: 100px;
-    resize: none;
-
-    &:hover {
-        border: 1px solid #000000 !important;
-    }
-
-    &:focus {
-        outline: none;
-        border: 1px solid #000000 !important;
-    }
-}

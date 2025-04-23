@@ -37,7 +37,7 @@ function DestinationDetails() {
                         }))}
                     />
                     <DestinationOverview/>
-                    <CustomComment id="comments" />
+                    <CustomComment />
                 </div>
             </div>
         </div>

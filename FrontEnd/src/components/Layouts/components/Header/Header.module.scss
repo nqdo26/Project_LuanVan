@@ -40,6 +40,8 @@
     padding: 7px;
 }
 
+
+
 .menu {
     display: flex;
     gap: 30px;
@@ -81,6 +83,12 @@
         background-color: #e4e4e4;
         color: #000 !important;
     }
+}
+
+.logo {
+    padding: 0px !important;
+    height: 35px !important;
+
 }
 
 @media (max-width: 768px) {
@@ -236,7 +244,7 @@
     cursor: pointer;
 
     &:hover {
-        color: #0051ff !important;
+        color: #00a2ff;
     }
 }
 
@@ -274,7 +282,7 @@
 .back-button:hover,
 .register-button:hover,
 .login-button:hover {
-    border-color: transparent !important; // hoặc một màu rõ hơn tùy bạn
+    border-color: transparent !important;
 }
 
 .login-button {

@@ -134,7 +134,7 @@ function Header() {
                     className={cx('modal-content')}
                 >
                     <div className={cx('modal-logo')}>
-                        <img src="/logo.png" alt="GoOhNo" />
+                        <img className={cx('logo')} src="/logo.png" alt="GoOhNo" />
                         <span className={cx('title')}>GoOhNo</span>
                     </div>
                     <p className={cx('modal-title')}>Đăng nhập để trải nghiệm các chức năng tuyệt vời hơn</p>
@@ -179,10 +179,10 @@ function Header() {
                     className={cx('modal-content')}
                 >
                     <div className={cx('modal-logo')}>
-                        <img src="/logo.png" alt="GoOhNo" />
+                        <img className={cx('logo')} src="/logo.png" alt="GoOhNo" />
                         <span className={cx('title')}>GoOhNo</span>
                     </div>
-                    <p className={cx('modal-title')}>Đăng nhập với Tài khoản/Mật khẩu</p>
+                    <p className={cx('modal-title')}>Đăng nhập</p>
                     <div className={cx('login-form')}>
                         <Input
                             placeholder="Email"
@@ -216,7 +216,6 @@ function Header() {
                 </motion.div>
             </Modal>
 
-            {/* Modal đăng ký */}
             <Modal
                 open={isModalRegisterOpen}
                 onCancel={() => setIsModalRegisterOpen(false)}
@@ -233,7 +232,7 @@ function Header() {
                     className={cx('modal-content')}
                 >
                     <div className={cx('modal-logo')}>
-                        <img src="/logo.png" alt="GoOhNo" />
+                        <img className={cx('logo')} src="/logo.png" alt="GoOhNo" />
                         <span className={cx('title')}>GoOhNo</span>
                     </div>
                     <p className={cx('register-title')}>Đăng ký</p>
