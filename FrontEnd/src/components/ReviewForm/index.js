@@ -23,11 +23,36 @@ function ReviewForm({ type = 'restaurant', onSubmit }) {
         images: [],
     });
 
+    const getRatingText = (rating) => {
+        if (rating >= 4.5) return 'Rất tốt';
+        if (rating >= 4) return 'Tốt';
+        if (rating >= 3) return 'Bình thường';
+        if (rating >= 2) return 'Tệ';
+        if (rating >= 1) return 'Rất tệ';
+        return '';
+    };
+
     const handleChange = (key, value) => {
-        setForm((prev) => ({
-            ...prev,
-            [key]: value,
-        }));
+        setForm((prev) => {
+            const newForm = {
+                ...prev,
+                [key]: value,
+            };
+
+            // Cập nhật tổng thể khi thay đổi các tiêu chí đánh giá
+            const rateKeys = ['landscape', 'service', 'price', 'cleanliness', 'convenience', 'activities'];
+
+            if (rateKeys.includes(key)) {
+                const validRates = rateKeys.map((k) => newForm[k]).filter((v) => v > 0); // chỉ lấy các giá trị đã chọn (lớn hơn 0)
+
+                const total = validRates.reduce((sum, val) => sum + val, 0);
+                const average = validRates.length ? total / validRates.length : 0;
+
+                newForm.rating = Math.round(average * 2) / 2; // Làm tròn 0.5
+            }
+
+            return newForm;
+        });
     };
 
     const handleImageChange = ({ fileList }) => {
@@ -40,21 +65,23 @@ function ReviewForm({ type = 'restaurant', onSubmit }) {
 
     const handleSubmit = () => {
         console.log('Review gửi đi:', form);
-        if (onSubmit) onSubmit(form); // Gọi callback onSubmit nếu có
+        if (onSubmit) onSubmit(form);
     };
 
     return (
         <div className={cx('wrapper')}>
+            {/* Tiêu đề */}
             <div className={cx('form-group')}>
                 <label>Tiêu đề đánh giá:</label>
                 <Input
                     value={form.title}
                     className={cx('title-input')}
                     onChange={(e) => handleChange('title', e.target.value)}
-                    placeholder="Ví dụ: Nóng như chó nái"
+                    placeholder="Ví dụ: Khung cảnh tuyệt đẹp, đồ ăn xuất sắc!"
                 />
             </div>
 
+            {/* Nội dung */}
             <div className={cx('form-group')}>
                 <label>Nội dung đánh giá:</label>
                 <TextArea
@@ -66,47 +93,90 @@ function ReviewForm({ type = 'restaurant', onSubmit }) {
                 />
             </div>
 
+            {/* Ngày trải nghiệm */}
             <div className={cx('form-group')}>
-                <label>Thời gian đến trải nghiệm:</label>
+                <label>Thời gian trải nghiệm:</label>
                 <DatePicker picker="day" value={form.date} onChange={(value) => handleChange('date', value)} />
             </div>
 
             <div className={cx('form-group-rate')}>
-                <label>Đánh giá tổng thể:</label>
-                <Rate value={form.rating} onChange={(value) => handleChange('rating', value)} />
+                <label>Đánh giá chi tiết:</label>
+                <div className={cx('total-rating')}>
+                    <Rate allowHalf disabled value={form.rating} />
+                    {form.rating > 0 && <span className={cx('rating-text')}>{getRatingText(form.rating)}</span>}
+                </div>
+            </div>
+            <div className={cx('rating-details')}>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td className={cx('rating-details-label')}>Cảnh quan:</td>
+                            <td className={cx('rating-stars')}>
+                                <Rate
+                                    allowHalf
+                                    value={form.landscape}
+                                    onChange={(value) => handleChange('landscape', value)}
+                                />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td className={cx('rating-details-label')}>Dịch vụ / Tiện ích:</td>
+                            <td className={cx('rating-stars')}>
+                                <Rate
+                                    allowHalf
+                                    value={form.service}
+                                    onChange={(value) => handleChange('service', value)}
+                                />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td className={cx('rating-details-label')}>Giá cả:</td>
+                            <td className={cx('rating-stars')}>
+                                <Rate allowHalf value={form.price} onChange={(value) => handleChange('price', value)} />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td className={cx('rating-details-label')}>Vệ sinh:</td>
+                            <td className={cx('rating-stars')}>
+                                <Rate
+                                    allowHalf
+                                    value={form.cleanliness}
+                                    onChange={(value) => handleChange('cleanliness', value)}
+                                />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td className={cx('rating-details-label')}>
+                                {type === 'restaurant' ? 'Đồ ăn / Thức uống' : 'Hoạt động'}:
+                            </td>
+                            <td className={cx('rating-stars')}>
+                                <Rate
+                                    allowHalf
+                                    value={form.activities}
+                                    onChange={(value) => handleChange('activities', value)}
+                                />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td className={cx('rating-details-label')}>Độ thuận tiện:</td>
+                            <td className={cx('rating-stars')}>
+                                <Rate
+                                    allowHal
+                                    value={form.convenience}
+                                    onChange={(value) => handleChange('convenience', value)}
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <div className={cx('form-group-rate')}>
-                <label>Cảnh quan:</label>
-                <Rate allowHalf value={form.landscape} onChange={(value) => handleChange('landscape', value)} />
-            </div>
-
-            <div className={cx('form-group-rate')}>
-                <label>Dịch vụ / Tiện ích:</label>
-                <Rate allowHalf value={form.service} onChange={(value) => handleChange('service', value)} />
-            </div>
-
-            <div className={cx('form-group-rate')}>
-                <label>Giá cả:</label>
-                <Rate allowHalf value={form.price} onChange={(value) => handleChange('price', value)} />
-            </div>
-
-            <div className={cx('form-group-rate')}>
-                <label>Vệ sinh:</label>
-                <Rate allowHalf value={form.cleanliness} onChange={(value) => handleChange('cleanliness', value)} />
-            </div>
-
-
-            <div className={cx('form-group-rate')}>
-                <label>{type === 'restaurant' ? 'Đồ ăn/Thức uống' : 'Hoạt động'}:</label>
-                <Rate allowHalf value={form.activities} onChange={(value) => handleChange('activities', value)} />
-            </div>
-
-            <div className={cx('form-group-rate')}>
-                <label>Độ thuận tiện:</label>
-                <Rate allowHalf value={form.convenience} onChange={(value) => handleChange('convenience', value)} />
-            </div>
-
+            {/* Upload hình ảnh */}
             <div className={cx('form-group')}>
                 <label>Tải lên hình ảnh (tối đa 4):</label>
                 <Upload
@@ -124,6 +194,7 @@ function ReviewForm({ type = 'restaurant', onSubmit }) {
                 </Upload>
             </div>
 
+            {/* Nút submit */}
             <div className={cx('form-group-submit')}>
                 <Button className={cx('btn-submit')} onClick={handleSubmit}>
                     Gửi đánh giá
