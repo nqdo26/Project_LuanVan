@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function CustomComment({ type = 'restaurant' }) {
+function CustomComment({ type = 'restauran' }) {
     const [filter, setFilter] = useState('newest');
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
     const navigate = useNavigate();
@@ -27,12 +27,7 @@ function CustomComment({ type = 'restaurant' }) {
             title: 'Chấm vội 6/10',
             content: 'Nước rẻ thì dở nước mắc thì k có tiền mua, nhà vệ sinh siu cùi, buổi trưa nóng như chó nái.',
             visitDate: '02/06/2003',
-            images: [
-                '/wimi2-img.png',
-                '/wimi3-img.png',
-                '/wimi4-img.png',
-                '/wimi1-img.png',
-            ],
+            images: ['/wimi2-img.png', '/wimi3-img.png', '/wimi4-img.png', '/wimi1-img.png'],
         },
         {
             author: 'TravelLover2025',
@@ -201,63 +196,146 @@ function CustomComment({ type = 'restaurant' }) {
                                                 <div className={cx('rating-details')}>
                                                     <table>
                                                         <tbody>
-                                                            <tr>
-                                                                <td className={cx('rating-label')}>Cảnh quan:</td>
-                                                                <td className={cx('rating-stars')}>
-                                                                    <Rate allowHalf disabled value={item.landscape} />
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td className={cx('rating-label')}>
-                                                                    Dịch vụ/Tiện ích:
-                                                                </td>
-                                                                <td className={cx('rating-stars')}>
-                                                                    <Rate allowHalf disabled value={item.service} />
-                                                                </td>
-                                                            </tr>
-
-                                                            <tr>
-                                                                <td className={cx('rating-label')}>
-                                                                    {type === 'restaurant'
-                                                                        ? 'Đồ ăn/Thức uống:'
-                                                                        : 'Hoạt động:'}
-                                                                </td>
-                                                                <td className={cx('rating-stars')}>
-                                                                    <Rate
-                                                                        allowHalf
-                                                                        disabled
-                                                                        value={
-                                                                            type === 'restaurant'
-                                                                                ? item.convenience
-                                                                                : item.activities
-                                                                        }
-                                                                    />
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td className={cx('rating-label')}>Giá cả:</td>
-                                                                <td className={cx('rating-stars')}>
-                                                                    <Rate allowHalf disabled value={item.price} />
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td className={cx('rating-label')}>Vệ sinh:</td>
-                                                                <td className={cx('rating-stars')}>
-                                                                    <Rate allowHalf disabled value={item.cleanliness} />
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td className={cx('rating-label')}>
-                                                                    Độ thuận tiện đường đi:
-                                                                </td>
-                                                                <td className={cx('rating-stars')}>
-                                                                    <Rate allowHalf disabled value={item.convenience} />
-                                                                </td>
-                                                            </tr>
+                                                            {/* Cập nhật tiêu chí cho restaurant */}
+                                                            {type === 'restaurant' ? (
+                                                                <>
+                                                                    <tr>
+                                                                        <td className={cx('rating-label')}>
+                                                                            Đồ ăn/Thức uống:
+                                                                        </td>
+                                                                        <td className={cx('rating-stars')}>
+                                                                            <Rate
+                                                                                allowHalf
+                                                                                disabled
+                                                                                value={item.convenience}
+                                                                            />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td className={cx('rating-label')}>
+                                                                            Không gian:
+                                                                        </td>
+                                                                        <td className={cx('rating-stars')}>
+                                                                            <Rate
+                                                                                allowHalf
+                                                                                disabled
+                                                                                value={item.landscape}
+                                                                            />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td className={cx('rating-label')}>
+                                                                            Phục vụ:
+                                                                        </td>
+                                                                        <td className={cx('rating-stars')}>
+                                                                            <Rate
+                                                                                allowHalf
+                                                                                disabled
+                                                                                value={item.service}
+                                                                            />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td className={cx('rating-label')}>Vệ sinh:</td>
+                                                                        <td className={cx('rating-stars')}>
+                                                                            <Rate
+                                                                                allowHalf
+                                                                                disabled
+                                                                                value={item.cleanliness}
+                                                                            />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td className={cx('rating-label')}>Giá cả:</td>
+                                                                        <td className={cx('rating-stars')}>
+                                                                            <Rate
+                                                                                allowHalf
+                                                                                disabled
+                                                                                value={item.price}
+                                                                            />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td className={cx('rating-label')}>
+                                                                            Độ thuận tiện đường đi:
+                                                                        </td>
+                                                                        <td className={cx('rating-stars')}>
+                                                                            <Rate
+                                                                                allowHalf
+                                                                                disabled
+                                                                                value={item.convenience}
+                                                                            />
+                                                                        </td>
+                                                                    </tr>
+                                                                </>
+                                                            ) : (
+                                        
+                                                                <>
+                                                                    <tr>
+                                                                        <td className={cx('rating-label')}>
+                                                                            Cảnh quan:
+                                                                        </td>
+                                                                        <td className={cx('rating-stars')}>
+                                                                            <Rate
+                                                                                allowHalf
+                                                                                disabled
+                                                                                value={item.landscape}
+                                                                            />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td className={cx('rating-label')}>
+                                                                            Hoạt động trải nghiệm:
+                                                                        </td>
+                                                                        <td className={cx('rating-stars')}>
+                                                                            <Rate
+                                                                                allowHalf
+                                                                                disabled
+                                                                                value={item.activities}
+                                                                            />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td className={cx('rating-label')}>
+                                                                            Chi phí tham quan:
+                                                                        </td>
+                                                                        <td className={cx('rating-stars')}>
+                                                                            <Rate
+                                                                                allowHalf
+                                                                                disabled
+                                                                                value={item.price}
+                                                                            />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td className={cx('rating-label')}>Vệ sinh:</td>
+                                                                        <td className={cx('rating-stars')}>
+                                                                            <Rate
+                                                                                allowHalf
+                                                                                disabled
+                                                                                value={item.cleanliness}
+                                                                            />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td className={cx('rating-label')}>
+                                                                            Độ thuận tiện đường đi:
+                                                                        </td>
+                                                                        <td className={cx('rating-stars')}>
+                                                                            <Rate
+                                                                                allowHalf
+                                                                                disabled
+                                                                                value={item.convenience}
+                                                                            />
+                                                                        </td>
+                                                                    </tr>
+                                                                </>
+                                                            )}
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             )}
+
                                             {item.images && item.images.length > 0 && (
                                                 <div className={cx('comment-images')}>
                                                     {item.images.slice(0, 4).map((img, idx) => (

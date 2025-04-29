@@ -39,7 +39,7 @@
 .rating-text {
     display: flex;
     align-items: center;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
 }
 
@@ -48,6 +48,7 @@
 }
 
 .rating-details-label {
+    margin-right: 50px;
     font-size: 15px;
     display: block;
 }

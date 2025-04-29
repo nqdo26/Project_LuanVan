@@ -6,6 +6,7 @@ import {
     BulbFilled,
     CheckOutlined,
     ClockCircleOutlined,
+    DollarCircleOutlined,
     EditOutlined,
     EnvironmentOutlined,
     FacebookFilled,
@@ -16,7 +17,6 @@ import {
     PhoneFilled,
     PlusCircleOutlined,
     RiseOutlined,
-    RocketFilled,
     ShareAltOutlined,
     TagOutlined,
 } from '@ant-design/icons';
@@ -28,7 +28,7 @@ function DestinationOverview({
         title: 'Wimi-Factory',
         description:
             'Wimi-Factory là một không gian cà phê sáng tạo và hiện đại, kết hợp phong cách công nghiệp với thiên nhiên. Không gian được chia thành nhiều khu vực, phù hợp để học tập, làm việc hoặc thư giãn.',
-        type: 'hehe',
+        type: 'restauran',
         tag: [],
         location: '123 Đường ABC, Quận 1, TP.HCM',
         createAt: new Date(),
@@ -107,7 +107,7 @@ function DestinationOverview({
         <div className={cx('wrapper')}>
             <div className={cx('overview-and-action')}>
                 <div className={cx('overview')}>
-                    <div id="description" className={cx('overview-item')}>
+                    <div className={cx('overview-item')}>
                         <h2 className={cx('title')}>Giới thiệu</h2>
                         <div className={cx('content', { expanded: showMore })}>{destination.description}</div>
                         <button onClick={toggleShowMore} className={cx('show-more-btn')}>
@@ -150,19 +150,20 @@ function DestinationOverview({
                                 {renderList(destination.detail.type, <TagOutlined style={{ color: '#722ED1' }} />)}
                             </div>
                             <div className={cx('overview-item')}>
-                                <h2 className={cx('title')}>Trải nghiệm đặc trưng</h2>
+                                <h2 className={cx('title')}>Hoạt động đặc trưng</h2>
                                 {renderList(
                                     destination.detail.activities,
                                     <RiseOutlined style={{ color: '#FA541C' }} />,
                                 )}
                             </div>
                             <div className={cx('overview-item')}>
-                                <h2 className={cx('title')}>Dịch vụ tiện ích</h2>
+                                <h2 className={cx('title')}>Chi phí tham quan</h2>
                                 {renderList(
                                     destination.detail.services,
-                                    <CheckOutlined style={{ color: '#1890ff' }} />,
+                                    <DollarCircleOutlined style={{ color: '#52c41a' }} />,
                                 )}
                             </div>
+
                             <div className={cx('overview-item')}>
                                 <h2 className={cx('title')}>Thông tin hữu ích</h2>
                                 {renderList(destination.detail.usefulInfo, <BulbFilled style={{ color: '#FAAD14' }} />)}

@@ -24,10 +24,13 @@ const destinationSchema = new mongoose.Schema({
     },
     detail: {
         highlight: [String],
-        type: [String],
+        culture: [String],
         activities: [String],
+        fee: [String],
+        amenities: [String],
         services: [String],
         usefulInfo: [String],
+        location: String,
     },
     openHour: {
         mon: { open: String, close: String },

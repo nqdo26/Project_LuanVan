@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind';
-
 import styles from './DestinationDetails.module.scss';
 import DestinationDetailPageHeader from '~/components/DestinationDetailPageHeader';
 import DestinationGallery from '~/components/DestinationGallery';
@@ -11,8 +10,7 @@ const cx = classNames.bind(styles);
 
 const items = [
     { key: 'description', label: 'Tổng quan' },
-    { key: 'location', label: 'Vị trí' },
-    { key: 'comments', label: 'Bình luận' },
+    { key: 'rate', label: 'Đánh giá' },
 ];
 
 const scrollToSection = (id) => {
@@ -27,17 +25,21 @@ function DestinationDetails() {
                     <DestinationDetailPageHeader title="Wimi-Factory" />
                 </div>
                 <div className={cx('body')}>
-                    <DestinationGallery type="restaurant"/>
+                    <DestinationGallery type="restaurant" />
                     <Tabs
                         className={cx('tabs')}
-                        onChange={scrollToSection}
+                        onChange={scrollToSection} 
                         items={items.map(({ key, label }) => ({
                             key,
                             label: <span className={cx('tab-item')}>{label}</span>,
                         }))}
                     />
-                    <DestinationOverview/>
-                    <CustomComment />
+                    <div id="description">
+                        <DestinationOverview />
+                    </div>
+                    <div id="rate">
+                        <CustomComment />
+                    </div>
                 </div>
             </div>
         </div>
