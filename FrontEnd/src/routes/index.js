@@ -16,6 +16,7 @@ import PlaceDetails from '~/pages/PlaceDetails';
 import Profile from '~/pages/Profile';
 import Register from '~/pages/Register';
 import Search from '~/pages/Search';
+import TourDetail from '~/pages/TourDetail';
 import WriteReview from '~/pages/WriteReview';
 
 // Public routes
@@ -40,6 +41,7 @@ const publicRoutes = [
     { path: '/places', component: Place },
     { path: '/place/benninhkieu', component: PlaceDetails },
     { path: '/write-review', component: WriteReview },
+    { path: '/tour/hehe', component: TourDetail },
 ];
 
 export { publicRoutes, privateRoutes };
