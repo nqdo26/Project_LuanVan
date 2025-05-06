@@ -5,8 +5,9 @@
 
 .inner {
     margin-bottom: 50px;
-    display: flex; 
-    flex-direction: column; 
+
+    display: flex;
+    flex-direction: column;
     gap: 20px;
     align-items: center;
 }
@@ -17,6 +18,7 @@
 
 .body {
     width: 70%;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -29,19 +31,6 @@
     transition: color 0.5s ease;
 }
 
-:global {
-    .ant-tabs-tab-active {
-        .tab-icon,
-        .tab-label {
-            color: #000000 !important;
-        }
-    }
-
-    .ant-tabs-ink-bar {
-        background-color: #000000 !important;
-    }
-
-    .ant-tabs-nav::before {
-        border-bottom: none !important;
-    }
+.nav {
+    width: 100%;
 }

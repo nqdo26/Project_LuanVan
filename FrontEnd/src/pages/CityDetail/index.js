@@ -5,6 +5,7 @@ import DestinationOverview from '~/components/DestinationOverview';
 import CustomComment from '~/components/CustomComment';
 import { Tabs } from 'antd';
 import CityGallery from '~/components/CityGallery';
+import CustomNav from '~/components/CustomNav';
 
 const cx = classNames.bind(styles);
 
@@ -30,19 +31,12 @@ function CityDetail() {
                     <CityGallery />
                 </div>
                 <div className={cx('body')}>
-                    <Tabs
-                        className={cx('tabs')}
-                        onChange={scrollToSection}
-                        items={items.map(({ key, label }) => ({
-                            key,
-                            label: <span className={cx('tab-item')}>{label}</span>,
-                        }))}
-                    />
-                    <div id="description">
-                        <DestinationOverview />
-                    </div>
-                    <div id="rate">
-                        <CustomComment />
+                  <div className={cx('nav')}> <CustomNav /></div>
+                    <div className={cx('info')} >
+                        <h1 className={cx('title')}>Vài nét về Hà Nội</h1>
+                        <p className={cx('description')}>
+                        Hà Nội, thủ đô của Việt Nam,  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sửHà Nội, thủ đô của Việt Nam,  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sửHà Nội, thủ đô của Việt Nam,  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử
+                        </p>
                     </div>
                 </div>
             </div>
