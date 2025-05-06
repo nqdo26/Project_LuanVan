@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { motion } from 'framer-motion';
 import styles from './DestinationDetails.module.scss';
 import DestinationDetailPageHeader from '~/components/DestinationDetailPageHeader';
 import DestinationGallery from '~/components/DestinationGallery';
@@ -19,7 +20,12 @@ const scrollToSection = (id) => {
 
 function DestinationDetails() {
     return (
-        <div className={cx('wrapper')}>
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className={cx('wrapper')}
+        >
             <div className={cx('inner')}>
                 <div className={cx('header')}>
                     <DestinationDetailPageHeader title="Wimi-Factory" />
@@ -28,7 +34,7 @@ function DestinationDetails() {
                     <DestinationGallery type="restaurant" />
                     <Tabs
                         className={cx('tabs')}
-                        onChange={scrollToSection} 
+                        onChange={scrollToSection}
                         items={items.map(({ key, label }) => ({
                             key,
                             label: <span className={cx('tab-item')}>{label}</span>,
@@ -42,7 +48,7 @@ function DestinationDetails() {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
 

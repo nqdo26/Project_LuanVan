@@ -7,12 +7,11 @@ import Admin from '~/pages/Admin';
 import AdminDestinationManage from '~/pages/AdminDestinationManage';
 import AdminPlaceManage from '~/pages/AdminPlaceManage';
 import AdminUserManage from '~/pages/AdminUserManage';
+import CityDetail from '~/pages/CityDetail';
 import DestinationDetails from '~/pages/DestinationDetails';
 import Destinations from '~/pages/Destinations';
 import Home from '~/pages/Home';
 import Login from '~/pages/Login';
-import Place from '~/pages/PlaceDetails';
-import PlaceDetails from '~/pages/PlaceDetails';
 import Profile from '~/pages/Profile';
 import Register from '~/pages/Register';
 import Search from '~/pages/Search';
@@ -38,10 +37,9 @@ const publicRoutes = [
 
     { path: '/destinations', component: Destinations },
     { path: '/destination/wimi-factory', component: DestinationDetails },
-    { path: '/places', component: Place },
-    { path: '/place/benninhkieu', component: PlaceDetails },
     { path: '/write-review', component: WriteReview },
     { path: '/tour/hehe', component: TourDetail },
+    { path: 'city/hehe', component: CityDetail },
 ];
 
 export { publicRoutes, privateRoutes };

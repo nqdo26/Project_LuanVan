@@ -19,7 +19,7 @@ function ImageCarousel() {
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
             className="flex justify-center"
             >
               <div className={cx('carousel-container')}>
