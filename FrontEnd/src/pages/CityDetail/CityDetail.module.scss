@@ -37,11 +37,23 @@
 .title {
     font-size: 25px;
     font-weight: 500;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .description {
     font-size: 15px;
-    font-weight: 400;
     color: #000000;
+}
+
+.destination {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    flex: 1;
+}
+
+.list {
+    flex: 3;
 }
