@@ -6,6 +6,7 @@ import CustomComment from '~/components/CustomComment';
 import { Tabs } from 'antd';
 import CityGallery from '~/components/CityGallery';
 import CustomNav from '~/components/CustomNav';
+import WeatherInfo from '~/components/WeatherInfo';
 
 const cx = classNames.bind(styles);
 
@@ -31,12 +32,28 @@ function CityDetail() {
                     <CityGallery />
                 </div>
                 <div className={cx('body')}>
-                  <div className={cx('nav')}> <CustomNav /></div>
-                    <div className={cx('info')} >
+                    <div className={cx('nav')}>
+                        <CustomNav />
+                    </div>
+                    <div className={cx('info')}>
                         <h1 className={cx('title')}>Vài nét về Hà Nội</h1>
                         <p className={cx('description')}>
-                        Hà Nội, thủ đô của Việt Nam,  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sửHà Nội, thủ đô của Việt Nam,  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sửHà Nội, thủ đô của Việt Nam,  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử
+                            Hà Nội, thủ đô của Việt Nam, một thành phố của truyền thống và lịch sử một thành phố của
+                            truyền thống và lịch sử một thành phố của truyền thống và lịch sử một thành phố của truyền
+                            thống và lịch sử một thành phố của truyền thống và lịch sử một thành phố của truyền thống và
+                            lịch sử một thành phố của truyền thống và lịch sửHà Nội, thủ đô của Việt Nam, một thành phố
+                            của truyền thống và lịch sử một thành phố của truyền thống và lịch sử một thành phố của
+                            truyền thống và lịch sử một thành phố của truyền thống và lịch sử một thành phố của truyền
+                            thống và lịch sử một thành phố của truyền thống và lịch sử một thành phố của truyền thống và
+                            lịch sửHà Nội, thủ đô của Việt Nam, một thành phố của truyền thống và lịch sử một thành phố
+                            của truyền thống và lịch sử một thành phố của truyền thống và lịch sử một thành phố của
+                            truyền thống và lịch sử một thành phố của truyền thống và lịch sử một thành phố của truyền
+                            thống và lịch sử một thành phố của truyền thống và lịch sử
                         </p>
+                    </div>
+                    <div className={cx('weather')} >
+                    <h1 className={cx('title')}>Thông tin hữu ích</h1>
+                        <WeatherInfo/>
                     </div>
                 </div>
             </div>

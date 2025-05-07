@@ -9,7 +9,8 @@ const cx = classNames.bind(styles);
 function CityGallery({
     city = {
         title: 'Hà Nội',
-        description: 'Hà Nội, thủ đô của Việt Nam,  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử',
+        description:
+            'Hà Nội, thủ đô của Việt Nam,  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử  một thành phố của truyền thống và lịch sử',
         time: 'THG 1 - THG 2',
         duration: '3 ngày',
         images: ['/wimi1-img.png', '/wimi2-img.png', '/wimi3-img.png', '/wimi4-img.png'],
@@ -42,6 +43,7 @@ function CityGallery({
                     <h1 className={cx('title')}>{city.title}</h1>
                     <p className={cx('description')}>{city.description}</p>
                     <s className={cx('show-more')}>Xem thêm</s>
+
                     <div className={cx('best-time')}>
                         <div className={cx('item')}>
                             <p className={cx('time-title')}>Thời gian tuyệt nhất để đến</p>

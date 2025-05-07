@@ -2,6 +2,7 @@
   "dependencies": {
     "framer-motion": "^12.4.7",
     "lottie-react": "^2.4.1",
-    "lucide-react": "^0.485.0"
+    "lucide-react": "^0.485.0",
+    "slugify": "^1.6.6"
   }
 }

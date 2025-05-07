@@ -1,12 +1,13 @@
-import { InfoCircleTwoTone, EnvironmentTwoTone, CalendarTwoTone } from '@ant-design/icons';
+import { InfoCircleTwoTone, EnvironmentTwoTone, CalendarTwoTone, CloudTwoTone } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import styles from './CustomNav.module.scss';
 
 const cx = classNames.bind(styles);
 const navItems = [
-    { icon: <InfoCircleTwoTone twoToneColor="#1890ff" className={cx('icon')} />, label: 'Giới thiệu' },
-    { icon: <EnvironmentTwoTone twoToneColor="#00b96b" className={cx('icon')} />, label: 'Danh sách địa điểm' },
-    { icon: <CalendarTwoTone twoToneColor="#faad14" className={cx('icon')} />, label: 'Tour du lịch' },
+    { icon: <InfoCircleTwoTone twoToneColor="#52c41a" className={cx('icon')} />, label: 'Giới thiệu' }, 
+    { icon: <CloudTwoTone twoToneColor="#40a9ff" className={cx('icon')} />, label: 'Thời tiết' }, 
+    { icon: <EnvironmentTwoTone twoToneColor="#fa541c" className={cx('icon')} />, label: 'Địa điểm' }, 
+    { icon: <CalendarTwoTone twoToneColor="#722ed1" className={cx('icon')} />, label: 'Tour' }, 
 ];
 
 function CustomNav() {
