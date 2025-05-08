@@ -16,7 +16,7 @@
 }
 
 .body {
-    width: 70%;
+    width: 62%;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -37,7 +37,6 @@
 .title {
     font-size: 25px;
     font-weight: 500;
-    margin-bottom: 10px;
 }
 
 .description {
@@ -47,6 +46,8 @@
 
 .destination {
     display: flex;
+    flex-direction: row;
+    gap: 20px;
     width: 100%;
 }
 
@@ -56,4 +57,14 @@
 
 .list {
     flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
+
+.items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    justify-content: center;
+}
+

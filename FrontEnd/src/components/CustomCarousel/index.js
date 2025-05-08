@@ -21,7 +21,6 @@ function CustomCarousel({ title, card, number }) {
          >
             <div className={cx('wrapper')}>
                 <h2 className={cx('title')}>{title}</h2>
-
                 <div className={cx('Custom')}>
                     <Carousel
                         slidesToShow={number}  

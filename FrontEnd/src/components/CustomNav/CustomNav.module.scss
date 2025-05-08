@@ -1,8 +1,8 @@
 .wrapper {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    padding: 0 275px;
+    gap: 50px;
+    justify-content: center;
 }
 
 .item {

@@ -5,8 +5,23 @@ import CityGallery from '~/components/CityGallery';
 import CustomNav from '~/components/CustomNav';
 import WeatherInfo from '~/components/WeatherInfo';
 import CitySideBar from '~/components/CitySideBar';
+import ResultSorter from '~/components/ResultSorter';
+import DestinationCard from '~/components/DestinationCard';
+import { List } from 'antd';
 
 const cx = classNames.bind(styles);
+
+const destinations = [
+    { id: 1, title: 'Destination 1' },
+    { id: 2, title: 'Destination 2' },
+    { id: 3, title: 'Destination 3' },
+    { id: 4, title: 'Destination 4' },
+    { id: 5, title: 'Destination 5' },
+    { id: 6, title: 'Destination 6' },
+    { id: 7, title: 'Destination 7' },
+    { id: 8, title: 'Destination 8' },
+    { id: 9, title: 'Destination 9' },
+];
 
 function CityDetail() {
     return (
@@ -45,7 +60,23 @@ function CityDetail() {
                         <div className={'sidebar'}>
                             <CitySideBar />
                         </div>
-                        <div className={cx('list')}></div>
+                        <div className={cx('list')}>
+                            <div className={cx('nav')}>
+                                <ResultSorter />
+                            </div>
+                            <div className={cx('items')}>
+                                <List
+                                    grid={{ gutter: 20, xs: 2, sm: 2, md: 3, lg: 3, xl: 3 }}
+                                    dataSource={destinations}
+                                    pagination={{ pageSize: 15 }}
+                                    renderItem={(item) => (
+                                        <List.Item style={{ width: '100%' }}>
+                                            <DestinationCard title={item.title} />
+                                        </List.Item>
+                                    )}
+                                />
+                            </div>
+                        </div>
                     </div>
                     <h1 className={cx('title')}>Thông tin hữu ích</h1>
                     <div className={cx('weather')}>
