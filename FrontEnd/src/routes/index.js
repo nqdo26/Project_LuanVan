@@ -40,6 +40,8 @@ const publicRoutes = [
     { path: '/write-review', component: WriteReview },
     { path: '/tour/hehe', component: TourDetail },
     { path: 'city/hehe', component: CityDetail },
+    { path: '/add-trip', component: AddTrip },
+
 ];
 
 export { publicRoutes, privateRoutes };

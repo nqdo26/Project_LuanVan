@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { Layout, Flex, Modal, Button, Avatar, Dropdown, Input } from 'antd';
+import { Layout, Flex, Modal, Button, Avatar, Dropdown, Input, Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { GoogleOutlined, UserOutlined } from '@ant-design/icons';
@@ -14,7 +14,7 @@ function Header() {
     const [isModalLoginOpen, setIsModalLoginOpen] = useState(false);
     const [isModalRegisterOpen, setIsModalRegisterOpen] = useState(false);
 
-    const isLoggedIn = false;
+    const isLoggedIn = true;
     const user = {
         name: 'Người dùng',
         avatarUrl: '',
@@ -49,11 +49,24 @@ function Header() {
 
     const dropdownItems = [
         { key: 'profile', label: <span className={cx('menu-avt-item')}>Thông tin cá nhân</span> },
-        { key: 'notifications', label: <span className={cx('menu-avt-item')}>Thông báo</span> },
         { key: 'schedule', label: <span className={cx('menu-avt-item')}>Lên lịch trình</span> },
         { type: 'divider' },
         { key: 'logout', label: <span className={cx('menu-avt-item')}>Đăng xuất</span> },
     ];
+
+    const searchDropdownItems = [
+        { key: 'add-trip', label: 'Tạo lịch trình mới' },
+        { key: 'my-trip', label: 'Hành trình cá nhân' },
+        { key: 'ai-plan', label: 'Tạo lịch trình với AI' },
+    ];
+
+    const handleSearchMenuClick = ({ key }) => {
+        if (key === 'add-trip') {
+            navigate('/add-trip');
+        } else if (key === 'ai-plan') {
+            navigate('/ai-plan');
+        }
+    };
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -75,7 +88,7 @@ function Header() {
                 <nav className={cx('menu')}>
                     {[
                         { label: 'Trang chủ', path: '' },
-                        { label: 'AI Chatbox', path: 'hehe' },
+                        { label: 'Tìm kiếm', path: 'search' },
                     ].map((item, index) => (
                         <motion.div
                             key={index}
@@ -87,13 +100,28 @@ function Header() {
                             {item.label}
                         </motion.div>
                     ))}
+
+                    <Dropdown
+                        trigger={['hover']}
+                        placement="bottom"
+                        menu={{ items: searchDropdownItems, onClick: handleSearchMenuClick }}
+                    >
+                        <motion.div
+                            className={cx('menu-item')}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            Lịch trình
+                        </motion.div>
+                    </Dropdown>
                 </nav>
 
                 <div className={cx('button-group')}>
                     {!isLoggedIn ? (
                         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                             <button className={cx('login')} onClick={showModal}>
-                                Sign in
+                                Đăng nhập
                             </button>
                         </motion.div>
                     ) : (
