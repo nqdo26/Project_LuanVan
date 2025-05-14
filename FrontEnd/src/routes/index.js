@@ -16,6 +16,7 @@ import Profile from '~/pages/Profile';
 import Register from '~/pages/Register';
 import Search from '~/pages/Search';
 import TourDetail from '~/pages/TourDetail';
+import TripDetail from '~/pages/TripDetail';
 import WriteReview from '~/pages/WriteReview';
 
 // Public routes
@@ -41,7 +42,7 @@ const publicRoutes = [
     { path: '/tour/hehe', component: TourDetail },
     { path: 'city/hehe', component: CityDetail },
     { path: '/add-trip', component: AddTrip },
-
+    { path: '/trip-detail/:id', component: TripDetail },
 ];
 
 export { publicRoutes, privateRoutes };

@@ -5,6 +5,8 @@ import CustomTitle from '~/components/CustomTitle';
 import { AimOutlined, EnvironmentOutlined, HeartOutlined, SearchOutlined, TeamOutlined } from '@ant-design/icons';
 import { Button, Drawer, Input } from 'antd';
 import { useState } from 'react';
+import CardSearchDrawer from '~/components/CardSearchDrawer';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -19,7 +21,7 @@ const features = [
     },
     {
         icon: <EnvironmentOutlined />,
-        lines: ['Xem thông tin chi tiết của những điểm đến', ''],
+        lines: ['Xem thông tin chi tiết của những điểm đến'],
     },
     {
         icon: <TeamOutlined />,
@@ -32,9 +34,11 @@ function AddTrip() {
     const [tripName, setTripName] = useState('');
     const [destination, setDestination] = useState('');
 
+    const navigate = useNavigate();
+
     const handleCreateTrip = () => {
-        console.log('Trip created:', { tripName, destination });
-        // Thực hiện lưu hành trình ở đây
+        navigate('/trip-detail/hehe');
+
         setOpenDrawer(false);
         setTripName('');
         setDestination('');
@@ -140,9 +144,48 @@ function AddTrip() {
                             placeholder="Chuyến du lịch Cần Thơ cùng gia đình"
                             maxLength={80}
                             value={destination}
-                            onChange={(e) => setTripName(e.target.value)}
+                            onChange={(e) => setDestination(e.target.value)}
                             className={cx('drawer-input', 'drawer-search')}
                         />
+                        <div className={cx('drawer-search-result')}>
+                            <div className={cx('result-list')}>
+                                <CardSearchDrawer
+                                    city="Cần Thơ"
+                                    region="Thành phố nực nhất miền Tây"
+                                    image="/wimi2-img.png"
+                                />
+                                <CardSearchDrawer
+                                    city="Cần Thơ"
+                                    region="Thành phố nực nhất miền Tây"
+                                    image="/wimi2-img.png"
+                                />
+                                <CardSearchDrawer
+                                    city="Cần Thơ"
+                                    region="Thành phố nực nhất miền Tây"
+                                    image="/wimi2-img.png"
+                                />
+                                <CardSearchDrawer
+                                    city="Cần Thơ"
+                                    region="Thành phố nực nhất miền Tây"
+                                    image="/wimi2-img.png"
+                                />
+                                <CardSearchDrawer
+                                    city="Cần Thơ"
+                                    region="Thành phố nực nhất miền Tây"
+                                    image="/wimi2-img.png"
+                                />
+                                <CardSearchDrawer
+                                    city="Cần Thơ"
+                                    region="Thành phố nực nhất miền Tây"
+                                    image="/wimi2-img.png"
+                                />
+                                <CardSearchDrawer
+                                    city="Cần Thơ"
+                                    region="Thành phố nực nhất miền Tây"
+                                    image="/wimi2-img.png"
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Drawer>

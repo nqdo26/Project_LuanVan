@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Image, Modal } from 'antd';
+import { Card, Image} from 'antd';
 import classNames from 'classnames/bind';
 import styles from './DestinationGallery.module.scss';
 import { CameraOutlined } from '@ant-design/icons';
