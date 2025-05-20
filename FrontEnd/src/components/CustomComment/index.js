@@ -24,13 +24,13 @@ function CustomComment({ type = 'restauran' }) {
             convenience: 2,
             activities: 4,
             createAt: '20/4/2025',
-            title: 'Chấm vội 6/10',
-            content: 'Nước rẻ thì dở nước mắc thì k có tiền mua, nhà vệ sinh siu cùi, buổi trưa nóng như chó nái.',
+            title: 'Nước ngon',
+            content: 'Quán này không có gì đặc biệt, chỉ là một quán ăn bình thường thôi',
             visitDate: '02/06/2003',
             images: ['/wimi2-img.png', '/wimi3-img.png', '/wimi4-img.png', '/wimi1-img.png'],
         },
         {
-            author: 'TravelLover2025',
+            author: 'Nguyễn Văn A',
             avatar: 'https://via.placeholder.com/50',
             rating: 4,
             landscape: 4.0,
@@ -41,7 +41,7 @@ function CustomComment({ type = 'restauran' }) {
             activities: 4.5,
             createAt: '30/2/2024',
             title: 'Tôi thích quán này',
-            content: 'Ghế ngồi quá đã, còn lại như con cặc tao',
+            content: 'Ghế ngồi quá đã',
             visitDate: '02/06/2023',
             images: [],
         },
@@ -69,7 +69,7 @@ function CustomComment({ type = 'restauran' }) {
     const menuItems = [
         {
             key: 'report',
-            label: <span>Report this review</span>,
+            label: <span>Báo cáo bình luận</span>,
         },
     ];
 

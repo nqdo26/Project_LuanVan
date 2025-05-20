@@ -77,7 +77,7 @@ function DestinationCard() {
                     <AiOutlineEnvironment className={cx('icon-location')} />
                     Cần Thơ
                 </div>
-                <h3 className={cx('title')}>WIMI-Factory quán cà phê nực và nước dở nhất Cần Thơ City</h3>
+                <h3 className={cx('title')}>Wimi-Factory Wimi-Factory Wimi-Factory Wimi-Factory Wimi-Factory</h3>
 
                 <div className={cx('badge-container')}>
                     {badges.slice(0, maxBadgesToShow).map((badge, index) => (

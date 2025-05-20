@@ -1,16 +1,109 @@
 import classNames from 'classnames/bind';
 import styles from './TripDetail.module.scss';
+import { motion } from 'framer-motion';
 import TripHeader from '~/components/TripHeader';
+import CityInfo from '~/components/CityInfo';
+import { List, Tabs } from 'antd';
+import DestinationCard from '~/components/DestinationCard';
+import TripNav from '~/components/TripNav';
+import { useState } from 'react';
+import TripItinerary from '~/components/TripItinerary';
 
 const cx = classNames.bind(styles);
 
+const items = [
+    { key: 'trip', label: 'Lịch trình' },
+    { key: 'suggest', label: 'Địa điểm nổi bậc' },
+];
+
+const destinations = [
+    { id: 1, title: 'Destination 1' },
+    { id: 2, title: 'Destination 2' },
+    { id: 3, title: 'Destination 3' },
+    { id: 4, title: 'Destination 4' },
+    { id: 5, title: 'Destination 5' },
+    { id: 6, title: 'Destination 6' },
+];
+
+const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+};
+
 function TripDetail() {
+    const [activeTab, setActiveTab] = useState('trip');
+    const [selectedIndexes, setSelectedIndexes] = useState([]);
+
+    const handleToggle = (index) => {
+        setSelectedIndexes((prev) => (prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]));
+    };
+
     return (
-        <div className={cx('wrapper')}>
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className={cx('wrapper')}
+        >
             <div className={cx('inner')}>
-                <TripHeader />
+                <div className={cx('main')}>
+                    <TripHeader />
+                    <Tabs
+                        className={cx('tabs')}
+                        onChange={(key) => {
+                            setActiveTab(key);
+                            scrollToSection(key);
+                        }}
+                        items={items.map(({ key, label }) => ({
+                            key,
+                            label: <span className={cx('tab-item')}>{label}</span>,
+                        }))}
+                    />
+
+                    <motion.div
+                        key={activeTab}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        {activeTab === 'trip' && 
+                            <div className={cx('trip')}>
+                                <TripItinerary />
+                            </div>}
+                        {activeTab === 'suggest' && (
+                            <div className={cx('suggest')}>
+                                <TripNav
+                                    options={[
+                                        { label: 'Quán ăn & Nhà hàng' },
+                                        { label: 'Quán cà phê' },
+                                        { label: 'Công viên' },
+                                        { label: 'Di tích lịch sử' },
+                                        { label: 'Bảo tàng' },
+                                    ]}
+                                    selectedIndexes={selectedIndexes}
+                                    onToggle={handleToggle}
+                                />
+
+                                <div className={cx('suggest-list')}>
+                                    <List
+                                        grid={{ gutter: 18, xs: 1, sm: 1, md: 1, lg: 2, xl: 2 }}
+                                        dataSource={destinations}
+                                        pagination={{ pageSize: 6 }}
+                                        renderItem={(item) => (
+                                            <List.Item style={{ width: '100%' }}>
+                                                <DestinationCard title={item.title} />
+                                            </List.Item>
+                                        )}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </motion.div>
+                </div>
+                <div className={cx('info')}>
+                    <CityInfo />
+                </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
 

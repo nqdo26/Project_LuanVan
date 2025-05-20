@@ -30,7 +30,7 @@ function CityCard({ title }) {
                 <div className={cx('image-container')}>
                     <img
                         alt={title}
-                        src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34"
+                        src="/wimi2-img.png"
                         className={cx('card-image')}
                     />
                     <div className={cx('card-title')}>{title}</div>

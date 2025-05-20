@@ -9,7 +9,6 @@ import AdminPlaceManage from '~/pages/AdminPlaceManage';
 import AdminUserManage from '~/pages/AdminUserManage';
 import CityDetail from '~/pages/CityDetail';
 import DestinationDetails from '~/pages/DestinationDetails';
-import Destinations from '~/pages/Destinations';
 import Home from '~/pages/Home';
 import Login from '~/pages/Login';
 import Profile from '~/pages/Profile';
@@ -36,7 +35,6 @@ const publicRoutes = [
     { path: '/admin/destinations-manage', component: AdminDestinationManage, layout: AdminLayout },
     { path: '/admin/places-manage', component: AdminPlaceManage, layout: AdminLayout },
 
-    { path: '/destinations', component: Destinations },
     { path: '/destination/wimi-factory', component: DestinationDetails },
     { path: '/write-review', component: WriteReview },
     { path: '/tour/hehe', component: TourDetail },
