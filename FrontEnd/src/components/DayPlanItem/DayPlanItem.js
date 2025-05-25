@@ -3,8 +3,9 @@ import classNames from 'classnames/bind';
 import styles from './DayPlanItem.module.scss';
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Coffee, MapPin, NotebookPen, Utensils } from 'lucide-react';
+import { Coffee, MapPin, NotebookPen, Utensils, Plus } from 'lucide-react';
 import { Tooltip } from 'antd';
+import CustomDrawer from '../CustomDrawer';
 import CardTrip from '../CardTrip';
 
 const cx = classNames.bind(styles);
@@ -14,6 +15,10 @@ function DayPlanItem() {
     const [showButton, setShowButton] = useState(true);
     const [direction, setDirection] = useState('open');
     const [timelineItems, setTimelineItems] = useState([]);
+
+    const [tripTime, setTripTime] = useState('');
+    const [tripNote, setTripNote] = useState('');
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     const handleOpen = () => {
         setDirection('open');
@@ -28,6 +33,16 @@ function DayPlanItem() {
 
     const handleAddItem = (type) => {
         setTimelineItems((prev) => [...prev, type]);
+    };
+
+    const openDrawer = () => {
+        setDrawerOpen(true);
+    };
+
+    const handleSaveDrawer = (time, note) => {
+        setTripTime(time);
+        setTripNote(note);
+        setDrawerOpen(false);
     };
 
     const iconMap = {
@@ -45,25 +60,45 @@ function DayPlanItem() {
 
             <div className={cx('main-content')}>
                 <div className={cx('time-line')}>
-                    {timelineItems.map((type, index) => (
-                        <motion.div
-                            key={index}
-                            className={cx('timeline-icon')}
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            {iconMap[type]}
-                        </motion.div>
-                    ))}
-                </div>
-                <div className={cx('trip-items')}>
-                    <CardTrip title="Wimi-Factory" location="Hẻm 30 đường Lê Anh Xuân, Ninh Kiều, Cần Thơ" image="/wimi2-img.png" />
-                    <div className={cx('add-box')}>
-                        <p className={cx('description')}>
-                            Build your day by adding from your saves or adding custom travel details not on Tripadvisor.
-                        </p>
-                    </div>
+                    {timelineItems.length === 0 ? (
+                        <div className={cx('timeline-row')}>
+                            <div className={cx('timeline-icon')}>
+                                <Plus size={18} />
+                            </div>
+                            <div className={cx('add-box')} onClick={handleOpen} style={{ cursor: 'pointer' }}>
+                                <p className={cx('description')}>Thêm điểm đến đầu tiên</p>
+                            </div>
+                        </div>
+                    ) : (
+                        timelineItems.map((type, index) => (
+                            <motion.div
+                                key={index}
+                                className={cx('timeline-row')}
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <div
+                                    className={cx('timeline-icon')}
+                                    data-last={index === timelineItems.length - 1 ? 'true' : 'false'}
+                                >
+                                    {iconMap[type]}
+                                </div>
+                                <div className={cx('card-trip-wrapper')}>
+                                    <CardTrip
+                                        title="Wimi-Factory"
+                                        location="Hẻm 30 đường Lê Anh Xuân"
+                                        image="/wimi2-img.png"
+                                        showMenu={true}
+                                        time={tripTime}
+                                        note={tripNote}
+                                        onEdit={openDrawer}
+                                    />
+                                </div>
+                    
+                            </motion.div>
+                        ))
+                    )}
                 </div>
             </div>
 
@@ -144,6 +179,14 @@ function DayPlanItem() {
                     )}
                 </AnimatePresence>
             </div>
+
+            <CustomDrawer
+                open={drawerOpen}
+                onClose={() => setDrawerOpen(false)}
+                onSave={handleSaveDrawer}
+                initialTime={tripTime}
+                initialNote={tripNote}
+            />
         </div>
     );
 }

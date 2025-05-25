@@ -1,3 +1,20 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.time {
+    margin-top: 4px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.note {
+    font-size: 14px;
+    color: #555;
+}
+
 .card {
     display: flex;
     gap: 16px;
@@ -127,5 +144,64 @@
                 background-color: #ffeaea;
             }
         }
+    }
+}
+
+.drawer-inner {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+}
+.drawer-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.drawer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.drawer-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 24px;
+    background: #fff;
+}
+
+.drawer-button {
+    padding: 16px 32px;
+    height: 50px;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+
+    &:hover {
+        color: #505050 !important;
+    }
+
+    &:active {
+        color: #505050 !important;
+    }
+}
+
+.button-add {
+    background-color: black;
+    color: white;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: #505050 !important;
+        color: white !important;
+    }
+
+    &:active {
+        background-color: #505050 !important;
+        color: white !important;
     }
 }
