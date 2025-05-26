@@ -74,7 +74,7 @@ function TripHeader({
                         <div className={cx('item')}>
                             <CalendarOutlined className={cx('label')} />
                             <span className={cx('value')}>
-                                {dayjs(trip.startDate).format('DD/MM/YYYY')} <MinusOutlined className={cx('dash')} />{' '}
+                                {dayjs(trip.startDate).format('DD/MM/YYYY')} <MinusOutlined className={cx('dash')} />
                                 {dayjs(trip.endDate).format('DD/MM/YYYY')}
                             </span>
                         </div>
@@ -127,6 +127,7 @@ function TripHeader({
                                 editedTrip.startDate ? dayjs(editedTrip.startDate) : null,
                                 editedTrip.endDate ? dayjs(editedTrip.endDate) : null,
                             ]}
+                            showOneCalendar={true} // 👈 Thêm dòng này để chỉ hiển thị 1 lịch
                             onChange={(dates) => {
                                 if (dates) {
                                     setEditedTrip({

@@ -74,26 +74,25 @@
 
 :global(.ant-picker) {
     height: 50px !important;
-    border: 1.5px solid #000000 !important;
+    border: 1.5px solid #ccc !important;
     box-shadow: none !important;
     transition: border-color 0.2s ease;
 
     &:focus,
     &.ant-picker-focused {
-        border-color: black !important;
         box-shadow: none !important;
         outline: none !important;
     }
 }
 
 :global(.ant-picker-open) {
-    border-color: black !important;
+    border: 1.5px solid #000000 !important;
     box-shadow: none !important;
 }
 
 :global(.ant-input) {
     padding: 8px 12px;
-    border: 1.5px solid #000000 !important;
+    border: 1.5px solid #ccc !important;
     transition: border-color 0.2s ease;
 
     &:focus {

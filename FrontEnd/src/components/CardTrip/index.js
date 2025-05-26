@@ -7,29 +7,51 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const cx = classNames.bind(styles);
 
-function CardTrip({ title, location, image, time = '', note = '', showMenu = true, onEdit }) {
+function CardTrip({
+    title,
+    location,
+    image,
+    time = '',
+    note = '',
+    showMenu = true,
+    onEdit,
+    onDelete,
+    onClick,
+    isSelected = false,
+    hoverEffect = true, 
+    clickEffect = true, 
+}) {
     const [menuVisible, setMenuVisible] = useState(false);
     const badges = ['Văn hóa', 'Ẩm thực', 'Chụp hình'];
 
-    const toggleMenu = () => setMenuVisible((prev) => !prev);
-    const handleEdit = () => {
-        setMenuVisible(true);
+    const toggleMenu = (e) => {
+        e.stopPropagation(); 
+        setMenuVisible((prev) => !prev);
+    };
+
+    const handleEdit = (e) => {
+        e.stopPropagation();
+        setMenuVisible(false);
         if (onEdit) onEdit();
+    };
+
+    const handleDelete = (e) => {
+        e.stopPropagation();
+        setMenuVisible(false);
+        if (onDelete) onDelete();
+    };
+
+    const motionProps = {
+        whileHover: hoverEffect ? { scale: 1.02 } : {},
+        whileTap: clickEffect ? { scale: 0.97 } : {},
+        style: { cursor: onClick ? 'pointer' : 'default' },
+        onClick: onClick ? () => onClick() : undefined,
     };
 
     return (
         <div className={cx('wrapper')}>
-
             {time && <p className={cx('time')}>{time}</p>}
-
-            <motion.div
-                className={cx('card')}
-                whileHover={{
-                    scale: 0.99,
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                    transition: { duration: 0.25, ease: 'easeOut' },
-                }}
-            >
+            <motion.div className={cx('card', { selected: isSelected })} {...motionProps}>
                 <img src={image} alt={title} className={cx('image')} />
                 <div className={cx('info')}>
                     <div className={cx('header')}>
@@ -55,7 +77,7 @@ function CardTrip({ title, location, image, time = '', note = '', showMenu = tru
                                                 <span>Thêm ghi chú</span>
                                             </div>
 
-                                            <div className={cx('menu-item', 'delete')}>
+                                            <div className={cx('menu-item', 'delete')} onClick={handleDelete}>
                                                 <Trash2 size={16} />
                                                 <span>Xóa</span>
                                             </div>
@@ -67,7 +89,7 @@ function CardTrip({ title, location, image, time = '', note = '', showMenu = tru
                     </div>
 
                     <div className={cx('rating')}>
-                        <Rate disabled defaultValue={5} className={cx('start')} />
+                        <Rate disabled defaultValue={5} className={cx('starts')} />
                     </div>
 
                     <div className={cx('badge-container')}>

@@ -7,6 +7,7 @@ import { Coffee, MapPin, NotebookPen, Utensils, Plus } from 'lucide-react';
 import { Tooltip } from 'antd';
 import CustomDrawer from '../CustomDrawer';
 import CardTrip from '../CardTrip';
+import AddDestinationDrawer from '../AddDestinationDrawer';
 
 const cx = classNames.bind(styles);
 
@@ -19,6 +20,10 @@ function DayPlanItem() {
     const [tripTime, setTripTime] = useState('');
     const [tripNote, setTripNote] = useState('');
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [addDrawerOpen, setAddDrawerOpen] = useState(false);
+
+    const [selectedType, setSelectedType] = useState('');
+    const [selectedTitle, setSelectedTitle] = useState('');
 
     const handleOpen = () => {
         setDirection('open');
@@ -31,8 +36,17 @@ function DayPlanItem() {
         setExpanded(false);
     };
 
-    const handleAddItem = (type) => {
-        setTimelineItems((prev) => [...prev, type]);
+    const handleAddItem = (type, title) => {
+        setSelectedType(type);
+        setSelectedTitle(title);
+        setAddDrawerOpen(true);
+    };
+
+    const handleAddDrawer = () => {
+        if (selectedType) {
+            setTimelineItems((prev) => [...prev, selectedType]);
+        }
+        setAddDrawerOpen(false);
     };
 
     const openDrawer = () => {
@@ -93,9 +107,10 @@ function DayPlanItem() {
                                         time={tripTime}
                                         note={tripNote}
                                         onEdit={openDrawer}
+                                        hoverEffect={false}
+                                        clickEffect={true}
                                     />
                                 </div>
-                    
                             </motion.div>
                         ))
                     )}
@@ -135,10 +150,10 @@ function DayPlanItem() {
                                 ease: 'easeInOut',
                             }}
                         >
-                            <Tooltip title="Địa điểm sẽ đến">
+                            <Tooltip title="Địa điểm">
                                 <button
                                     className={cx('action-btn')}
-                                    onClick={() => handleAddItem('place')}
+                                    onClick={() => handleAddItem('place', 'Địa điểm')}
                                     aria-label="place"
                                 >
                                     <MapPin size={22} />
@@ -147,16 +162,16 @@ function DayPlanItem() {
                             <Tooltip title="Quán ăn/Nhà hàng">
                                 <button
                                     className={cx('action-btn')}
-                                    onClick={() => handleAddItem('restaurant')}
+                                    onClick={() => handleAddItem('restaurant', 'Quán ăn/Nhà hàng')}
                                     aria-label="restaurant"
                                 >
                                     <Utensils size={20} />
                                 </button>
                             </Tooltip>
-                            <Tooltip title="Quán cafe">
+                            <Tooltip title="Quán nước">
                                 <button
                                     className={cx('action-btn')}
-                                    onClick={() => handleAddItem('coffee')}
+                                    onClick={() => handleAddItem('coffee', 'Quán nước')}
                                     aria-label="coffee"
                                 >
                                     <Coffee size={22} />
@@ -165,13 +180,12 @@ function DayPlanItem() {
                             <Tooltip title="Ghi chú">
                                 <button
                                     className={cx('action-btn')}
-                                    onClick={() => handleAddItem('note')}
+                                    onClick={() => handleAddItem('note', 'Ghi chú')}
                                     aria-label="note"
                                 >
                                     <NotebookPen size={20} />
                                 </button>
                             </Tooltip>
-
                             <button className={cx('action-btn', 'exit-btn')} onClick={handleClose} aria-label="Close">
                                 <CloseOutlined />
                             </button>
@@ -186,6 +200,13 @@ function DayPlanItem() {
                 onSave={handleSaveDrawer}
                 initialTime={tripTime}
                 initialNote={tripNote}
+            />
+
+            <AddDestinationDrawer
+                open={addDrawerOpen}
+                onAdd={handleAddDrawer}
+                onClose={() => setAddDrawerOpen(false)}
+                title={selectedTitle}
             />
         </div>
     );
