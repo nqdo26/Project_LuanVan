@@ -44,7 +44,14 @@ function DayPlanItem() {
 
     const handleAddDrawer = () => {
         if (selectedType) {
-            setTimelineItems((prev) => [...prev, selectedType]);
+            setTimelineItems((prev) => [
+                ...prev,
+                {
+                    type: selectedType,
+                    title: selectedTitle || 'Tiêu đề địa điểm',
+                    content: 'Mô tả địa điểm mẫu...',
+                },
+            ]);
         }
         setAddDrawerOpen(false);
     };
@@ -57,6 +64,18 @@ function DayPlanItem() {
         setTripTime(time);
         setTripNote(note);
         setDrawerOpen(false);
+    };
+
+    const handleAddNote = () => {
+        setTimelineItems((prev) => [
+            ...prev,
+            {
+                type: 'note',
+                title: 'Tiêu đề ghi chú',
+                content: 'Đây là nội dung ghi chú mẫu.',
+            },
+        ]);
+        setAddDrawerOpen(false);
     };
 
     const iconMap = {
@@ -84,7 +103,7 @@ function DayPlanItem() {
                             </div>
                         </div>
                     ) : (
-                        timelineItems.map((type, index) => (
+                        timelineItems.map((item, index) => (
                             <motion.div
                                 key={index}
                                 className={cx('timeline-row')}
@@ -96,20 +115,28 @@ function DayPlanItem() {
                                     className={cx('timeline-icon')}
                                     data-last={index === timelineItems.length - 1 ? 'true' : 'false'}
                                 >
-                                    {iconMap[type]}
+                                    {iconMap[item.type]}
                                 </div>
+
                                 <div className={cx('card-trip-wrapper')}>
-                                    <CardTrip
-                                        title="Wimi-Factory"
-                                        location="Hẻm 30 đường Lê Anh Xuân"
-                                        image="/wimi2-img.png"
-                                        showMenu={true}
-                                        time={tripTime}
-                                        note={tripNote}
-                                        onEdit={openDrawer}
-                                        hoverEffect={false}
-                                        clickEffect={true}
-                                    />
+                                    {item.type === 'note' ? (
+                                        <div className={cx('note-box')}>
+                                            <h4 className={cx('note-title')}>{item.title}</h4>
+                                            <p className={cx('note-content')}>{item.content}</p>
+                                        </div>
+                                    ) : (
+                                        <CardTrip
+                                            title={item.title}
+                                            location="Hẻm 30 đường Lê Anh Xuân"
+                                            image="/wimi2-img.png"
+                                            showMenu={true}
+                                            time={tripTime}
+                                            note={tripNote}
+                                            onEdit={openDrawer}
+                                            hoverEffect={false}
+                                            clickEffect={true}
+                                        />
+                                    )}
                                 </div>
                             </motion.div>
                         ))
@@ -153,8 +180,10 @@ function DayPlanItem() {
                             <Tooltip title="Địa điểm">
                                 <button
                                     className={cx('action-btn')}
-                                    onClick={() => handleAddItem('place', 'Địa điểm')}
                                     aria-label="place"
+                                    onClick={(e) =>
+                                        handleAddItem(e.currentTarget.getAttribute('aria-label'), 'Địa điểm')
+                                    }
                                 >
                                     <MapPin size={22} />
                                 </button>
@@ -162,8 +191,10 @@ function DayPlanItem() {
                             <Tooltip title="Quán ăn/Nhà hàng">
                                 <button
                                     className={cx('action-btn')}
-                                    onClick={() => handleAddItem('restaurant', 'Quán ăn/Nhà hàng')}
                                     aria-label="restaurant"
+                                    onClick={(e) =>
+                                        handleAddItem(e.currentTarget.getAttribute('aria-label'), 'Quán ăn/Nhà hàng')
+                                    }
                                 >
                                     <Utensils size={20} />
                                 </button>
@@ -171,8 +202,10 @@ function DayPlanItem() {
                             <Tooltip title="Quán nước">
                                 <button
                                     className={cx('action-btn')}
-                                    onClick={() => handleAddItem('coffee', 'Quán nước')}
                                     aria-label="coffee"
+                                    onClick={(e) =>
+                                        handleAddItem(e.currentTarget.getAttribute('aria-label'), 'Quán nước')
+                                    }
                                 >
                                     <Coffee size={22} />
                                 </button>
@@ -180,8 +213,10 @@ function DayPlanItem() {
                             <Tooltip title="Ghi chú">
                                 <button
                                     className={cx('action-btn')}
-                                    onClick={() => handleAddItem('note', 'Ghi chú')}
                                     aria-label="note"
+                                    onClick={(e) =>
+                                        handleAddItem(e.currentTarget.getAttribute('aria-label'), 'Ghi chú')
+                                    }
                                 >
                                     <NotebookPen size={20} />
                                 </button>
@@ -207,6 +242,8 @@ function DayPlanItem() {
                 onAdd={handleAddDrawer}
                 onClose={() => setAddDrawerOpen(false)}
                 title={selectedTitle}
+                type={selectedType}
+                handleAddNote={handleAddNote}
             />
         </div>
     );

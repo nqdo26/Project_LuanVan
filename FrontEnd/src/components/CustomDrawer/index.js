@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './CustomDrawer.module.scss';
-import { Drawer, Button, TimePicker, Input } from 'antd';
+import { Drawer, Button, TimePicker, Input, ConfigProvider } from 'antd';
 import moment from 'moment';
 import CardTrip from '../CardTrip';
 
@@ -55,11 +55,13 @@ function CustomDrawer({ open, onClose, onSave, initialTime = '', initialNote = '
 
                     <div className={cx('drawer-item')}>
                         <label className={cx('drawer-label')}>Thời gian</label>
+
                         <TimePicker
                             placeholder={null}
-                            format={formatTime}
+                            format="HH:mm"
                             value={selectedTime}
                             onChange={setSelectedTime}
+                            showNow={false}
                         />
                     </div>
                     <div className={cx('drawer-item')}>

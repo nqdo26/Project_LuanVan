@@ -168,3 +168,24 @@
 .exit-btn:hover {
     background-color: rgb(255, 0, 0);
 }
+
+.note-box {
+    background: #fff7e6;
+    padding: 12px 16px;
+    border-left: 4px solid #faad14;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.note-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #d48806;
+}
+
+.note-content {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #595959;
+}

@@ -86,3 +86,23 @@
 .drawer-search {
     border-radius: 100px;
 }
+
+.note-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+}
+
+.note-title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.add-note-btn {
+    background-color: #000000;
+    &:hover {
+        background-color: #505050 !important;
+        color: white !important;
+    }
+}
