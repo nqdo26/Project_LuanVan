@@ -1,25 +1,145 @@
-# Luận Văn
+# TripSense - Smart Travel Review & Planner
 
-## Giới thiệu Luận Văn
+A full-stack web application for discovering, reviewing tourist destinations, and generating personalized travel plans with AI integration.
 
-Đây là luận văn tốt nghiệp ngành **Kỹ thuật phần mềm** với đề tài:  
-**“Xây dựng ứng dụng web hỗ trợ lập kế hoạch du lịch cá nhân tích hợp AI”**.
+## Features
 
-Mục tiêu của đề tài là xây dựng một nền tảng web cho phép người dùng khám phá, đánh giá các địa điểm du lịch, đồng thời tích hợp một chatbot AI để gợi ý lịch trình cá nhân hóa dựa trên sở thích và nhu cầu cụ thể. Hệ thống được xây dựng với **ReactJS** (frontend), **NodeJS/Express** (backend) và sử dụng mô hình AI để hỗ trợ tương tác thông minh với người dùng.
+### User Features
 
----
+- **Authentication & Authorization**
+  - Register and login with email/password
+  - JWT-based authentication
+  - Role-based access control (Admin/User)
 
-Dự án này gồm hai phần chính:
+- **Destination Discovery**
+  - Explore places by type (cultural, nature, food, etc.)
+  - Filter and search destinations
+  - View detailed destination info
+  - Like and save destinations
+  - Read and write user reviews
+  - View trending and highly-rated places
 
-1. **Backend**
+- **AI Trip Planning**
+  - Input travel preferences and duration
+  - Get smart itinerary suggestions
+  - Edit and save trip plans
+  - Re-generate plan based on changes
 
-   - Code chính nằm trong [BackEnd/src/server.js](BackEnd/src/server.js).
-   - Cài đặt gói bằng `npm install` trong [BackEnd/package.json](BackEnd/package.json).
-   - Khởi chạy server: `npm run dev` (hoặc lệnh tương tự).
+- **User Profile**
+  - View and update personal info
+  - Manage saved destinations and trips
+  - View personal reviews and activity history
 
-2. **Frontend**
-   - Thư mục chính nằm trong [FrontEnd/src](FrontEnd/src).
-   - Cài đặt gói bằng `npm install` trong [FrontEnd/package.json](FrontEnd/package.json).
-   - Khởi chạy ứng dụng: `npm start` (hoặc lệnh tương tự).
+### Admin Features
 
-Giữ các biến môi trường trong file `.env` tương ứng để cấu hình cho từng môi trường. Vui lòng tham khảo thêm cấu hình khác trong các thư mục cụ thể.
+- **User Management**
+  - View all users
+  - Delete users
+  - Grant admin roles
+
+- **Content Management**
+  - Add/edit/remove destination categories
+  - Moderate reviews and destinations
+  - Manage AI trip logic settings
+
+- **Dashboard**
+  - View system statistics
+  - Monitor user engagement
+  - Analyze travel trends
+
+## Tech Stack
+
+### Frontend
+
+- **Framework**: React.js
+- **UI Library**: Ant Design
+- **State Management**: React Context
+- **Routing**: React Router
+- **HTTP Client**: Axios
+- **Styling**: SCSS Modules + utility-first CSS
+
+### Backend
+
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Database**: MongoDB (with Mongoose)
+- **Authentication**: JWT
+- **AI Integration**: OpenAI API 
+- **File Handling**: Multer (for destination images)
+- **Password Hashing**: bcrypt
+
+## Project Structure
+```bash
+├── Frontend/
+│ ├── public/
+│ └── src/
+│ ├── components/        # Reusable components
+│ ├── pages/             # Page-level components
+│ ├── features/          # Feature modules (e.g., trip planner)
+│ ├── api/               # API interaction layer
+│ ├── contexts/          # Context providers
+│ └── styles/            # SCSS Modules
+├── Backend/
+│ ├── middleware/        # Auth, file upload, error handling
+│ └── src/
+│ ├── config/            # DB and environment config
+│ ├── controllers/       # Request logic
+│ ├── models/            # Mongoose schemas
+│ ├── routes/            # API routes
+│ ├── services/          # AI planner, user services
+│ └── utils/             # Helper functions
+```
+
+## Setup & Installation
+
+### Prerequisites
+
+- Node.js (>=14.x)
+- MongoDB
+- npm or yarn
+- OpenAI API Key (for AI planning)
+
+### Backend Setup
+
+1. Install dependencies:
+```bash
+cd Backend
+npm install
+```
+
+2. Create a `.env` file:
+```bash
+PORT=8080
+MONGO_DB_URL=your_mongodb_url
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRE=1d
+OPENAI_API_KEY=your_openai_key
+```
+
+3. Start the server:
+```bash
+npm run dev  
+```
+
+### Frontend Setup
+
+1. Install dependencies:
+```bash
+cd Frontend
+npm install
+```
+
+2. Create `.env`:
+```bash
+REACT_APP_API_URL=http://localhost:8080/v1/api
+```
+
+3. Run the dev server:
+```bash
+npm start
+```
+
+## API Overview
+
+The API documentation and AI integration details will be updated soon.
+
