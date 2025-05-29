@@ -51,6 +51,8 @@ function CustomDrawer({ open, onClose, onSave, initialTime = '', initialNote = '
                         location="Hẻm 30 đường Lê Anh Xuân"
                         image="/wimi2-img.png"
                         showMenu={false}
+                        hoverEffect={false}
+                        clickEffect={false}
                     />
 
                     <div className={cx('drawer-item')}>

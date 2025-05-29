@@ -62,3 +62,16 @@
         }
     }
 }
+
+@media (max-width: 1400px) {
+    .inner {
+        flex-direction: column;
+        width: 95%;
+    }
+
+    .main,
+    .info {
+        flex: none;
+        width: 100%;
+    }
+}

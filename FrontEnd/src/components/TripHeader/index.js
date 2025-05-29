@@ -18,15 +18,7 @@ import locale from 'antd/es/date-picker/locale/vi_VN';
 
 const cx = classNames.bind(styles);
 
-function TripHeader({
-    trip = {
-        title: 'Du lịch vui',
-        description: 'Chuyến đi vui vẻ cùng chú chó',
-        startDate: '2024-05-06',
-        endDate: '2024-05-09',
-        locations: 'Hà Nội',
-    },
-}) {
+function TripHeader({ trip, onTripChange }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editedTrip, setEditedTrip] = useState({ ...trip });
 
@@ -39,7 +31,7 @@ function TripHeader({
     };
 
     const handleSave = () => {
-        console.log('Lưu chuyến đi', editedTrip);
+        onTripChange(editedTrip);
         setIsModalOpen(false);
     };
 
@@ -48,118 +40,120 @@ function TripHeader({
     };
 
     return (
-        <div className={cx('wrapper')}>
-            <img src="/wimi1-img.png" alt="Trip Background" className={cx('background')} />
+        <div className={cx('trip-header')}>
+            <div className={cx('wrapper')}>
+                <img src="/wimi1-img.png" alt="Trip Background" className={cx('background')} />
+                <div className={cx('content')}>
+                    <div className={cx('header')}>
+                        <div className={cx('actions')}>
+                            <Tooltip title="Chia sẻ">
+                                <Button shape="circle" icon={<ShareAltOutlined />} className={cx('actionBtn')} />
+                            </Tooltip>
+                            <Tooltip title="Cài đặt">
+                                <Button
+                                    shape="circle"
+                                    icon={<SettingOutlined />}
+                                    className={cx('actionBtn')}
+                                    onClick={handleOpenModal}
+                                />
+                            </Tooltip>
+                        </div>
+                    </div>
+                    <div className={cx('subInfo')}>
+                        <h2 className={cx('title')}>{trip.title}</h2>
 
-            <div className={cx('content')}>
-                <div className={cx('header')}>
-                    <div className={cx('actions')}>
-                        <Tooltip title="Chia sẻ">
-                            <Button shape="circle" icon={<ShareAltOutlined />} className={cx('actionBtn')} />
-                        </Tooltip>
-                        <Tooltip title="Cài đặt">
-                            <Button
-                                shape="circle"
-                                icon={<SettingOutlined />}
-                                className={cx('actionBtn')}
-                                onClick={handleOpenModal}
+                        <div className={cx('subItems')}>
+                            <div className={cx('item')}>
+                                <CalendarOutlined className={cx('label')} />
+                                <span className={cx('value')}>
+                                    {dayjs(trip.startDate).format('DD/MM/YYYY')}{' '}
+                                    <MinusOutlined className={cx('dash')} />
+                                    {dayjs(trip.endDate).format('DD/MM/YYYY')}
+                                </span>
+                            </div>
+                            <div className={cx('item')}>
+                                <EnvironmentOutlined className={cx('label')} />
+                                <span className={cx('value')}>{trip.locations}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <Modal className={cx('modal')} width={550} open={isModalOpen} onCancel={handleCloseModal} footer={null}>
+                    <div className={cx('modal-content')}>
+                        <h3 className={cx('modal-title')}>Thông tin chuyến đi</h3>
+
+                        <div className={cx('form-item')}>
+                            <label className={cx('form-label')}>Tên chuyến đi:</label>
+                            <Input
+                                className={cx('form-input')}
+                                value={editedTrip.title}
+                                onChange={(e) => handleChange(e, 'title')}
                             />
-                        </Tooltip>
-                    </div>
-                </div>
+                        </div>
 
-                <div className={cx('subInfo')}>
-                    <h2 className={cx('title')}>{trip.title}</h2>
-                    <div className={cx('subItems')}>
-                        <div className={cx('item')}>
-                            <CalendarOutlined className={cx('label')} />
-                            <span className={cx('value')}>
-                                {dayjs(trip.startDate).format('DD/MM/YYYY')} <MinusOutlined className={cx('dash')} />
-                                {dayjs(trip.endDate).format('DD/MM/YYYY')}
-                            </span>
+                        <div className={cx('form-item')}>
+                            <label className={cx('form-label')}>Điểm đến:</label>
+                            <Input
+                                className={cx('search-input')}
+                                prefix={<SearchOutlined className={cx('search-icon')} />}
+                                maxLength={80}
+                                value={editedTrip.locations}
+                                onChange={(e) => handleChange(e, 'locations')}
+                            />
                         </div>
-                        <div className={cx('item')}>
-                            <EnvironmentOutlined className={cx('label')} />
-                            <span className={cx('value')}>{trip.locations}</span>
+
+                        <div className={cx('form-item')}>
+                            <CardSearchDrawer
+                                city="Cần Thơ"
+                                region="Thành phố nực nhất miền Tây"
+                                image="/wimi2-img.png"
+                            />
+                        </div>
+
+                        <div className={cx('form-item')}>
+                            <label className={cx('form-label')}>Số ngày hoặc độ dài chuyến đi:</label>
+                            <DatePicker.RangePicker
+                                className={cx('form-input')}
+                                locale={locale}
+                                format="DD/MM/YYYY"
+                                value={[dayjs(editedTrip.startDate), dayjs(editedTrip.endDate)]}
+                                onChange={(dates) => {
+                                    if (dates) {
+                                        setEditedTrip({
+                                            ...editedTrip,
+                                            startDate: dates[0].format('YYYY-MM-DD'),
+                                            endDate: dates[1].format('YYYY-MM-DD'),
+                                        });
+                                    }
+                                }}
+                            />
+                        </div>
+
+                        <div className={cx('form-item')}>
+                            <label className={cx('form-label')}>Mô tả:</label>
+                            <Input.TextArea
+                                className={cx('form-input')}
+                                rows={2}
+                                value={editedTrip.description}
+                                onChange={(e) => handleChange(e, 'description')}
+                            />
                         </div>
                     </div>
-                </div>
+
+                    <div className={cx('modal-actions')}>
+                        <Button onClick={handleDelete} className={cx('modal-btn', 'delete')}>
+                            Xóa chuyến đi
+                        </Button>
+                        <Button onClick={handleSave} className={cx('modal-btn', 'save')}>
+                            Lưu
+                        </Button>
+                    </div>
+                </Modal>
             </div>
-
-            <Modal className={cx('modal')} width={550} open={isModalOpen} onCancel={handleCloseModal} footer={null}>
-                <div className={cx('modal-content')}>
-                    <h3 className={cx('modal-title')}>Thông tin chuyến đi</h3>
-
-                    <div className={cx('form-item')}>
-                        <label className={cx('form-label')}>Tên chuyến đi:</label>
-                        <Input
-                            className={cx('form-input')}
-                            value={editedTrip.title}
-                            onChange={(e) => handleChange(e, 'title')}
-                        />
-                    </div>
-
-                    <div className={cx('form-item')}>
-                        <label className={cx('form-label')}>Điểm đến:</label>
-                        <Input
-                            className={cx('search-input')}
-                            prefix={<SearchOutlined className={cx('search-icon')} />}
-                            maxLength={80}
-                            value={editedTrip.locations}
-                            onChange={(e) => handleChange(e, 'locations')}
-                        />
-                    </div>
-
-                    <div className={cx('form-item')}>
-                        <CardSearchDrawer city="Cần Thơ" region="Thành phố nực nhất miền Tây" image="/wimi2-img.png" />
-                        <CardSearchDrawer city="Cần Thơ" region="Thành phố nực nhất miền Tây" image="/wimi2-img.png" />
-                        <CardSearchDrawer city="Cần Thơ" region="Thành phố nực nhất miền Tây" image="/wimi2-img.png" />
-                        <CardSearchDrawer city="Cần Thơ" region="Thành phố nực nhất miền Tây" image="/wimi2-img.png" />
-                    </div>
-
-                    <div className={cx('form-item')}>
-                        <label className={cx('form-label')}>Số ngày hoặc độ dài chuyến đi:</label>
-                        <DatePicker.RangePicker
-                            className={cx('form-input')}
-                            locale={locale}
-                            format="DD/MM/YYYY"
-                            value={[
-                                editedTrip.startDate ? dayjs(editedTrip.startDate) : null,
-                                editedTrip.endDate ? dayjs(editedTrip.endDate) : null,
-                            ]}
-                            showOneCalendar={true} // 👈 Thêm dòng này để chỉ hiển thị 1 lịch
-                            onChange={(dates) => {
-                                if (dates) {
-                                    setEditedTrip({
-                                        ...editedTrip,
-                                        startDate: dates[0].format('YYYY-MM-DD'),
-                                        endDate: dates[1].format('YYYY-MM-DD'),
-                                    });
-                                }
-                            }}
-                        />
-                    </div>
-
-                    <div className={cx('form-item')}>
-                        <label className={cx('form-label')}>Mô tả:</label>
-                        <Input.TextArea
-                            className={cx('form-input')}
-                            rows={2}
-                            value={editedTrip.description}
-                            onChange={(e) => handleChange(e, 'description')}
-                        />
-                    </div>
-                </div>
-
-                <div className={cx('modal-actions')}>
-                    <Button onClick={handleDelete} className={cx('modal-btn', 'delete')}>
-                        Xóa chuyến đi
-                    </Button>
-                    <Button onClick={handleSave} className={cx('modal-btn', 'save')}>
-                        Lưu
-                    </Button>
-                </div>
-            </Modal>
+            <div onClick={handleOpenModal} className={cx('trip-description')}>
+                {trip.description || 'Ghi lại vài dòng về kế hoạch, cảm hứng hay điểm đặc biệt của chuyến đi này..'}
+            </div>
         </div>
     );
 }

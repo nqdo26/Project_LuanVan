@@ -18,14 +18,14 @@ function CardTrip({
     onDelete,
     onClick,
     isSelected = false,
-    hoverEffect = true, 
-    clickEffect = true, 
+    hoverEffect = true,
+    clickEffect = true,
 }) {
     const [menuVisible, setMenuVisible] = useState(false);
     const badges = ['Văn hóa', 'Ẩm thực', 'Chụp hình'];
 
     const toggleMenu = (e) => {
-        e.stopPropagation(); 
+        e.stopPropagation();
         setMenuVisible((prev) => !prev);
     };
 

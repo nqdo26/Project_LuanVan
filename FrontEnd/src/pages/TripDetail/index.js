@@ -13,7 +13,7 @@ const cx = classNames.bind(styles);
 
 const items = [
     { key: 'trip', label: 'Lịch trình' },
-    { key: 'suggest', label: 'Địa điểm nổi bậc' },
+    { key: 'suggest', label: 'Địa điểm nổi bật' },
 ];
 
 const destinations = [
@@ -33,6 +33,14 @@ function TripDetail() {
     const [activeTab, setActiveTab] = useState('trip');
     const [selectedIndexes, setSelectedIndexes] = useState([]);
 
+    const trip = {
+        title: 'Hành trình Đà Lạt 4 ngày',
+        description: '',
+        startDate: '2024-05-06',
+        endDate: '2024-05-09',
+        locations: 'Đà Lạt',
+    };
+
     const handleToggle = (index) => {
         setSelectedIndexes((prev) => (prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]));
     };
@@ -46,7 +54,7 @@ function TripDetail() {
         >
             <div className={cx('inner')}>
                 <div className={cx('main')}>
-                    <TripHeader />
+                    <TripHeader trip={trip} />
                     <Tabs
                         className={cx('tabs')}
                         onChange={(key) => {
@@ -65,10 +73,11 @@ function TripDetail() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3 }}
                     >
-                        {activeTab === 'trip' && 
+                        {activeTab === 'trip' && (
                             <div className={cx('trip')}>
-                                <TripItinerary />
-                            </div>}
+                                <TripItinerary trip={trip} />
+                            </div>
+                        )}
                         {activeTab === 'suggest' && (
                             <div className={cx('suggest')}>
                                 <TripNav
@@ -82,7 +91,6 @@ function TripDetail() {
                                     selectedIndexes={selectedIndexes}
                                     onToggle={handleToggle}
                                 />
-
                                 <div className={cx('suggest-list')}>
                                     <List
                                         grid={{ gutter: 18, xs: 1, sm: 1, md: 1, lg: 2, xl: 2 }}

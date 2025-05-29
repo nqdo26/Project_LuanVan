@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './DayPlanItem.module.scss';
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Coffee, MapPin, NotebookPen, Utensils, Plus } from 'lucide-react';
+import { Coffee, MapPin, NotebookPen, Utensils, Plus, ChevronUp, ChevronDown } from 'lucide-react';
 import { Tooltip } from 'antd';
 import CustomDrawer from '../CustomDrawer';
 import CardTrip from '../CardTrip';
@@ -11,12 +10,21 @@ import AddDestinationDrawer from '../AddDestinationDrawer';
 
 const cx = classNames.bind(styles);
 
-function DayPlanItem() {
-    const [expanded, setExpanded] = useState(false);
-    const [showButton, setShowButton] = useState(true);
-    const [direction, setDirection] = useState('open');
-    const [timelineItems, setTimelineItems] = useState([]);
+function getVietnameseWeekday(date) {
+    const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+    return days[date.getDay()];
+}
 
+function formatDate(date) {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    return `${day}/${month}`;
+}
+
+function DayPlanItem({ day, date }) {
+    const [mainExpanded, setMainExpanded] = useState(day === 1);
+    const [actionAddVisible, setActionAddVisible] = useState(false);
+    const [timelineItems, setTimelineItems] = useState([]);
     const [tripTime, setTripTime] = useState('');
     const [tripNote, setTripNote] = useState('');
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -25,15 +33,12 @@ function DayPlanItem() {
     const [selectedType, setSelectedType] = useState('');
     const [selectedTitle, setSelectedTitle] = useState('');
 
-    const handleOpen = () => {
-        setDirection('open');
-        setExpanded(true);
-        setShowButton(false);
+    const toggleMainExpanded = () => {
+        setMainExpanded((prev) => !prev);
     };
 
-    const handleClose = () => {
-        setDirection('close');
-        setExpanded(false);
+    const toggleActionAddVisible = () => {
+        setActionAddVisible((prev) => !prev);
     };
 
     const handleAddItem = (type, title) => {
@@ -88,29 +93,52 @@ function DayPlanItem() {
     return (
         <div className={cx('day-plan-item')}>
             <div className={cx('header')}>
-                <h3 className={cx('title')}>Tuesday, May 6</h3>
+                <h3 className={cx('title')}>
+                    {date ? `${getVietnameseWeekday(date)}, ${formatDate(date)}` : `Ngày ${day}`}
+                </h3>
+                {mainExpanded ? (
+                    <ChevronUp
+                        className={cx('toggle-icon')}
+                        onClick={toggleMainExpanded}
+                        size={20}
+                        strokeWidth={2.5}
+                        title="Đóng main-content"
+                    />
+                ) : (
+                    <ChevronDown
+                        className={cx('toggle-icon')}
+                        onClick={toggleMainExpanded}
+                        size={20}
+                        strokeWidth={2.5}
+                        title="Mở main-content"
+                    />
+                )}
             </div>
 
-            <div className={cx('main-content')}>
+            <div
+                className={cx('main-content', { expanded: mainExpanded })}
+                aria-hidden={!mainExpanded}
+                style={{
+                    maxHeight: mainExpanded ? '1000px' : '0px',
+                    opacity: mainExpanded ? 1 : 0,
+                    overflow: 'hidden',
+                    transition: 'all 0.4s ease',
+                    padding: mainExpanded ? '12px' : '0 12px',
+                }}
+            >
                 <div className={cx('time-line')}>
                     {timelineItems.length === 0 ? (
                         <div className={cx('timeline-row')}>
                             <div className={cx('timeline-icon')}>
                                 <Plus size={18} />
                             </div>
-                            <div className={cx('add-box')} onClick={handleOpen} style={{ cursor: 'pointer' }}>
+                            <div className={cx('add-box')}>
                                 <p className={cx('description')}>Thêm điểm đến đầu tiên</p>
                             </div>
                         </div>
                     ) : (
                         timelineItems.map((item, index) => (
-                            <motion.div
-                                key={index}
-                                className={cx('timeline-row')}
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.3 }}
-                            >
+                            <div key={index} className={cx('timeline-row')}>
                                 <div
                                     className={cx('timeline-icon')}
                                     data-last={index === timelineItems.length - 1 ? 'true' : 'false'}
@@ -134,99 +162,86 @@ function DayPlanItem() {
                                             note={tripNote}
                                             onEdit={openDrawer}
                                             hoverEffect={false}
-                                            clickEffect={true}
+                                            clickEffect={false}
                                         />
                                     )}
                                 </div>
-                            </motion.div>
+                            </div>
                         ))
                     )}
                 </div>
-            </div>
 
-            <div className={cx('action-add')}>
-                {showButton && (
-                    <button className={cx('toggle-button')} onClick={handleOpen} aria-label="Expand">
-                        <PlusOutlined className={cx('icon')} />
-                        <span className={cx('toggle-text')}>Điểm đến</span>
-                    </button>
-                )}
-
-                <AnimatePresence
-                    onExitComplete={() => {
-                        if (direction === 'close') {
-                            setShowButton(true);
-                        }
-                    }}
-                >
-                    {expanded && (
-                        <motion.div
-                            key="actions"
-                            className={cx('actions')}
-                            initial={{
-                                opacity: 0,
-                                x: direction === 'open' ? -60 : 60,
-                            }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{
-                                opacity: 0,
-                                x: direction === 'close' ? 60 : -60,
-                            }}
-                            transition={{
-                                duration: direction === 'close' ? 0.8 : 0.25,
-                                ease: 'easeInOut',
-                            }}
-                        >
-                            <Tooltip title="Địa điểm">
-                                <button
-                                    className={cx('action-btn')}
-                                    aria-label="place"
-                                    onClick={(e) =>
-                                        handleAddItem(e.currentTarget.getAttribute('aria-label'), 'Địa điểm')
-                                    }
-                                >
-                                    <MapPin size={22} />
-                                </button>
-                            </Tooltip>
-                            <Tooltip title="Quán ăn/Nhà hàng">
-                                <button
-                                    className={cx('action-btn')}
-                                    aria-label="restaurant"
-                                    onClick={(e) =>
-                                        handleAddItem(e.currentTarget.getAttribute('aria-label'), 'Quán ăn/Nhà hàng')
-                                    }
-                                >
-                                    <Utensils size={20} />
-                                </button>
-                            </Tooltip>
-                            <Tooltip title="Quán nước">
-                                <button
-                                    className={cx('action-btn')}
-                                    aria-label="coffee"
-                                    onClick={(e) =>
-                                        handleAddItem(e.currentTarget.getAttribute('aria-label'), 'Quán nước')
-                                    }
-                                >
-                                    <Coffee size={22} />
-                                </button>
-                            </Tooltip>
-                            <Tooltip title="Ghi chú">
-                                <button
-                                    className={cx('action-btn')}
-                                    aria-label="note"
-                                    onClick={(e) =>
-                                        handleAddItem(e.currentTarget.getAttribute('aria-label'), 'Ghi chú')
-                                    }
-                                >
-                                    <NotebookPen size={20} />
-                                </button>
-                            </Tooltip>
-                            <button className={cx('action-btn', 'exit-btn')} onClick={handleClose} aria-label="Close">
-                                <CloseOutlined />
+                {mainExpanded && (
+                    <div className={cx('action-add')}>
+                        {actionAddVisible ? (
+                            <button
+                                className={cx('toggle-button')}
+                                onClick={toggleActionAddVisible}
+                                aria-label="Toggle Action Add"
+                            >
+                                <PlusOutlined className={cx('icon')} />
+                                <span className={cx('toggle-text')}>Điểm đến</span>
                             </button>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                        ) : (
+                            <div className={cx('actions')}>
+                                <Tooltip title="Địa điểm">
+                                    <button
+                                        className={cx('action-btn')}
+                                        aria-label="place"
+                                        onClick={(e) =>
+                                            handleAddItem(e.currentTarget.getAttribute('aria-label'), 'Địa điểm')
+                                        }
+                                    >
+                                        <MapPin size={22} />
+                                    </button>
+                                </Tooltip>
+                                <Tooltip title="Quán ăn/Nhà hàng">
+                                    <button
+                                        className={cx('action-btn')}
+                                        aria-label="restaurant"
+                                        onClick={(e) =>
+                                            handleAddItem(
+                                                e.currentTarget.getAttribute('aria-label'),
+                                                'Quán ăn/Nhà hàng',
+                                            )
+                                        }
+                                    >
+                                        <Utensils size={20} />
+                                    </button>
+                                </Tooltip>
+                                <Tooltip title="Quán nước">
+                                    <button
+                                        className={cx('action-btn')}
+                                        aria-label="coffee"
+                                        onClick={(e) =>
+                                            handleAddItem(e.currentTarget.getAttribute('aria-label'), 'Quán nước')
+                                        }
+                                    >
+                                        <Coffee size={22} />
+                                    </button>
+                                </Tooltip>
+                                <Tooltip title="Ghi chú">
+                                    <button
+                                        className={cx('action-btn')}
+                                        aria-label="note"
+                                        onClick={(e) =>
+                                            handleAddItem(e.currentTarget.getAttribute('aria-label'), 'Ghi chú')
+                                        }
+                                    >
+                                        <NotebookPen size={20} />
+                                    </button>
+                                </Tooltip>
+                                <button
+                                    className={cx('action-btn', 'exit-btn')}
+                                    onClick={toggleActionAddVisible}
+                                    aria-label="Close"
+                                >
+                                    <CloseOutlined />
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
 
             <CustomDrawer
