@@ -1,6 +1,6 @@
-# TripSense - Smart Travel Review & Planner
+# GoOhNo - AI-POWERED PERSONAL TRAVEL PLANNER WEB APP – GRADUATION THESIS PROJECT
 
-A full-stack web application for discovering, reviewing tourist destinations, and generating personalized travel plans with AI integration.
+A platform for exploring travel reviews and generating customized itineraries with the assistance of AI.
 
 ## Features
 
