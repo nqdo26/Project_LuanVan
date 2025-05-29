@@ -10,23 +10,20 @@ import AdminUserManage from '~/pages/AdminUserManage';
 import CityDetail from '~/pages/CityDetail';
 import DestinationDetails from '~/pages/DestinationDetails';
 import Home from '~/pages/Home';
-import Login from '~/pages/Login';
 import Profile from '~/pages/Profile';
-import Register from '~/pages/Register';
+
 import Search from '~/pages/Search';
-import TourDetail from '~/pages/TourDetail';
 import TripDetail from '~/pages/TripDetail';
 import WriteReview from '~/pages/WriteReview';
 
-// Public routes
+// Private routes
 const privateRoutes = [{ path: '/', component: Home }];
 
+// Public routes
 const publicRoutes = [
     { path: '/', component: Home },
     { path: 'search', component: Search },
 
-    { path: '/login', component: Login },
-    { path: 'register', component: Register },
     { path: '/profile', component: Profile },
     { path: '/addtrip', component: AddTrip },
 
@@ -37,7 +34,6 @@ const publicRoutes = [
 
     { path: '/destination/wimi-factory', component: DestinationDetails },
     { path: '/write-review', component: WriteReview },
-    { path: '/tour/hehe', component: TourDetail },
     { path: 'city/hehe', component: CityDetail },
     { path: '/add-trip', component: AddTrip },
     { path: '/trip-detail/:id', component: TripDetail },

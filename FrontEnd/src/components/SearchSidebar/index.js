@@ -51,52 +51,13 @@ const categories = [
     },
 ];
 
-const tour = [
-    {
-        key: '0',
-        title: 'Địa điểm',
-        type: 'select',
-        options: ['Hà Nội', 'TP. Hồ Chí Minh', 'Đà Nẵng', 'Huế', 'Nha Trang', 'Đà Lạt', 'Hải Phòng', 'Cần Thơ'],
-    },
-    {
-        key: '1',
-        title: 'Loại hành trình',
-        options: ['Biển', 'Núi', 'Văn hóa'],
-    },
-    {
-        key: '2',
-        title: 'Hoạt động/Nhu cầu',
-        options: ['Tham quan ngắm cảnh', 'Nghỉ dưỡng', 'Trải nghiệm văn hóa', 'Ăn uống', 'Check-in sống ảo'],
-    },
-    {
-        key: '3',
-        title: 'Thời gian',
-        options: ['2 ngày 1 đêm', '3 ngày 2 đêm', '4 ngày 3 đêm', '1 tuần', '1 tháng'],
-    },
-    {
-        key: '4',
-        title: 'Số thành viên',
-        options: ['Trên 20 người', 'Trên 10 người', 'Trên 5 người', 'Trên 2 người'],
-    },
-    {
-        key: '5',
-        title: 'Giá cả',
-        options: ['Miễn phí', 'Bình dân', 'Trung cấp', 'Cao cấp'],
-    },
-    {
-        key: '6',
-        title: 'Đánh giá',
-        options: ['5 sao', '4 sao', '3 sao', '2 sao', '1 sao'],
-    },
-];
-
 const sidebarVariants = {
     hidden: { opacity: 0, x: -30 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: 'easeOut' } },
     exit: { opacity: 0, x: -30, transition: { duration: 0.3, ease: 'easeIn' } },
 };
 
-function SearchSidebar({ activeTab }) {
+function SearchSidebar() {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -104,7 +65,7 @@ function SearchSidebar({ activeTab }) {
     const [showAll, setShowAll] = useState(false);
     const MAX_VISIBLE_LOCATIONS = 4;
 
-    const dataToShow = activeTab === 'tours' ? tour : categories;
+    const dataToShow = categories;
 
     const handleSelect = (option) => {
         setSelectedOptions((prev) =>
@@ -130,7 +91,7 @@ function SearchSidebar({ activeTab }) {
         <div className={cx('wrapper')}>
             <AnimatePresence mode="wait">
                 <motion.div
-                    key={activeTab}
+                    key="categories"
                     variants={sidebarVariants}
                     initial="hidden"
                     animate="visible"
@@ -170,6 +131,7 @@ function SearchSidebar({ activeTab }) {
             </AnimatePresence>
 
             <Modal
+                width={400}
                 title="Chọn địa điểm"
                 open={isModalOpen}
                 onCancel={handleCloseModal}
@@ -180,6 +142,7 @@ function SearchSidebar({ activeTab }) {
                     placeholder="Tìm kiếm địa điểm..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    className={cx('modal-search')}
                 />
                 <div className={cx('location-list')}>
                     {displayedLocations.map((location) => (
