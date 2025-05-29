@@ -1,4 +1,5 @@
-# GoOhNo - AI-POWERED PERSONAL TRAVEL PLANNER WEB APP – GRADUATION THESIS PROJECT
+Graduation Thesis Project
+# GoOhNo - AI-POWERED PERSONAL TRAVEL PLANNER WEB APP 
 
 A platform for exploring travel reviews and generating customized itineraries with the assistance of AI.
 
