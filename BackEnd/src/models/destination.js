@@ -2,12 +2,15 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 
 const destinationSchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    slug: { type: String, unique: true },
+    title: String,
+    aiDescription: String,
+    slug: String,
     type: { type: mongoose.Schema.Types.ObjectId, ref: 'type' },
     tag: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tag' }],
-    location: String,
-    createAt: Date,
+    location: {
+        address: String,
+        city: { type: mongoose.Schema.Types.ObjectId, ref: 'city' },
+    },
     album: {
         highlight: [String],
         space: [String],
@@ -15,11 +18,11 @@ const destinationSchema = new mongoose.Schema({
         menu: [String],
     },
     statistics: {
-        views: Number,
-        totalSave: Number,
-        totalRate: Number,
-        totalReview: Number,
-        averageRating: Number,
+        views: { type: Number, default: 0 },
+        totalSave: { type: Number, default: 0 },
+        totalRate: { type: Number, default: 0 },
+        totalReview: { type: Number, default: 0 },
+        averageRating: { type: Number, default: 0 },
     },
     detail: {
         description: String,
@@ -38,6 +41,7 @@ const destinationSchema = new mongoose.Schema({
         fri: { open: String, close: String },
         sat: { open: String, close: String },
         sun: { open: String, close: String },
+        allday: Boolean,
     },
     contactInfo: {
         phone: String,
@@ -45,7 +49,10 @@ const destinationSchema = new mongoose.Schema({
         facebook: String,
         instagram: String,
     },
-    conmments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'comment' }],
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'comment' }],
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
 });
 
 destinationSchema.pre('save', function (next) {

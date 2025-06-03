@@ -20,8 +20,8 @@
 }
 
 .description-text {
-    width: 60%;
     text-align: center;
+    width: 60%;
     font-size: 16px;
     line-height: 1.6;
     color: #333;
@@ -96,7 +96,8 @@
 }
 
 .option-description {
-    width: 70%;
+    text-align: center;
+    width: 80%;
     font-size: 15px;
     line-height: 1.6;
     color: #000000;
@@ -108,7 +109,7 @@
 }
 
 .option-button {
-    margin-top: 10px;
+    margin-top: 30px;
     width: 50%;
     height: 50px;
     background-color: #5aca5e;
@@ -273,6 +274,4 @@
     .ant-input-affix-wrapper > input.ant-input {
         border: none !important;
     }
-
-
 }

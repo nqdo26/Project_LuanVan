@@ -9,7 +9,9 @@ import AdminPlaceManage from '~/pages/AdminPlaceManage';
 import AdminUserManage from '~/pages/AdminUserManage';
 import CityDetail from '~/pages/CityDetail';
 import DestinationDetails from '~/pages/DestinationDetails';
+import Gobot from '~/pages/Gobot';
 import Home from '~/pages/Home';
+import MyTrip from '~/pages/MyTrip';
 import Profile from '~/pages/Profile';
 
 import Search from '~/pages/Search';
@@ -37,6 +39,8 @@ const publicRoutes = [
     { path: 'city/hehe', component: CityDetail },
     { path: '/add-trip', component: AddTrip },
     { path: '/trip-detail/:id', component: TripDetail },
+    { path: '/my-trip', component: MyTrip },
+    { path: '/gobot-assistant', component: Gobot },
 ];
 
 export { publicRoutes, privateRoutes };

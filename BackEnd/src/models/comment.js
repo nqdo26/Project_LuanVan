@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
-    destination: { type: mongoose.Schema.Types.ObjectId, ref: 'destination' },
+    destinationId: { type: mongoose.Schema.Types.ObjectId, ref: 'destination' },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     detail: {
         landscape: Number,
@@ -17,7 +17,7 @@ const commentSchema = new mongoose.Schema({
     visitDate: Date,
     images: [String],
     likeCount: { type: Number, default: 0 },
-    dislikeCount: { type: Number, default: 0 },
+    reportCount: { type: Number, default: 0 },
 });
 
 const Comment = mongoose.model('comment', commentSchema);

@@ -14,6 +14,7 @@ function SearchBarInSearchPage() {
     const handleSearch = (e) => {
         if (e.key === "Enter" && searchTerm.trim()) {
             navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
+             window.scrollTo(0, 0); 
         }
     };
 

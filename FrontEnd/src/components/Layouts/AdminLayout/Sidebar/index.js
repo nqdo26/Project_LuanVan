@@ -40,11 +40,13 @@ function Sidebar() {
         const item = menuItems.find((item) => item.key === e.key);
         if (item) {
             navigate(item.path);
+             window.scrollTo(0, 0); 
         }
     };
 
     const handleNewDoc = () => {
         navigate('/new-doc');
+         window.scrollTo(0, 0); 
     };
 
     const selectedKey = menuItems.find((item) => item.path === location.pathname)?.key;

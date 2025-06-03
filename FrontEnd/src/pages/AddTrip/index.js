@@ -38,10 +38,16 @@ function AddTrip() {
 
     const handleCreateTrip = () => {
         navigate('/trip-detail/hehe');
+         window.scrollTo(0, 0); 
 
         setOpenDrawer(false);
         setTripName('');
         setDestination('');
+    };
+
+    const handleCreateTripWithAI = () => {
+        navigate('/gobot-assistant');
+         window.scrollTo(0, 0); 
     };
 
     return (
@@ -95,7 +101,11 @@ function AddTrip() {
                             <p className={cx('option-description')}>
                                 Để AI giúp bạn lên kế hoạch cho chuyến đi của mình một cách nhanh chóng và dễ dàng.
                             </p>
-                            <Button type="primary" className={cx('option-button', 'button-ai')}>
+                            <Button
+                                onClick={handleCreateTripWithAI}
+                                type="primary"
+                                className={cx('option-button', 'button-ai')}
+                            >
                                 Sử dụng AI ngay
                             </Button>
                         </div>
@@ -109,11 +119,6 @@ function AddTrip() {
                 open={openDrawer}
                 width={500}
                 className={cx('drawer')}
-                header={
-                    <div className={cx('drawer-header')}>
-                        <h1>heh</h1>
-                    </div>
-                }
                 footer={
                     <div className={cx('drawer-footer')}>
                         <Button className={cx('drawer-button')} onClick={() => setOpenDrawer(false)}>

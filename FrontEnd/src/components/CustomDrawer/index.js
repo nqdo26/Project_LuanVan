@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './CustomDrawer.module.scss';
-import { Drawer, Button, TimePicker, Input, ConfigProvider } from 'antd';
+import { Drawer, Button, TimePicker, Input } from 'antd';
 import moment from 'moment';
 import CardTrip from '../CardTrip';
 

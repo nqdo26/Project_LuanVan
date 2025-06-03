@@ -63,7 +63,13 @@ function CustomComment({ type = 'restauran' }) {
     const handleMenuClick = ({ key }) => {
         if (key === 'report') {
             navigate('/hehe');
+            window.scrollTo(0, 0);
         }
+    };
+
+    const handleWriteReview = () => {
+        navigate('/write-review');
+        window.scrollTo(0, 0);
     };
 
     const menuItems = [
@@ -132,7 +138,7 @@ function CustomComment({ type = 'restauran' }) {
                         </Select>
 
                         <Button
-                            onClick={() => navigate('/write-review')}
+                            onClick={handleWriteReview}
                             icon={<EditOutlined />}
                             className={cx('write-review-btn')}
                             type="primary"
@@ -224,9 +230,7 @@ function CustomComment({ type = 'restauran' }) {
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td className={cx('rating-label')}>
-                                                                            Phục vụ:
-                                                                        </td>
+                                                                        <td className={cx('rating-label')}>Phục vụ:</td>
                                                                         <td className={cx('rating-stars')}>
                                                                             <Rate
                                                                                 allowHalf
@@ -269,7 +273,6 @@ function CustomComment({ type = 'restauran' }) {
                                                                     </tr>
                                                                 </>
                                                             ) : (
-                                        
                                                                 <>
                                                                     <tr>
                                                                         <td className={cx('rating-label')}>

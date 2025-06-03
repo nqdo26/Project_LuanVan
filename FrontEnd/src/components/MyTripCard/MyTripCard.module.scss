@@ -1,0 +1,35 @@
+.trip-card {
+    display: flex;
+    flex-direction: row;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.trip-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.trip-image {
+    height: 120px;
+    object-fit: cover;
+}
+
+.trip-title {
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.trip-date,
+.trip-location {
+    display: block;
+    font-size: 13px;
+    color: #666;
+}
+
+.trip-card :global(.ant-card-body) {
+    padding: 10px 16px;
+}

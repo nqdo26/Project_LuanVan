@@ -1,3 +1,4 @@
+const { Torus } = require('lucide-react');
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
@@ -9,11 +10,18 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    statistics: {
-        liked: [{ type: mongoose.Schema.Types.ObjectId, ref: 'document' }],
-        disliked: [{ type: mongoose.Schema.Types.ObjectId, ref: 'document' }],
-        uploaded: Number,
-    },
+    favourtites: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'destination',
+        },
+    ],
+    tours: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'tour',
+        },
+    ],
 });
 
 const User = mongoose.model('user', userSchema);

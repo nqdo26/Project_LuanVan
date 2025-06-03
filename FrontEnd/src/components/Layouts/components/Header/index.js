@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { Layout, Flex, Modal, Button, Avatar, Dropdown, Input, Menu } from 'antd';
+import { Layout, Flex, Modal, Button, Avatar, Dropdown, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { GoogleOutlined, UserOutlined } from '@ant-design/icons';
@@ -15,13 +15,10 @@ function Header() {
     const [isModalRegisterOpen, setIsModalRegisterOpen] = useState(false);
 
     const isLoggedIn = true;
-    const user = {
-        name: 'Người dùng',
-        avatarUrl: '',
-    };
 
     const handleNavigate = (path) => {
         navigate('/' + path);
+        window.scrollTo(0, 0);
     };
 
     const showModal = () => {
@@ -44,6 +41,7 @@ function Header() {
             console.log('Đăng xuất');
         } else {
             navigate('/' + key);
+            window.scrollTo(0, 0);
         }
     };
 
@@ -63,8 +61,13 @@ function Header() {
     const handleSearchMenuClick = ({ key }) => {
         if (key === 'add-trip') {
             navigate('/add-trip');
+            window.scrollTo(0, 0);
         } else if (key === 'ai-plan') {
-            navigate('/ai-plan');
+            navigate('/gobot-assistant');
+            window.scrollTo(0, 0);
+        } else if (key === 'my-trip') {
+            navigate('/my-trip');
+            window.scrollTo(0, 0);
         }
     };
 

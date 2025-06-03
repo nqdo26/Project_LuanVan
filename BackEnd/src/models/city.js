@@ -1,51 +1,42 @@
+const { details, title } = require('framer-motion/client');
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 
 const citySchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  slug: { type: String, unique: true },
-  category: { type: mongoose.Schema.Types.ObjectId, ref: 'category' },
-  description: { type: String, required: true },
-  images: {
-    type: [String],
-    validate: {
-      validator: function (v) {
-        return v.length <= 4;
-      },
-      message: 'Mỗi thành phố chỉ được phép có tối đa 4 hình ảnh',
+    name: String,
+    slug: { type: String, unique: true },
+    description: String,
+    aiDescription: String,
+    type: { type: mongoose.Schema.Types.ObjectId, ref: 'cityType' },
+    images: {
+        type: [String],
+        validate: {
+            validator: function (v) {
+                return v.length <= 4;
+            },
+        },
     },
-  },
-  bestTime: { type: String },
-  bestDuration: { type: String },
-  weather: {
-    winter: {
-      maxTemp: Number,
-      minTemp: Number,
-      description: String,
-    },
-    spring: {
-      maxTemp: Number,
-      minTemp: Number,
-      description: String,
-    },
-    summer: {
-      maxTemp: Number,
-      minTemp: Number,
-      description: String,
-    },
-    autumn: {
-      maxTemp: Number,
-      minTemp: Number,
-      description: String,
-    },
-  },
+    weather: [
+        {
+            title: String,
+            minTemp: Number,
+            maxTemp: Number,
+            note: String,
+        },
+    ],
+    info: [
+        {
+            title: String,
+            description: String,
+        },
+    ],
 });
 
 citySchema.pre('save', function (next) {
-  if (!this.slug) {
-    this.slug = slugify(this.title, { lower: true });
-  }
-  next();
+    if (!this.slug) {
+        this.slug = slugify(this.title, { lower: true });
+    }
+    next();
 });
 
 const City = mongoose.model('city', citySchema);
