@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { Layout, Flex, Modal, Button, Avatar, Dropdown, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { GoogleOutlined, UserOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import styles from './Header.module.scss';
 
@@ -10,30 +10,18 @@ function Header() {
     const cx = classNames.bind(styles);
     const { Header } = Layout;
     const navigate = useNavigate();
-    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const isLoggedIn = true;
+
     const [isModalLoginOpen, setIsModalLoginOpen] = useState(false);
     const [isModalRegisterOpen, setIsModalRegisterOpen] = useState(false);
 
-    const isLoggedIn = true;
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleNavigate = (path) => {
         navigate('/' + path);
         window.scrollTo(0, 0);
-    };
-
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleLogin = (provider) => {
-        console.log(`Login with ${provider}`);
-        if (provider === 'Google') {
-            setIsModalOpen(false);
-        }
     };
 
     const handleMenuClick = ({ key }) => {
@@ -61,18 +49,13 @@ function Header() {
     const handleSearchMenuClick = ({ key }) => {
         if (key === 'add-trip') {
             navigate('/add-trip');
-            window.scrollTo(0, 0);
         } else if (key === 'ai-plan') {
             navigate('/gobot-assistant');
-            window.scrollTo(0, 0);
         } else if (key === 'my-trip') {
             navigate('/my-trip');
-            window.scrollTo(0, 0);
         }
+        window.scrollTo(0, 0);
     };
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
 
     const handleLoginSubmit = () => {
         console.log('Email:', email);
@@ -123,7 +106,7 @@ function Header() {
                 <div className={cx('button-group')}>
                     {!isLoggedIn ? (
                         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                            <button className={cx('login')} onClick={showModal}>
+                            <button className={cx('login')} onClick={() => setIsModalLoginOpen(true)}>
                                 Đăng nhập
                             </button>
                         </motion.div>
@@ -139,7 +122,6 @@ function Header() {
                                     size={40}
                                     icon={<UserOutlined />}
                                     className={cx('avatar')}
-                                    onClick={showModal}
                                     style={{ cursor: 'pointer' }}
                                 />
                             </motion.div>
@@ -148,52 +130,6 @@ function Header() {
                 </div>
             </Flex>
 
-            {/* Modal đăng nhập */}
-            <Modal
-                open={isModalOpen}
-                onCancel={handleCancel}
-                footer={null}
-                className={cx('login-modal')}
-                centered
-                destroyOnClose
-                width={400}
-            >
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, ease: 'easeOut' }}
-                    className={cx('modal-content')}
-                >
-                    <div className={cx('modal-logo')}>
-                        <img className={cx('logo')} src="/logo.png" alt="GoOhNo" />
-                        <span className={cx('title')}>GoOhNo</span>
-                    </div>
-                    <p className={cx('modal-title')}>Đăng nhập để trải nghiệm các chức năng tuyệt vời hơn</p>
-                    <div className={cx('buttons')}>
-                        <Button
-                            className={cx('login-button', 'google')}
-                            icon={<GoogleOutlined />}
-                            onClick={() => handleLogin('Google')}
-                            block
-                        >
-                            Đăng nhập bằng Google
-                        </Button>
-                        <Button
-                            className={cx('login-button', 'email')}
-                            icon={<UserOutlined />}
-                            onClick={() => {
-                                setIsModalLoginOpen(true);
-                                setIsModalOpen(false);
-                            }}
-                            block
-                        >
-                            Đăng nhập bằng Tài khoản/Mật khẩu
-                        </Button>
-                    </div>
-                </motion.div>
-            </Modal>
-
-            {/* Modal đăng nhập bằng tài khoản mật khẩu */}
             <Modal
                 open={isModalLoginOpen}
                 onCancel={() => setIsModalLoginOpen(false)}
@@ -247,6 +183,7 @@ function Header() {
                 </motion.div>
             </Modal>
 
+            {/* Modal Đăng ký */}
             <Modal
                 open={isModalRegisterOpen}
                 onCancel={() => setIsModalRegisterOpen(false)}

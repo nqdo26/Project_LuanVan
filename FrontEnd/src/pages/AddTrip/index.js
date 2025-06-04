@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import styles from './AddTrip.module.scss';
 import CustomTitle from '~/components/CustomTitle';
 import { AimOutlined, EnvironmentOutlined, HeartOutlined, SearchOutlined, TeamOutlined } from '@ant-design/icons';
-import { Button, Drawer, Input } from 'antd';
+import { Button } from 'antd';
 import { useState } from 'react';
 import CardSearchDrawer from '~/components/CardSearchDrawer';
 import { useNavigate } from 'react-router-dom';
+
+import AddTripDrawer from '~/components/AddTripDrawer'; // import component drawer mới
 
 const cx = classNames.bind(styles);
 
@@ -31,23 +33,19 @@ const features = [
 
 function AddTrip() {
     const [openDrawer, setOpenDrawer] = useState(false);
-    const [tripName, setTripName] = useState('');
-    const [destination, setDestination] = useState('');
-
     const navigate = useNavigate();
 
-    const handleCreateTrip = () => {
+    // callback nhận dữ liệu hành trình từ drawer
+    const handleAddTrip = ({ tripName, destination }) => {
+        // có thể xử lý thêm nếu cần trước khi navigate
         navigate('/trip-detail/hehe');
-         window.scrollTo(0, 0); 
-
+        window.scrollTo(0, 0);
         setOpenDrawer(false);
-        setTripName('');
-        setDestination('');
     };
 
     const handleCreateTripWithAI = () => {
         navigate('/gobot-assistant');
-         window.scrollTo(0, 0); 
+        window.scrollTo(0, 0);
     };
 
     return (
@@ -113,87 +111,7 @@ function AddTrip() {
                 </div>
             </div>
 
-            <Drawer
-                placement="right"
-                onClose={() => setOpenDrawer(false)}
-                open={openDrawer}
-                width={500}
-                className={cx('drawer')}
-                footer={
-                    <div className={cx('drawer-footer')}>
-                        <Button className={cx('drawer-button')} onClick={() => setOpenDrawer(false)}>
-                            Hủy
-                        </Button>
-                        <Button className={cx('drawer-button', 'button-add')} onClick={handleCreateTrip}>
-                            Tạo hành trình
-                        </Button>
-                    </div>
-                }
-            >
-                <div className={cx('drawer-inner')}>
-                    <p className={cx('drawer-title')}>Tạo hành trình mới</p>
-                    <div className={cx('drawer-group')}>
-                        <p className={cx('drawer-label')}>Tên hành trình</p>
-                        <Input
-                            placeholder="Chuyến du lịch Cần Thơ cùng gia đình"
-                            maxLength={80}
-                            value={tripName}
-                            onChange={(e) => setTripName(e.target.value)}
-                            className={cx('drawer-input')}
-                        />
-                    </div>
-                    <div className={cx('drawer-group')}>
-                        <p className={cx('drawer-label')}>Địa điểm</p>
-                        <Input
-                            prefix={<SearchOutlined />}
-                            placeholder="Chuyến du lịch Cần Thơ cùng gia đình"
-                            maxLength={80}
-                            value={destination}
-                            onChange={(e) => setDestination(e.target.value)}
-                            className={cx('drawer-input', 'drawer-search')}
-                        />
-                        <div className={cx('drawer-search-result')}>
-                            <div className={cx('result-list')}>
-                                <CardSearchDrawer
-                                    city="Cần Thơ"
-                                    region="Thành phố nực nhất miền Tây"
-                                    image="/wimi2-img.png"
-                                />
-                                <CardSearchDrawer
-                                    city="Cần Thơ"
-                                    region="Thành phố nực nhất miền Tây"
-                                    image="/wimi2-img.png"
-                                />
-                                <CardSearchDrawer
-                                    city="Cần Thơ"
-                                    region="Thành phố nực nhất miền Tây"
-                                    image="/wimi2-img.png"
-                                />
-                                <CardSearchDrawer
-                                    city="Cần Thơ"
-                                    region="Thành phố nực nhất miền Tây"
-                                    image="/wimi2-img.png"
-                                />
-                                <CardSearchDrawer
-                                    city="Cần Thơ"
-                                    region="Thành phố nực nhất miền Tây"
-                                    image="/wimi2-img.png"
-                                />
-                                <CardSearchDrawer
-                                    city="Cần Thơ"
-                                    region="Thành phố nực nhất miền Tây"
-                                    image="/wimi2-img.png"
-                                />
-                                <CardSearchDrawer
-                                    city="Cần Thơ"
-                                    region="Thành phố nực nhất miền Tây"
-                                    image="/wimi2-img.png"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Drawer>
+            <AddTripDrawer open={openDrawer} onClose={() => setOpenDrawer(false)} onAdd={handleAddTrip} />
         </motion.div>
     );
 }

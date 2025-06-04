@@ -4,10 +4,25 @@
     border-radius: 12px;
     overflow: hidden;
     width: 100%;
+
+    box-shadow: none !important;
+
+    :global(.ant-card-body) {
+        width: 100% !important;
+        padding: 0 !important;
+        border: none !important;
+    }
+
+    :global(.ant-card-cover) {
+        width: 140px !important;
+        margin-right: 20px !important;
+        border-radius: 100px !important;
+    }
 }
 
 .trip-header {
     display: flex;
+    width: 100%;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -16,20 +31,48 @@
 .trip-image {
     height: 120px;
     object-fit: cover;
+    border-radius: 10px !important;
 }
 
 .trip-title {
-    margin-bottom: 4px;
+    font-size: 20px;
+    margin-bottom: 2px;
     font-weight: 600;
 }
 
-.trip-date,
-.trip-location {
-    display: block;
-    font-size: 13px;
-    color: #666;
+.trip-details {
+    color: #474747;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
-.trip-card :global(.ant-card-body) {
-    padding: 10px 16px;
+.trip-date {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.icon-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.icon-button {
+    padding: 10px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        background-color: #f0f0f0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+        transform: scale(0.95);
+        box-shadow: none;
+    }
 }

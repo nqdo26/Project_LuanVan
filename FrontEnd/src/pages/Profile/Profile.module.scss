@@ -1,0 +1,20 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(240, 240, 240);
+}
+
+.header {
+    width: 70%;
+    margin-top: 50px;
+
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
