@@ -2,13 +2,12 @@ import classNames from 'classnames/bind';
 import { motion } from 'framer-motion';
 import styles from './AddTrip.module.scss';
 import CustomTitle from '~/components/CustomTitle';
-import { AimOutlined, EnvironmentOutlined, HeartOutlined, SearchOutlined, TeamOutlined } from '@ant-design/icons';
+import { AimOutlined, EnvironmentOutlined, HeartOutlined, TeamOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
+import AddTripDrawer from '~/components/AddTripDrawer';
 import { useState } from 'react';
-import CardSearchDrawer from '~/components/CardSearchDrawer';
 import { useNavigate } from 'react-router-dom';
 
-import AddTripDrawer from '~/components/AddTripDrawer'; // import component drawer mới
 
 const cx = classNames.bind(styles);
 
@@ -35,9 +34,7 @@ function AddTrip() {
     const [openDrawer, setOpenDrawer] = useState(false);
     const navigate = useNavigate();
 
-    // callback nhận dữ liệu hành trình từ drawer
     const handleAddTrip = ({ tripName, destination }) => {
-        // có thể xử lý thêm nếu cần trước khi navigate
         navigate('/trip-detail/hehe');
         window.scrollTo(0, 0);
         setOpenDrawer(false);
@@ -82,7 +79,7 @@ function AddTrip() {
                     <div className={cx('option-item')}>
                         <div className={cx('option-inner')}>
                             <img alt="error" src="/addtrip-img.png" className={cx('option-img')} />
-                            <p className={cx('option-title')}>Tạo hành trình của riêng bạn</p>
+                            <p className={cx('option-title')}>Tự mình lên hành trình</p>
                             <p className={cx('option-description')}>
                                 Tạo hành trình khám phá riêng của bạn với những điểm đến yêu thích.
                             </p>
@@ -95,7 +92,7 @@ function AddTrip() {
                     <div style={{ backgroundColor: '#dcc8ff' }} className={cx('option-item')}>
                         <div className={cx('option-inner')}>
                             <img alt="error" src="/addtrip-img2.png" className={cx('option-img')} />
-                            <p className={cx('option-title')}>Lên kế hoạch nhanh chóng cùng AI</p>
+                            <p className={cx('option-title')}>Để AI hỗ trợ bạn</p>
                             <p className={cx('option-description')}>
                                 Để AI giúp bạn lên kế hoạch cho chuyến đi của mình một cách nhanh chóng và dễ dàng.
                             </p>

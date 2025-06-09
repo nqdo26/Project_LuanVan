@@ -11,7 +11,10 @@ function Header() {
     const { Header } = Layout;
     const navigate = useNavigate();
 
-    const isLoggedIn = true;
+    const user = {
+        isAdmin: false,
+        logginedIn: true,
+    };
 
     const [isModalLoginOpen, setIsModalLoginOpen] = useState(false);
     const [isModalRegisterOpen, setIsModalRegisterOpen] = useState(false);
@@ -104,7 +107,13 @@ function Header() {
                 </nav>
 
                 <div className={cx('button-group')}>
-                    {!isLoggedIn ? (
+                    {user.isAdmin && (
+                        <button className={cx('admin-button')} color="pink" variant="solid">
+                            Mục quản lý
+                        </button>
+                    )}
+
+                    {!user.logginedIn ? (
                         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                             <button className={cx('login')} onClick={() => setIsModalLoginOpen(true)}>
                                 Đăng nhập
