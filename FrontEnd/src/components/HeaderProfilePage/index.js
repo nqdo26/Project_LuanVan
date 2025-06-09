@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
 import { Button, Modal, Input, Tooltip, Upload } from 'antd';
-import { SettingOutlined, UploadOutlined } from '@ant-design/icons';
+import { EyeInvisibleOutlined, EyeTwoTone, UploadOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import styles from './HeaderProfilePage.module.scss';
 import { UserPen } from 'lucide-react';
+import Password from 'antd/es/input/Password';
 
 const cx = classNames.bind(styles);
 
 function HeaderProfilePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isChangePassModalOpen, setIsChangePassModalOpen] = useState(false);
 
     const showModal = () => setIsModalOpen(true);
     const handleOk = () => setIsModalOpen(false);
     const handleCancel = () => setIsModalOpen(false);
+
+    const showChangePasswordModal = () => setIsChangePassModalOpen(true);
+    const handleChangePasswordOk = () => {
+        // TODO: Xử lý đổi mật khẩu ở đây
+        setIsChangePassModalOpen(false);
+    };
+    const handleChangePasswordCancel = () => setIsChangePassModalOpen(false);
 
     return (
         <div className={cx('wrapper')}>
@@ -25,9 +34,9 @@ function HeaderProfilePage() {
                     </div>
                 </div>
 
-                <Tooltip title="Chỉnh sửa thông tin cá nhân" placement="bottom">
-                    <div className={cx('edit-icon')} onClick={showModal}>
-                        <UserPen />
+                <Tooltip title="Chỉnh sửa thông tin cá nhân" placement="right">
+                    <div onClick={showModal}>
+                        <UserPen className={cx('edit-icon')} />
                     </div>
                 </Tooltip>
             </div>
@@ -35,31 +44,16 @@ function HeaderProfilePage() {
             <div className={cx('stats')}>
                 <div className={cx('stat-item')}>
                     <strong>0</strong>
-                    <span>Contributions</span>
+                    <span>Lượt đánh giá</span>
                 </div>
                 <div className={cx('stat-item')}>
                     <strong>0</strong>
-                    <span>Followers</span>
+                    <span>Lượt yêu thích</span>
                 </div>
                 <div className={cx('stat-item')}>
                     <strong>0</strong>
-                    <span>Following</span>
+                    <span>Lịch trình cá nhân</span>
                 </div>
-            </div>
-
-            <div className={cx('edit-btn')}>
-                <Button icon={<SettingOutlined />} type="default">
-                    Edit profile
-                </Button>
-            </div>
-
-            <div className={cx('tabs')}>
-                <span className={cx('tab', 'active')}>Activity feed</span>
-                <span className={cx('tab')}>Trips</span>
-                <span className={cx('tab')}>Photos</span>
-                <span className={cx('tab')}>Reviews</span>
-                <span className={cx('tab')}>Forums</span>
-                <span className={cx('tab')}>Travel map</span>
             </div>
 
             <Modal
@@ -71,8 +65,7 @@ function HeaderProfilePage() {
                 cancelText="Hủy"
                 width={600}
             >
-                {/* Avatar */}
-                <div style={{ textAlign: 'center', marginBottom: 24 }}>
+                <div className={cx('modal-body')} style={{ textAlign: 'center', marginBottom: 24 }}>
                     <img
                         src="/wimi1-img.png"
                         alt="avatar"
@@ -90,13 +83,41 @@ function HeaderProfilePage() {
                     </Upload>
                 </div>
 
-                {/* Form Fields */}
-                <Input style={{ marginBottom: 12 }} placeholder="Họ và tên" defaultValue="Nguyễn Quang Độ" />
-                <Input style={{ marginBottom: 12 }} placeholder="Username" defaultValue="583quang_n" prefix="@" />
-                <Input style={{ marginBottom: 12 }} placeholder="Thành phố hiện tại" />
-                <Input style={{ marginBottom: 12 }} placeholder="Website" prefix="🌐" />
-                <Input.TextArea placeholder="Thông tin giới thiệu bản thân" maxLength={160} rows={4} />
-                <div style={{ fontSize: 12, color: '#999', marginTop: 8 }}>160 ký tự tối đa</div>
+                <Input
+                    style={{ width: '280px', marginBottom: 12 }}
+                    placeholder="Họ và tên"
+                    defaultValue="Nguyễn Quang Độ"
+                />
+
+                <div className={cx('password-button')} onClick={showChangePasswordModal}>
+                    <p className={cx('password-text')}>Đổi mật khẩu</p>
+                </div>
+            </Modal>
+
+            {/* Modal đổi mật khẩu */}
+            <Modal
+                title="Đổi mật khẩu"
+                open={isChangePassModalOpen}
+                onOk={handleChangePasswordOk}
+                onCancel={handleChangePasswordCancel}
+                okText="Cập nhật"
+                cancelText="Hủy"
+                width={500}
+            >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    <Password
+                        placeholder="Mật khẩu hiện tại"
+                        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                    />
+                    <Password
+                        placeholder="Mật khẩu mới"
+                        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                    />
+                    <Password
+                        placeholder="Nhập lại mật khẩu mới"
+                        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                    />
+                </div>
             </Modal>
         </div>
     );

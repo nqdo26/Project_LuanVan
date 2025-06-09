@@ -4,23 +4,32 @@ const tourSchema = new mongoose.Schema({
     name: String,
     slug: { type: String, unique: true },
     city: { type: mongoose.Schema.Types.ObjectId, ref: 'city' },
-    duratio: {
-        startDay: Date,
+    duration: {
+        starDay: Date,
         endDay: Date,
         numDays: Number,
+    },
+
+    isPublic: {
+        type: Boolean,
+        default: false,
     },
     itinerary: [
         {
             day: String,
-            description: {
-                destinationId: { type: mongoose.Schema.Types.ObjectId, ref: 'destination' },
-                note: String,
-                time: String,
-            },
-            note: {
-                title: String,
-                content: String,
-            },
+            descriptions: [
+                {
+                    destinationId: { type: mongoose.Schema.Types.ObjectId, ref: 'destination' },
+                    note: String,
+                    time: String,
+                },
+            ],
+            notes: [
+                {
+                    title: String,
+                    content: String,
+                },
+            ],
         },
     ],
 });

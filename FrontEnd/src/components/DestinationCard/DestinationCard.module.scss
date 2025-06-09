@@ -12,7 +12,6 @@
 
 .destination-card {
     position: relative;
-    width: 100%;
 }
 
 .image-container {
@@ -175,69 +174,4 @@
     justify-content: space-between;
     align-items: center;
     margin: 5px 0px 5px 0px;
-}
-
-// Responsive
-@media (max-width: 1024px) {
-    .card {
-        min-width: 200px;
-        max-width: 265px;
-    }
-    .card-image {
-        height: 160px;
-    }
-    .title {
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 768px) {
-    .card {
-        min-width: 220px;
-    }
-    .card-image {
-        height: 140px;
-    }
-    .title {
-        font-size: 13px;
-    }
-    .rating-container {
-        gap: 3px;
-    }
-    .ant-rate-star {
-        font-size: 14px !important;
-    }
-    .rating-value {
-        font-size: 12px;
-    }
-    .rating-count {
-        font-size: 11px;
-    }
-}
-
-@media (max-width: 480px) {
-    .card {
-        min-width: 170px;
-        max-width: 170px;
-    }
-    .card-image {
-        height: 120px;
-    }
-    .title {
-        font-size: 12px;
-        -webkit-line-clamp: 1;
-        line-clamp: 1;
-    }
-    .rating-container {
-        gap: 3px;
-    }
-    .ant-rate-star {
-        font-size: 14px !important;
-    }
-    .rating-value {
-        font-size: 12px;
-    }
-    .rating-count {
-        font-size: 11px;
-    }
 }

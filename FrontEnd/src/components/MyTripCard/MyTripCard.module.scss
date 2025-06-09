@@ -18,6 +18,23 @@
         margin-right: 20px !important;
         border-radius: 100px !important;
     }
+
+    @media (max-width: 576px) {
+        flex-direction: column;
+
+        :global(.ant-card-cover) {
+            width: 100% !important;
+            margin-right: 0 !important;
+            border-radius: 12px !important;
+            height: 180px;
+        }
+    }
+}
+
+.trip-info {
+    @media (max-width: 576px) {
+        padding: 5px 10px !important;
+    }
 }
 
 .trip-header {
@@ -26,32 +43,65 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    @media (max-width: 576px) {
+        align-items: flex-start;
+        gap: 8px;
+    }
 }
 
 .trip-image {
     height: 120px;
     object-fit: cover;
     border-radius: 10px !important;
+
+    @media (max-width: 576px) {
+        height: 180px;
+        width: 100%;
+        border-radius: 12px 12px 0px 0px !important;
+    }
+}
+
+.title-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+
+    @media (max-width: 576px) {
+        gap: 8px;
+    }
 }
 
 .trip-title {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 2px;
     font-weight: 600;
+
+    @media (max-width: 576px) {
+        font-size: 16px;
+    }
 }
 
 .trip-details {
     color: #474747;
     font-size: 14px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 4px;
+
+    @media (max-width: 576px) {
+        font-size: 13px;
+    }
 }
 
-.trip-date {
-    display: flex;
-    gap: 4px;
-    align-items: center;
+.trip-date,
+.trip-location {
+    font-size: 14px;
+
+    @media (max-width: 576px) {
+        font-size: 13px;
+    }
 }
 
 .icon-wrapper {
@@ -74,5 +124,9 @@
     &:active {
         transform: scale(0.95);
         box-shadow: none;
+    }
+
+    @media (max-width: 576px) {
+        padding: none !important;
     }
 }
