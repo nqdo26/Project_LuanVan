@@ -11,7 +11,6 @@ import SearchSidebar from '~/components/SearchSidebar';
 import ResultSorter from '~/components/ResultSorter';
 import DestinationCard from '~/components/DestinationCard';
 
-
 const cx = classNames.bind(styles);
 
 const destinations = [
@@ -81,11 +80,13 @@ function Search() {
                                 </div>
                                 <div className={cx('result-list')}>
                                     <List
-                                        grid={{ gutter: 18, xs: 2, sm: 2, md: 3, lg: 3, xl: 3 }}
+                                        grid={{ gutter: 18, xs: 1, sm: 2, md: 3, lg: 3, xl: 3 }}
                                         dataSource={destinations}
                                         pagination={{ pageSize: 15 }}
                                         renderItem={(item) => (
-                                            <List.Item style={{ width: '100%' }}>
+                                            <List.Item
+                                                style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+                                            >
                                                 <DestinationCard title={item.title} />
                                             </List.Item>
                                         )}

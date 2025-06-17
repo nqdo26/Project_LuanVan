@@ -12,19 +12,19 @@ function AdminLayout({ children }) {
     return (
         <Layout>
             <Header className={cx('header')} />
-            <Layout style={{
-                background: 'white',
-            }}>
+            <Layout
+                style={{
+                    background: 'white',
+                }}
+            >
                 <Sidebar className={cx('sidebar')} />
-                <Content className={cx('content')}>
-                        <div className={cx('inner')}>{children}</div>
-                </Content>
+                <Content className={cx('content')}>{children}</Content>
             </Layout>
-            <div className={cx('footer')}><CustomFooter/></div>
+            <div className={cx('footer')}>
+                <CustomFooter />
+            </div>
         </Layout>
     );
 }
 
 export default AdminLayout;
-
-

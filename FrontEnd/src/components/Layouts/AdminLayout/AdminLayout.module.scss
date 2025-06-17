@@ -6,33 +6,24 @@ header {
     width: 100%;
 }
 
-
 .sidebar {
-    margin-top: var(--default-layout-header-height) !important; 
+    margin-top: var(--default-layout-header-height) !important;
     background-color: transparent;
-    
+    height: 100%;
 }
 
 .content {
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
-    margin-left: var(--default-layout-sidebar-width);
-    margin-top: var(--default-layout-header-height);
     width: calc(100% - var(--default-layout-sidebar-width));
     min-height: calc(100vh - var(--default-layout-header-height));
     max-width: calc(100% - var(--default-layout-sidebar-width));
-}
 
-.inner {
-    width: 96%;
-    height: 93%;
-    background-color: red;
 }
-
 
 .footer {
-    min-width: 200px !important; 
-    margin-left: var(--default-layout-sidebar-width) !important; 
+    min-width: 200px !important;
+    margin-left: var(--default-layout-sidebar-width) !important;
 }

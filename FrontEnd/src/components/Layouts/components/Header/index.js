@@ -6,22 +6,25 @@ import { UserOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import styles from './Header.module.scss';
 
+const cx = classNames.bind(styles);
+const { Header: AntHeader } = Layout;
+
 function Header() {
-    const cx = classNames.bind(styles);
-    const { Header } = Layout;
     const navigate = useNavigate();
 
+    // ---- USER DUMMY DATA (replace with real auth context or redux later) ----
     const user = {
-        isAdmin: false,
-        logginedIn: true,
+        isAdmin: true,     // Đổi thành true để test admin, hoặc false nếu thường
+        logginedIn: true,  // Đổi thành false để test chưa đăng nhập
     };
 
+    // ---- STATE ----
     const [isModalLoginOpen, setIsModalLoginOpen] = useState(false);
     const [isModalRegisterOpen, setIsModalRegisterOpen] = useState(false);
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    // ---- HANDLERS ----
     const handleNavigate = (path) => {
         navigate('/' + path);
         window.scrollTo(0, 0);
@@ -29,6 +32,7 @@ function Header() {
 
     const handleMenuClick = ({ key }) => {
         if (key === 'logout') {
+            // TODO: Xử lý logout thật sự
             console.log('Đăng xuất');
         } else {
             navigate('/' + key);
@@ -36,6 +40,26 @@ function Header() {
         }
     };
 
+    const handleSearchMenuClick = ({ key }) => {
+        if (key === 'add-trip') navigate('/add-trip');
+        else if (key === 'ai-plan') navigate('/gobot-assistant');
+        else if (key === 'my-trip') navigate('/my-trip');
+        window.scrollTo(0, 0);
+    };
+
+    const handleLoginSubmit = () => {
+        // TODO: Xử lý login thật sự
+        console.log('Email:', email);
+        console.log('Password:', password);
+        setIsModalLoginOpen(false);
+    };
+
+    const handleAdminClick = () => {
+        navigate('/admin');
+        window.scrollTo(0, 0);
+    };
+
+    // ---- MENU ITEMS ----
     const dropdownItems = [
         { key: 'profile', label: <span className={cx('menu-avt-item')}>Thông tin cá nhân</span> },
         { key: 'schedule', label: <span className={cx('menu-avt-item')}>Lên lịch trình</span> },
@@ -49,31 +73,16 @@ function Header() {
         { key: 'ai-plan', label: 'Tạo lịch trình với AI' },
     ];
 
-    const handleSearchMenuClick = ({ key }) => {
-        if (key === 'add-trip') {
-            navigate('/add-trip');
-        } else if (key === 'ai-plan') {
-            navigate('/gobot-assistant');
-        } else if (key === 'my-trip') {
-            navigate('/my-trip');
-        }
-        window.scrollTo(0, 0);
-    };
-
-    const handleLoginSubmit = () => {
-        console.log('Email:', email);
-        console.log('Password:', password);
-        setIsModalLoginOpen(false);
-    };
-
     return (
-        <Header className={cx('wrapper')}>
+        <AntHeader className={cx('wrapper')}>
             <Flex justify="space-between" className={cx('inner')}>
+          
                 <div className={cx('logo')} onClick={() => handleNavigate('')}>
                     <img src="/logo.png" alt="documan" />
                     <span className={cx('title')}>GoOhNo</span>
                 </div>
 
+         
                 <nav className={cx('menu')}>
                     {[
                         { label: 'Trang chủ', path: '' },
@@ -107,12 +116,19 @@ function Header() {
                 </nav>
 
                 <div className={cx('button-group')}>
+   
                     {user.isAdmin && (
-                        <button className={cx('admin-button')} color="pink" variant="solid">
+                        <motion.button
+                            className={cx('admin-button')}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={handleAdminClick}
+                        >
                             Mục quản lý
-                        </button>
+                        </motion.button>
                     )}
 
+            
                     {!user.logginedIn ? (
                         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                             <button className={cx('login')} onClick={() => setIsModalLoginOpen(true)}>
@@ -139,6 +155,7 @@ function Header() {
                 </div>
             </Flex>
 
+            {/* LOGIN MODAL */}
             <Modal
                 open={isModalLoginOpen}
                 onCancel={() => setIsModalLoginOpen(false)}
@@ -192,7 +209,7 @@ function Header() {
                 </motion.div>
             </Modal>
 
-            {/* Modal Đăng ký */}
+            {/* REGISTER MODAL */}
             <Modal
                 open={isModalRegisterOpen}
                 onCancel={() => setIsModalRegisterOpen(false)}
@@ -245,7 +262,7 @@ function Header() {
                     </div>
                 </motion.div>
             </Modal>
-        </Header>
+        </AntHeader>
     );
 }
 
