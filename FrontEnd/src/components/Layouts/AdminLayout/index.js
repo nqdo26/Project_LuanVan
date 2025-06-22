@@ -20,9 +20,7 @@ function AdminLayout({ children }) {
                 <Sidebar className={cx('sidebar')} />
                 <Content className={cx('content')}>{children}</Content>
             </Layout>
-            <div className={cx('footer')}>
-                <CustomFooter />
-            </div>
+            <CustomFooter />
         </Layout>
     );
 }

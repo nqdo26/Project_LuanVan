@@ -4,6 +4,7 @@ import { AdminLayout } from '~/components/Layouts';
 // Pages
 import AddTrip from '~/pages/AddTrip';
 import Admin from '~/pages/Admin';
+import AdminAddDestination from '~/pages/AdminAddDestination';
 import AdminDestinationManage from '~/pages/AdminDestinationManage';
 import AdminPlaceManage from '~/pages/AdminPlaceManage';
 import AdminUserManage from '~/pages/AdminUserManage';
@@ -33,6 +34,7 @@ const publicRoutes = [
     { path: '/admin/users-manage', component: AdminUserManage, layout: AdminLayout },
     { path: '/admin/destinations-manage', component: AdminDestinationManage, layout: AdminLayout },
     { path: '/admin/places-manage', component: AdminPlaceManage, layout: AdminLayout },
+    { path: '/admin/add-destination', component: AdminAddDestination, layout: AdminLayout },
 
     { path: '/destination/wimi-factory', component: DestinationDetails },
     { path: '/write-review', component: WriteReview },

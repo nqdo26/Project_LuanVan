@@ -49,8 +49,13 @@ function Sidebar() {
             window.scrollTo(0, 0);
         }
     };
-    const handleNewDoc = () => {
-        navigate('/new-doc');
+    const handleAddDestination = () => {
+        navigate('/admin/add-destination');
+        window.scrollTo(0, 0);
+    };
+
+    const handleAddCity = () => {
+        navigate('/admin/add-city');
         window.scrollTo(0, 0);
     };
 
@@ -90,15 +95,15 @@ function Sidebar() {
                             <motion.div whileHover={{ scale: 1.07 }} whileTap={{ scale: 0.98 }}>
                                 <Button
                                     style={{ backgroundColor: '#1890ff', color: 'white', width: '200px' }}
-                                    onClick={handleNewDoc}
+                                    onClick={handleAddCity}
                                 >
-                                    <PlusOutlined /> Thêm tỉnh mới
+                                    <PlusOutlined /> Thêm thành phố mới
                                 </Button>
                             </motion.div>
                             <motion.div whileHover={{ scale: 1.07 }} whileTap={{ scale: 0.98 }}>
                                 <Button
                                     style={{ backgroundColor: '#52c41a', color: 'white', width: '200px' }}
-                                    onClick={handleNewDoc}
+                                    onClick={handleAddDestination}
                                 >
                                     <PlusOutlined /> Thêm địa điểm mới
                                 </Button>

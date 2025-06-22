@@ -17,13 +17,10 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: calc(100% - var(--default-layout-sidebar-width));
-    min-height: calc(100vh - var(--default-layout-header-height));
-    max-width: calc(100% - var(--default-layout-sidebar-width));
 
 }
 
 .footer {
-    min-width: 200px !important;
+    width: 100%;
     margin-left: var(--default-layout-sidebar-width) !important;
 }

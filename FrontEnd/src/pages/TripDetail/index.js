@@ -93,12 +93,15 @@ function TripDetail() {
                                 />
                                 <div className={cx('suggest-list')}>
                                     <List
-                                        grid={{ gutter: 18, xs: 1, sm: 1, md: 1, lg: 2, xl: 2 }}
+                                        grid={{ gutter: 18, xs: 1, sm: 2, md: 3, lg: 3, xl: 4 }}
                                         dataSource={destinations}
                                         pagination={{ pageSize: 6 }}
                                         renderItem={(item) => (
-                                            <List.Item style={{ width: '100%' }}>
-                                                <DestinationCard title={item.title} />
+                                            <List.Item style={{ }}>
+                                                <DestinationCard
+                                                    className={cx('destination-card')}
+                                                    title={item.title}
+                                                />
                                             </List.Item>
                                         )}
                                     />

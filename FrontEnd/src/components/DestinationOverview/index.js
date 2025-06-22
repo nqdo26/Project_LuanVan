@@ -28,7 +28,7 @@ function DestinationOverview({
         title: 'Wimi-Factory',
         description:
             'Wimi-Factory là một không gian cà phê sáng tạo và hiện đại, kết hợp phong cách công nghiệp với thiên nhiên. Không gian được chia thành nhiều khu vực, phù hợp để học tập, làm việc hoặc thư giãn Wimi-Factory là một không gian cà phê sáng tạo và hiện đại, kết hợp phong cách công nghiệp với thiên nhiên. Không gian được chia thành nhiều khu vực, phù hợp để học tập, làm việc hoặc thư giãn Wimi-Factory là một không gian cà phê sáng tạo và hiện đại, kết hợp phong cách công nghiệp với thiên nhiên. Không gian được chia thành nhiều khu vực, phù hợp để học tập, làm việc hoặc thư giãn.',
-        type: 'restaurant',
+        type: 'restaura',
         tag: [],
         location: '123 Đường ABC, Quận 1, TP.HCM',
         createAt: new Date(),

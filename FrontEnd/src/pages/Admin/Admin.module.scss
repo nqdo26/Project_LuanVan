@@ -77,3 +77,48 @@
     font-weight: 600;
     margin-bottom: 20px;
 }
+
+@media (max-width: 900px) {
+    .inner {
+        width: 95%;
+    }
+
+    .section-1-items {
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+    }
+    .small-card {
+        width: 46%;
+        min-width: 160px;
+    }
+}
+
+@media (max-width: 600px) {
+    .inner {
+        width: 100%;
+        padding: 0 8px;
+    }
+    .section-1 {
+        gap: 15px;
+        padding: 0 2px;
+    }
+    .section-1-items {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .small-card {
+        width: 100%;
+        min-width: unset;
+        box-sizing: border-box;
+        padding: 14px;
+    }
+    .small-card-title {
+        font-size: 13px;
+    }
+    .small-card-value {
+        font-size: 24px;
+        min-height: 28px;
+    }
+}

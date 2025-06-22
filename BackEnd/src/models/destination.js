@@ -21,7 +21,6 @@ const destinationSchema = new mongoose.Schema({
         views: { type: Number, default: 0 },
         totalSave: { type: Number, default: 0 },
         totalRate: { type: Number, default: 0 },
-        totalReview: { type: Number, default: 0 },
         averageRating: { type: Number, default: 0 },
     },
     detail: {

@@ -31,7 +31,7 @@ function DestinationDetails() {
                     <DestinationDetailPageHeader title="Wimi-Factory" />
                 </div>
                 <div className={cx('body')}>
-                    <DestinationGallery type="restaurant" />
+                    <DestinationGallery type="restauran" />
                     <Tabs
                         className={cx('tabs')}
                         onChange={scrollToSection}

@@ -93,10 +93,10 @@ function AdminUserManage() {
             render: (record) => (
                 <div>
                     <div>
-                        Số lịch trình cá nhân: <b>{record.personalItineraries}</b>
+                        Lịch trình cá nhân: <b>{record.personalItineraries}</b>
                     </div>
                     <div>
-                        Số lượt đánh giá: <b>{record.reviewCount}</b>
+                        Lượt đánh giá: <b>{record.reviewCount}</b>
                     </div>
                 </div>
             ),
