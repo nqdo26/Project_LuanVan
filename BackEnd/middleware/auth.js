@@ -1,8 +1,9 @@
 require('dotenv').config();
+const { a } = require('framer-motion/client');
 const jwt = require('jsonwebtoken');
 
 const auth = (req, res, next) => {
-    const white_lists = ['/', '/login', '/register', '/search', '/createAdmin', '/users'];
+    const white_lists = ['/', '/login', '/register', '/search', '/createAdmin'];
 
     if (white_lists.find((item) => '/v1/api' + item === req.originalUrl)) {
         next();
@@ -14,9 +15,13 @@ const auth = (req, res, next) => {
             try {
                 const decoded = jwt.verify(token, process.env.JWT_SECRET);
                 req.user = {
+                    fullName: decoded.fullName,
                     email: decoded.email,
                     name: decoded.name,
-                    createdBy: 'hehe',
+                    avatar: decoded.avatar,
+                    isAdmin: decoded.isAdmin,
+                    favortites: decoded.favortites,
+                    tours: decoded.tours, 
                 };
                 console.log(decoded);
                 next();

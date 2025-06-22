@@ -1,4 +1,4 @@
-const { Torus } = require('lucide-react');
+
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    favourtites: [
+    favortites: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'destination',

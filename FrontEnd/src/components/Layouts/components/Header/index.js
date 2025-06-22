@@ -1,10 +1,12 @@
 import classNames from 'classnames/bind';
-import { Layout, Flex, Modal, Button, Avatar, Dropdown, Input } from 'antd';
+import { Layout, Flex, Modal, Button, Avatar, Dropdown, Input, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { UserOutlined } from '@ant-design/icons';
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import styles from './Header.module.scss';
+import { createUserApi, loginApi } from '~/utils/api';
+import { AuthContext } from '~/components/Context/auth.context';
 
 const cx = classNames.bind(styles);
 const { Header: AntHeader } = Layout;
@@ -12,17 +14,21 @@ const { Header: AntHeader } = Layout;
 function Header() {
     const navigate = useNavigate();
 
-    // ---- USER DUMMY DATA (replace with real auth context or redux later) ----
-    const user = {
-        isAdmin: true,     // Đổi thành true để test admin, hoặc false nếu thường
-        logginedIn: true,  // Đổi thành false để test chưa đăng nhập
-    };
+    const { auth, setAuth } = useContext(AuthContext);
 
     // ---- STATE ----
+    // Login modal
     const [isModalLoginOpen, setIsModalLoginOpen] = useState(false);
     const [isModalRegisterOpen, setIsModalRegisterOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loginLoading, setLoginLoading] = useState(false);
+    // Register modal
+    const [registerName, setRegisterName] = useState('');
+    const [registerEmail, setRegisterEmail] = useState('');
+    const [registerPassword, setRegisterPassword] = useState('');
+    const [registerConfirmPassword, setRegisterConfirmPassword] = useState('');
+    const [registerLoading, setRegisterLoading] = useState(false);
 
     // ---- HANDLERS ----
     const handleNavigate = (path) => {
@@ -32,8 +38,8 @@ function Header() {
 
     const handleMenuClick = ({ key }) => {
         if (key === 'logout') {
-            // TODO: Xử lý logout thật sự
-            console.log('Đăng xuất');
+            // TODO: Xử lý logout thật sự (xóa token/context v.v.)
+            message.info('Đăng xuất!');
         } else {
             navigate('/' + key);
             window.scrollTo(0, 0);
@@ -47,19 +53,97 @@ function Header() {
         window.scrollTo(0, 0);
     };
 
-    const handleLoginSubmit = () => {
-        // TODO: Xử lý login thật sự
-        console.log('Email:', email);
-        console.log('Password:', password);
-        setIsModalLoginOpen(false);
-    };
-
     const handleAdminClick = () => {
         navigate('/admin');
         window.scrollTo(0, 0);
     };
 
-    // ---- MENU ITEMS ----
+    // ---- Đăng nhập ----
+    const handleLoginSubmit = async () => {
+        if (!email || !password) {
+            message.warning('Chưa nhập tài khoản hoặc mật khẩu!');
+            return;
+        }
+        setLoginLoading(true);
+        try {
+            const res = await loginApi(email, password);
+            console.log(res.access_token);
+            if (res.EC === 0) {
+                localStorage.setItem('access_token', res.access_token);
+                message.success('Đăng nhập thành công!');
+                setAuth({
+                    isAuthenticated: true,
+                    user: {
+                        id: res?.user?.id ?? '',
+                        email: res?.user?.email ?? '',
+                        fullName: res?.user?.fullName ?? '',
+                        avatar: res?.user?.avatar ?? '',
+                        isAdmin: res?.user?.isAdmin ?? false,
+                    },
+                });
+                setIsModalLoginOpen(false);
+                setEmail('');
+                setPassword('');
+            } else if (res.EC === 1) {
+                message.error('Email hoặc mật khẩu không đúng!');
+            } else {
+                message.error(res.data.EM || 'Lỗi hệ thống!');
+            }
+        } catch (err) {
+            message.error('Không kết nối được server!');
+        }
+        setLoginLoading(false);
+    };
+
+    // ---- Đăng ký tài khoản ----
+    const handleRegisterSubmit = async () => {
+        if (!registerName || !registerEmail || !registerPassword || !registerConfirmPassword) {
+            message.warning('Hãy nhập đầy đủ thông tin!');
+            return;
+        }
+        if (registerPassword !== registerConfirmPassword) {
+            message.error('Nhập lại mật khẩu không khớp!');
+            return;
+        }
+        setRegisterLoading(true);
+        try {
+            const res = await createUserApi(registerName, registerEmail, registerPassword);
+            console.log(res);
+            if (res.EC === 0) {
+                message.success('Đăng ký thành công!');
+                setIsModalRegisterOpen(false);
+                setIsModalLoginOpen(true);
+                setRegisterName('');
+                setRegisterEmail('');
+                setRegisterPassword('');
+                setRegisterConfirmPassword('');
+            } else if (res.EC === 1) {
+                message.error('Email đã được sử dụng!');
+            }
+        } catch (err) {
+            message.error('Không kết nối được server!');
+        }
+        setRegisterLoading(false);
+    };
+
+    // Reset form login mỗi lần mở modal
+    useEffect(() => {
+        if (isModalLoginOpen) {
+            setEmail('');
+            setPassword('');
+        }
+    }, [isModalLoginOpen]);
+
+    // Reset form register mỗi lần mở modal
+    useEffect(() => {
+        if (isModalRegisterOpen) {
+            setRegisterName('');
+            setRegisterEmail('');
+            setRegisterPassword('');
+            setRegisterConfirmPassword('');
+        }
+    }, [isModalRegisterOpen]);
+
     const dropdownItems = [
         { key: 'profile', label: <span className={cx('menu-avt-item')}>Thông tin cá nhân</span> },
         { key: 'schedule', label: <span className={cx('menu-avt-item')}>Lên lịch trình</span> },
@@ -76,13 +160,11 @@ function Header() {
     return (
         <AntHeader className={cx('wrapper')}>
             <Flex justify="space-between" className={cx('inner')}>
-          
                 <div className={cx('logo')} onClick={() => handleNavigate('')}>
                     <img src="/logo.png" alt="documan" />
                     <span className={cx('title')}>GoOhNo</span>
                 </div>
 
-         
                 <nav className={cx('menu')}>
                     {[
                         { label: 'Trang chủ', path: '' },
@@ -116,8 +198,7 @@ function Header() {
                 </nav>
 
                 <div className={cx('button-group')}>
-   
-                    {user.isAdmin && (
+                    {auth.user.isAdmin && (
                         <motion.button
                             className={cx('admin-button')}
                             whileHover={{ scale: 1.05 }}
@@ -128,8 +209,7 @@ function Header() {
                         </motion.button>
                     )}
 
-            
-                    {!user.logginedIn ? (
+                    {!auth.isAuthenticated ? (
                         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                             <button className={cx('login')} onClick={() => setIsModalLoginOpen(true)}>
                                 Đăng nhập
@@ -202,7 +282,12 @@ function Header() {
                                 Chưa có tài khoản? <strong>Đăng ký ngay</strong>
                             </span>
                         </div>
-                        <Button className={cx('login-button', 'submit')} onClick={handleLoginSubmit} block>
+                        <Button
+                            className={cx('login-button', 'submit')}
+                            onClick={handleLoginSubmit}
+                            loading={loginLoading}
+                            block
+                        >
                             Đăng nhập
                         </Button>
                     </div>
@@ -231,20 +316,43 @@ function Header() {
                     </div>
                     <p className={cx('register-title')}>Đăng ký</p>
                     <div className={cx('login-form')}>
-                        <Input placeholder="Họ và tên" className={cx('login-input')} style={{ marginBottom: 20 }} />
-                        <Input placeholder="Email" className={cx('login-input')} style={{ marginBottom: 20 }} />
+                        <Input
+                            placeholder="Họ và tên"
+                            className={cx('login-input')}
+                            style={{ marginBottom: 20 }}
+                            value={registerName}
+                            onChange={(e) => setRegisterName(e.target.value)}
+                        />
+                        <Input
+                            placeholder="Email"
+                            className={cx('login-input')}
+                            style={{ marginBottom: 20 }}
+                            value={registerEmail}
+                            onChange={(e) => setRegisterEmail(e.target.value)}
+                        />
                         <Input.Password
                             placeholder="Mật khẩu"
                             className={cx('login-input')}
                             style={{ marginBottom: 20 }}
+                            value={registerPassword}
+                            onChange={(e) => setRegisterPassword(e.target.value)}
                         />
                         <Input.Password
                             placeholder="Xác nhận mật khẩu"
                             className={cx('login-input')}
                             style={{ marginBottom: 30 }}
+                            value={registerConfirmPassword}
+                            onChange={(e) => setRegisterConfirmPassword(e.target.value)}
                         />
                         <div style={{ display: 'flex', gap: '10px' }}>
-                            <Button className={cx('register-button')} type="primary" block style={{ flex: 1 }}>
+                            <Button
+                                className={cx('register-button')}
+                                type="primary"
+                                block
+                                style={{ flex: 1 }}
+                                loading={registerLoading}
+                                onClick={handleRegisterSubmit}
+                            >
                                 Đăng ký
                             </Button>
                             <Button

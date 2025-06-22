@@ -3,9 +3,6 @@ require('dotenv').config();
 const User = require('../models/user');
 
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const fs = require('fs');
-const path = require('path');
 
 const saltRounds = 10;
 
@@ -14,8 +11,8 @@ const createAdminService = async (email, password, fullName, avatar) => {
         const user = await User.findOne({ email: email });
         if (user) {
             return {
-                EC: 0,
-                EM: `Email ${email} đã được sử dụng`,
+                EC: 1,
+                EM: `Email ${email} has been existed`,
             };
         }
         const defaultAvatar = 'http://localhost:8080/public/images/default-avatar.png';
@@ -29,7 +26,8 @@ const createAdminService = async (email, password, fullName, avatar) => {
             fullName: fullName,
             avatar: userAvatar,
             isAdmin: true,
-            statistics: { liked: [], disliked: [] },
+            favortites: [],
+            tours: [],
         });
 
         return {
@@ -45,7 +43,6 @@ const createAdminService = async (email, password, fullName, avatar) => {
         };
     }
 };
-
 
 module.exports = {
     createAdminService,

@@ -14,10 +14,11 @@ const createUserService = async (email, password, fullName, avatar) => {
         const user = await User.findOne({ email: email });
         if (user) {
             return {
-                EC: 0,
-                EM: `Email ${email} đã được sử dụng`,
+                EC: 1,
+                EM: `Email ${email} has already been existed.`,
             };
         }
+
         const defaultAvatar = 'http://localhost:8080/public/images/default-avatar.png';
         const userAvatar = avatar || defaultAvatar;
 
@@ -29,22 +30,25 @@ const createUserService = async (email, password, fullName, avatar) => {
             fullName: fullName,
             avatar: userAvatar,
             isAdmin: false,
-            statistics: { liked: [], disliked: [], uploaded: 0 },
+            favorites: [],
+            tours: [],
         });
 
         return {
             EC: 0,
-            EM: 'Register success',
+            EM: 'Create user success',
             data: result,
         };
     } catch (error) {
         console.log(error);
         return {
             EC: 2,
-            EM: 'An error occurred',
+            EM: 'An error occurred while creating user',
         };
     }
 };
+
+
 
 const deleteUserService = async (id) => {
     try {
@@ -66,23 +70,31 @@ const deleteUserService = async (id) => {
             EM: 'An error occurred',
         };
     }
-}
+};
 
 const loginService = async (email, password) => {
     try {
         const user = await User.findOne({ email: email });
+        if (!user) {
+            return {
+                EC: 1,
+                EM: 'Email/Password invalid',
+            };
+        }
         if (user) {
             const isMathPassword = await bcrypt.compare(password, user.password);
             if (!isMathPassword) {
                 return {
-                    EC: 2,
-                    EM: 'Email/Password khong hop le',
+                    EC: 1,
+                    EM: 'Email/Password invalid',
                 };
             } else {
                 const payload = {
-                    id: user._id,   
+                    id: user._id,
                     email: user.email,
                     isAdmin: user.isAdmin,
+                    fullName: user.fullName,
+                    avatar: user.avatar,
                 };
 
                 const access_token = jwt.sign(payload, process.env.JWT_SECRET, {
@@ -103,8 +115,8 @@ const loginService = async (email, password) => {
             }
         } else {
             return {
-                EC: 1, //error code
-                EM: 'Email/Password khong hop le', //error message
+                EC: 2,
+                EM: 'An error occurred',
             };
         }
     } catch (error) {
@@ -115,19 +127,18 @@ const loginService = async (email, password) => {
 
 const getUsersService = async () => {
     try {
-        
-        let result = await User.find({}).select("-password");
+        let result = await User.find({}).select('-password');
         return result;
-
     } catch (error) {
         console.log(error);
         return null;
     }
-}
+};
 
 module.exports = {
     createUserService,
     loginService,
     getUsersService,
     deleteUserService,
+
 };
