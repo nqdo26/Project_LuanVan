@@ -29,4 +29,9 @@ const deleteUserApi = (id) => {
     return axios.delete(URL_API);
 };
 
-export { createUserApi, getAccountApi, getUsersApi, deleteUserApi, loginApi };
+const updateUserAdminApi = (userId, isAdmin) => {
+    const URL_API = `/v1/api/users/${userId}/admin`;
+    return axios.patch(URL_API, { isAdmin });
+};
+
+export { createUserApi, getAccountApi, getUsersApi, deleteUserApi, loginApi, updateUserAdminApi };

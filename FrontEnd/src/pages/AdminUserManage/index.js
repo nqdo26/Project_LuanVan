@@ -1,75 +1,93 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { motion } from 'framer-motion';
 import styles from './AdminUserManage.module.scss';
-import { Button, Table, Switch, Popconfirm, message } from 'antd';
+import { Button, Table, Switch, Popconfirm, message, notification } from 'antd';
 import { EyeOutlined, DeleteOutlined } from '@ant-design/icons';
+import { getUsersApi, updateUserAdminApi, deleteUserApi } from '~/utils/api';
 
 const cx = classNames.bind(styles);
 
-const fakeUsers = [
-    {
-        _id: 'u1',
-        userName: 'alice.sigmas',
-        fullName: 'Alice Nguyễn',
-        isAdmin: false,
-        personalItineraries: 3,
-        reviewCount: 15,
-    },
-    {
-        _id: 'u2',
-        userName: 'john.sigma',
-        fullName: 'John Trần',
-        isAdmin: true,
-        personalItineraries: 7,
-        reviewCount: 30,
-    },
-    {
-        _id: 'u3',
-        userName: 'betaguy',
-        fullName: 'Bùi Văn Beta',
-        isAdmin: false,
-        personalItineraries: 1,
-        reviewCount: 5,
-    },
-    {
-        _id: 'u4',
-        userName: 'ha.le',
-        fullName: 'Hà Lê',
-        isAdmin: false,
-        personalItineraries: 0,
-        reviewCount: 0,
-    },
-    {
-        _id: 'u5',
-        userName: 'chi.hoang',
-        fullName: 'Chi Hoàng',
-        isAdmin: true,
-        personalItineraries: 10,
-        reviewCount: 50,
-    },
-    // Add more mock users here to test pagination if you want!
-];
-
 function AdminUserManage() {
-    const [users, setUsers] = useState(fakeUsers);
+    const [users, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 7;
+    const [loading, setLoading] = useState(false);
+    const [actionLoading, setActionLoading] = useState({});
 
-    const handleToggleAdmin = (record) => {
-        setUsers((prev) => prev.map((user) => (user._id === record._id ? { ...user, isAdmin: !user.isAdmin } : user)));
-        message.success(
-            record.isAdmin ? 'Đã hủy quyền admin cho tài khoản này!' : 'Đã cấp quyền admin cho tài khoản này!',
-        );
+    useEffect(() => {
+        const fetchUser = async () => {
+            setLoading(true);
+            const res = await getUsersApi();
+            if (!res?.message) {
+                setUsers(res);
+            } else {
+                notification.error({
+                    message: 'Chưa xác thực',
+                    description: res.message,
+                });
+            }
+            setLoading(false);
+        };
+
+        fetchUser();
+    }, []);
+
+    // Cấp/hủy quyền admin
+    const handleToggleAdmin = async (record) => {
+        setActionLoading((prev) => ({ ...prev, [record._id]: true }));
+        try {
+            const res = await updateUserAdminApi(record._id, !record.isAdmin);
+            if (res?.EC === 0) {
+                setUsers((prev) =>
+                    prev.map((user) => (user._id === record._id ? { ...user, isAdmin: !user.isAdmin } : user)),
+                );
+                message.success(
+                    !record.isAdmin
+                        ? 'Đã cấp quyền quản trị cho tài khoản này!'
+                        : 'Đã hủy quyền quản trị tài khoản này!',
+                );
+            } else {
+                notification.error({
+                    message: 'Cập nhật quyền quản trị thất bại',
+                    description: res?.EM || 'Có lỗi khi cập nhật quyền quản trị.',
+                });
+            }
+        } catch (err) {
+            notification.error({
+                message: 'Lỗi mạng',
+                description: 'Không thể kết nối tới server!',
+            });
+        }
+        setActionLoading((prev) => ({ ...prev, [record._id]: false }));
     };
 
-    const handleDeleteUser = (record) => {
-        setUsers((prev) => prev.filter((user) => user._id !== record._id));
-        message.success('Xóa tài khoản thành công!');
+    // Xóa user
+    const handleDeleteUser = async (record) => {
+        setActionLoading((prev) => ({ ...prev, [record._id]: true }));
+        try {
+            const res = await deleteUserApi(record._id);
+            if (res?.EC === 0) {
+                setUsers((prev) => prev.filter((user) => user._id !== record._id));
+                message.success('Xóa tài khoản thành công!');
+            } else {
+                notification.error({
+                    message: 'Xóa tài khoản thất bại',
+                    description: res?.EM || 'Có lỗi khi xóa tài khoản.',
+                });
+            }
+        } catch (err) {
+            notification.error({
+                message: 'Lỗi mạng',
+                description: 'Không thể kết nối tới server!',
+            });
+        }
+        setActionLoading((prev) => ({ ...prev, [record._id]: false }));
     };
 
+    // Xem thông tin user (tuỳ chỉnh, hiện chỉ alert)
     const handleAccessUser = (record) => {
-        alert(`Truy cập user: ${record.fullName}`);
+        alert(`Truy cập người dùng: ${record.fullName}`);
     };
 
     const columns = [
@@ -102,16 +120,20 @@ function AdminUserManage() {
             ),
         },
         {
-            title: 'Admin',
+            title: 'Quản trị',
             key: 'admin',
             render: (record) => (
                 <Popconfirm
-                    title={`Bạn có chắc muốn ${record.isAdmin ? 'hủy quyền' : 'cấp quyền'} admin cho tài khoản này?`}
+                    title={`Bạn có chắc muốn ${record.isAdmin ? 'hủy quyền' : 'cấp quyền'} quản trị cho tài khoản này?`}
                     onConfirm={() => handleToggleAdmin(record)}
                     okText="Đồng ý"
                     cancelText="Hủy"
                 >
-                    <Switch checked={record.isAdmin} />
+                    <Switch
+                        checked={record.isAdmin}
+                        loading={!!actionLoading[record._id]}
+                        disabled={!!actionLoading[record._id]}
+                    />
                 </Popconfirm>
             ),
             width: 100,
@@ -127,10 +149,15 @@ function AdminUserManage() {
                         okText="Đồng ý"
                         cancelText="Hủy"
                     >
-                        <Button danger icon={<DeleteOutlined />} />
+                        <Button
+                            danger
+                            icon={<DeleteOutlined />}
+                            loading={!!actionLoading[record._id]}
+                            disabled={!!actionLoading[record._id]}
+                        />
                     </Popconfirm>
                     <Button type="primary" icon={<EyeOutlined />} onClick={() => handleAccessUser(record)}>
-                        Truy cập
+                        Xem
                     </Button>
                 </div>
             ),
@@ -150,11 +177,11 @@ function AdminUserManage() {
                     <h1 className={cx('title')}>Quản lý tài khoản người dùng</h1>
                     <div className={cx('section-1-items')}>
                         <div className={cx('small-card')}>
-                            <p className={cx('small-card-title')}>Tài khoản người dùng:</p>
+                            <p className={cx('small-card-title')}>Tổng số tài khoản:</p>
                             <p className={cx('small-card-value')}>{users.length}</p>
                         </div>
                         <div className={cx('small-card')}>
-                            <p className={cx('small-card-title')}>Tài khoản admin:</p>
+                            <p className={cx('small-card-title')}>Tài khoản quản trị:</p>
                             <p className={cx('small-card-value')}>{users.filter((u) => u.isAdmin).length}</p>
                         </div>
                     </div>
@@ -162,6 +189,7 @@ function AdminUserManage() {
                 <div className={cx('table-wrapper')}>
                     <h1 className={cx('table-title')}>Danh sách tài khoản người dùng</h1>
                     <Table
+                        loading={loading}
                         dataSource={users}
                         columns={columns}
                         bordered

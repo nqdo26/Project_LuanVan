@@ -38,8 +38,18 @@ function Header() {
 
     const handleMenuClick = ({ key }) => {
         if (key === 'logout') {
-            // TODO: Xử lý logout thật sự (xóa token/context v.v.)
-            message.info('Đăng xuất!');
+            localStorage.clear('access_token');
+            setAuth({
+                isAuthenticated: false,
+                user: {
+                    id: '',
+                    email: '',
+                    fullName: '',
+                    avatar: '',
+                    isAdmin: false,
+                },
+            });
+            navigate('/');
         } else {
             navigate('/' + key);
             window.scrollTo(0, 0);
@@ -58,7 +68,6 @@ function Header() {
         window.scrollTo(0, 0);
     };
 
-    // ---- Đăng nhập ----
     const handleLoginSubmit = async () => {
         if (!email || !password) {
             message.warning('Chưa nhập tài khoản hoặc mật khẩu!');
@@ -126,7 +135,6 @@ function Header() {
         setRegisterLoading(false);
     };
 
-    // Reset form login mỗi lần mở modal
     useEffect(() => {
         if (isModalLoginOpen) {
             setEmail('');
@@ -134,7 +142,6 @@ function Header() {
         }
     }, [isModalLoginOpen]);
 
-    // Reset form register mỗi lần mở modal
     useEffect(() => {
         if (isModalRegisterOpen) {
             setRegisterName('');
@@ -146,7 +153,7 @@ function Header() {
 
     const dropdownItems = [
         { key: 'profile', label: <span className={cx('menu-avt-item')}>Thông tin cá nhân</span> },
-        { key: 'schedule', label: <span className={cx('menu-avt-item')}>Lên lịch trình</span> },
+        { key: 'add-trip', label: <span className={cx('menu-avt-item')}>Lên lịch trình</span> },
         { type: 'divider' },
         { key: 'logout', label: <span className={cx('menu-avt-item')}>Đăng xuất</span> },
     ];

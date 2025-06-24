@@ -44,6 +44,32 @@ const createAdminService = async (email, password, fullName, avatar) => {
     }
 };
 
+const updateUserAdminService = async (id, isAdmin) => {
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return {
+                EC: 1,
+                EM: 'User not found',
+            };
+        }
+        user.isAdmin = isAdmin;
+        await user.save();
+        return {
+            EC: 0,
+            EM: 'Update admin privilege successfully',
+            data: user,
+        };
+    } catch (error) {
+        console.log(error);
+        return {
+            EC: 2,
+            EM: 'An error occurred while updating admin privilege',
+        };
+    }
+};
+
 module.exports = {
     createAdminService,
+    updateUserAdminService,
 };

@@ -48,8 +48,6 @@ const createUserService = async (email, password, fullName, avatar) => {
     }
 };
 
-
-
 const deleteUserService = async (id) => {
     try {
         let result = await User.findByIdAndDelete(id);
@@ -140,5 +138,4 @@ module.exports = {
     loginService,
     getUsersService,
     deleteUserService,
-
 };

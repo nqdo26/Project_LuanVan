@@ -8,10 +8,9 @@ const auth = (req, res, next) => {
     if (white_lists.find((item) => '/v1/api' + item === req.originalUrl)) {
         next();
     } else {
-        if (req.headers && req.headers.authorization) {
+        if (req?.headers?.authorization?.split(' ')?.[1]) {
             const token = req.headers.authorization.split(' ')[1];
 
-            //verify
             try {
                 const decoded = jwt.verify(token, process.env.JWT_SECRET);
                 req.user = {
@@ -21,9 +20,8 @@ const auth = (req, res, next) => {
                     avatar: decoded.avatar,
                     isAdmin: decoded.isAdmin,
                     favortites: decoded.favortites,
-                    tours: decoded.tours, 
+                    tours: decoded.tours,
                 };
-                console.log(decoded);
                 next();
             } catch (error) {
                 return res.status(401).json({

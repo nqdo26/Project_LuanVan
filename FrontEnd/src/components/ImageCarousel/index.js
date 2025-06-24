@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 import { Carousel } from 'antd';
 import classNames from 'classnames/bind';
 
@@ -7,11 +7,13 @@ import styles from './ImageCarousel.module.scss';
 
 const cx = classNames.bind(styles);
 
-const carouselItems = [
-    { text: "SLIDE 1", color: "#ff7b54" },
-    { text: "SLIDE 2", color: "#6a0572" },
-    { text: "SLIDE 3", color: "#0a9396" },
-    { text: "SLIDE 4", color: "#ffb703" },
+const carouselImages = [
+    { src: '/carousel-1.png', alt: 'Image 1' },
+    { src: '/carousel-2.png', alt: 'Image 2' },
+    { src: '/carousel-3.png', alt: 'Image 3' },
+    { src: '/carousel-4.png', alt: 'Image 4' },
+    { src: '/carousel-5.png', alt: 'Image 5' },
+    { src: '/carousel-6.png', alt: 'Image 6' },
 ];
 
 function ImageCarousel() {
@@ -19,18 +21,18 @@ function ImageCarousel() {
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
             className="flex justify-center"
-            >
-              <div className={cx('carousel-container')}>
-            <Carousel autoplay autoplaySpeed={3000} effect="scrollx">
-                {carouselItems.map((item, index) => (
-                    <div key={index} className={cx('carousel-item')} style={{ backgroundColor: item.color }}>
-                        <h2 className={cx('carousel-text')}>{item.text}</h2>
-                    </div>
-                ))}
-            </Carousel>
-        </div>
+        >
+            <div className={cx('carousel-container')}>
+                <Carousel autoplay autoplaySpeed={3000} effect="scrollx">
+                    {carouselImages.map((image, index) => (
+                        <div key={index} className={cx('carousel-item')}>
+                            <img src={image.src} alt={image.alt} className={cx('carousel-image')} />
+                        </div>
+                    ))}
+                </Carousel>
+            </div>
         </motion.div>
     );
 }

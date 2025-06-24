@@ -10,7 +10,6 @@ import DestinationCard from '~/components/DestinationCard';
 import Category from '~/components/Category';
 import CityCard from '~/components/CityCard';
 
-
 const cx = classNames.bind(styles);
 
 function Home() {
@@ -22,7 +21,6 @@ function Home() {
                     <SearchBar />
                 </div>
                 <div className={cx('carousel')}>
-                    {' '}
                     <ImageCarousel />
                 </div>
                 <div className={cx('chatbox-intro')}>
